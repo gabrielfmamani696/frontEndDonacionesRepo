@@ -7,6 +7,7 @@ import { FormVoluntariosComponent } from './form-voluntarios/form-voluntarios.co
 import { FormDonacionesComponent } from './form-donaciones/form-donaciones.component';
 import { FormRepOrgBeneficaComponent } from './form-rep-org-benefica/form-rep-org-benefica.component';
 import { FormRepOrgReceptoraComponent } from './form-rep-org-receptora/form-rep-org-receptora.component';
+import { HomePrincipalComponent } from './home-principal/home-principal.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { FormRepOrgReceptoraComponent } from './form-rep-org-receptora/form-rep-
     FormVoluntariosComponent,
     FormDonacionesComponent,
     FormRepOrgBeneficaComponent,
-    FormRepOrgReceptoraComponent
+    FormRepOrgReceptoraComponent,
+    HomePrincipalComponent
   ],
   imports: [
     BrowserModule,
