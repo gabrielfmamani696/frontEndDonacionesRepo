@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro Voluntarios</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <div class="main-container p-8 mx-auto max-w-md bg-white rounded-lg shadow-md">
+        <form class="space-y-4">
+            <div class="flex flex-wrap -mx-2 space-y-4 md:space-y-0">
+                <div class="w-full md:w-1/2 px-2">
+                    <label class="block">
+                        <span class="text-gray-700">Nombre:</span>
+                        <input type="text" class="form-input mt-1 block w-full" placeholder="Juan">
+                    </label>
+                </div>
+                <div class="w-full md:w-1/2 px-2">
+                    <label class="block">
+                        <span class="text-gray-700">Apellido:</span>
+                        <input type="text" class="form-input mt-1 block w-full" placeholder="Pérez">
+                    </label>
+                </div>
+            </div>
+
+            <label class="block">
+                <span class="text-gray-700">Contraseña:</span>
+                <input type="password" class="form-input mt-1 block w-full">
+            </label>
+
+            <label class="block">
+                <span class="text-gray-700">Confirmación Contraseña:</span>
+                <input type="password" class="form-input mt-1 block w-full">
+            </label>
+
+            <label class="block">
+                <span class="text-gray-700">Correo:</span>
+                <input type="email" class="form-input mt-1 block w-full" placeholder="juan.perez@example.com">
+            </label>
+
+            <label class="block">
+                <span class="text-gray-700">Teléfono:</span>
+                <input type="tel" class="form-input mt-1 block w-full" placeholder="+123456789">
+            </label>
+
+            <h2 class="font-bold text-xl text-gray-800">Datos del Voluntariado</h2>
+
+            <label class="block">
+                <span class="text-gray-700">Horario:</span>
+                <input type="text" class="form-input mt-1 block w-full" placeholder="9:00 - 17:00">
+            </label>
+
+            <label class="block">
+                <span class="text-gray-700">Turno:</span>
+                <input type="text" class="form-input mt-1 block w-full" placeholder="Mañana/Tarde">
+            </label>
+
+            <label class="block">
+                <span class="text-gray-700">Edad:</span>
+                <input type="number" class="form-input mt-1 block w-full" placeholder="30">
+            </label>
+
+            <div class="flex justify-between">
+                <button type="submit" class="action-button">Enviar</button>
+                <button type="button" class="bg-transparent hover:bg-gray-200 text-gray-800 font-semibold py-2 px-4 border border-gray-400 rounded shadow">
+                    Tengo una Cuenta
+                </button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

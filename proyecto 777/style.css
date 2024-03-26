@@ -1,44 +1,9 @@
-/* You can add global styles to this file, and also import other style files */
-.bg-verde-oscuro {
-    background-color: #053c3f;
-}
-
-.text-verde-oscuro {
-    color: #053c3f;
-}
-
-.bg-verde-claro {
-    background-color: #6ca40d;
-}
-
-.text-verde-claro {
-    color: #6ca40d;
-}
-
-.bg-azul-raro {
-    background-color: #209bab;
-}
-
-.text-azul-raro {
-    color: #209bab;
-}
-
-.bg-blanco {
-    background-color: #ffffff;
-}
-
-.text-blanco {
-    color: #ffffff;
-}
-
-
-/* ANANANANANANANANA */
 body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
   }
-  /* .navbar {
+  .navbar {
     display: flex;
     justify-content: space-between;
     background-color: #f8f9fa;
@@ -54,9 +19,9 @@ body {
   .navbar a {
     text-decoration: none;
     color: #053c40;
-  } */
+  }
   .hero-section {
-    background: url('/assets/img/findito.png') no-repeat center center;
+    background: url('img/findito.png') no-repeat center center;
     background-size: cover;
     padding: 15%;
     color: #fff;
@@ -66,10 +31,6 @@ body {
     color: #053c40;
     font-weight: bold;
   }
-  /* .hero-section h3 {
-    color: #053c40;
-    font-weight: bold;
-  } */
   .hero-section p {
     color: #6ca40d;
   }
@@ -112,13 +73,13 @@ body {
   
   * { box-sizing: border-box; }
   
-  /* html { scroll-behavior: smooth; }
+  html { scroll-behavior: smooth; }
   
   body {
     font-family: sans-serif;
-  } */
+  }
   
-  /* .wrapper {
+  .wrapper {
     max-width: 1200px;
     margin: 0 auto;
   }
@@ -211,4 +172,4 @@ body {
       bottom: 96px;
       right: 50px;
     }
-  } */
+  }
