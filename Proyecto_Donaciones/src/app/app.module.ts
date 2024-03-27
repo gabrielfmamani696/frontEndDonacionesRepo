@@ -8,6 +8,8 @@ import { FormDonacionesComponent } from './form-donaciones/form-donaciones.compo
 import { FormRepOrgBeneficaComponent } from './form-rep-org-benefica/form-rep-org-benefica.component';
 import { FormRepOrgReceptoraComponent } from './form-rep-org-receptora/form-rep-org-receptora.component';
 import { HomePrincipalComponent } from './home-principal/home-principal.component';
+import { DatosVoluntarioComponent } from './datos-voluntario/datos-voluntario.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -16,11 +18,14 @@ import { HomePrincipalComponent } from './home-principal/home-principal.componen
     FormDonacionesComponent,
     FormRepOrgBeneficaComponent,
     FormRepOrgReceptoraComponent,
-    HomePrincipalComponent
+    HomePrincipalComponent,
+    DatosVoluntarioComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [
     provideClientHydration()

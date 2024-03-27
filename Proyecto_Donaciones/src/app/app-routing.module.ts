@@ -6,6 +6,7 @@ import { FormDonacionesComponent } from './form-donaciones/form-donaciones.compo
 import { FormRepOrgBeneficaComponent } from './form-rep-org-benefica/form-rep-org-benefica.component';
 import { FormRepOrgReceptoraComponent } from './form-rep-org-receptora/form-rep-org-receptora.component';
 import { HomePrincipalComponent } from './home-principal/home-principal.component';
+import { DatosVoluntarioComponent } from './datos-voluntario/datos-voluntario.component';
 
 const routes: Routes = [
   {path: '', component: HomePrincipalComponent},
@@ -13,6 +14,7 @@ const routes: Routes = [
   {path: 'donaciones', component: FormDonacionesComponent},
   {path: 'reporgbenefica', component: FormRepOrgBeneficaComponent},
   {path: 'reporgreceptora', component: FormRepOrgReceptoraComponent},
+  {path: 'datavoluntarios', component: DatosVoluntarioComponent},
   {path: '**', redirectTo: '/', pathMatch: 'full'},
 ];
 
