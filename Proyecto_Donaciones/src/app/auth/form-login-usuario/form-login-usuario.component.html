@@ -1,0 +1,39 @@
+
+
+ <div class="container"> 
+    <form [formGroup]="loginForm" (ngSubmit) = "enviar()">
+        <!-- la linea 6 solo aparece si exisate un error -->
+        <p class="text-danger">{{loginError}}</p>
+
+        <div class="mb-3">
+            <label for="correo" class="form-label">Correo</label>
+            <!-- formControlName="correo" es la conexion con el formulario -->
+            <input type="email" class="form-control" id="CORREO" formControlName="correo">
+                <!--  mensajes personalizados, en src\app\auth\form-login-usuario\form-login-usuario.component.css
+                     se encuentran los formatos para la muestra de los errores -->
+                <div
+                *ngIf="correo.invalid && (correo.dirty || correo.touched)"
+                class="text-danger"
+                >
+                    <div *ngIf="correo.errors?.['required']">Correo requerido.</div>
+                    <div *ngIf="correo.errors?.['email']">Formato de Correo inválido</div>
+                </div>
+        </div> 
+
+        <div class="mb-3 col">
+            <label for="Contrasena" class="form-label">Contraseña</label>
+            <input type="password" class="form-control" id="CONTRASENA" formControlName="password">
+            <!--  mensajes personalizados-->
+            <div
+            *ngIf="password.invalid && (password.dirty || password.touched)"
+            class="text-danger"
+            >
+                <div *ngIf="password.errors?.['required']">Contraseña requerida.</div>
+                <div *ngIf="password.errors?.['minlength']">El Tamaño de Contraseña mínima es de al menos 3 caracteres</div>
+            </div>
+        </div> 
+
+        <button type="submit" class="btn btn-primary">Enviar</button>
+    </form>
+</div>
+<!-- <div *ngIf="tipodonacion === 'si' ">Holaaa</div> -->

@@ -1,0 +1,9 @@
+
+{
+    "message": "Autenticacion ok, este es el Usr data q deberia venir del BE",
+    "id": "1",
+    "nombre": "Gabriel",
+    "apellido": "asdasd",
+    "telefono": 1234,
+    "correo": "hola@gmail.com"
+}

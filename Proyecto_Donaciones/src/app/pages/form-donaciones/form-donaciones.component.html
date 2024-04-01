@@ -1,0 +1,87 @@
+<p>form-donaciones works!</p>
+<div class="container mt-5">
+    <h2 class="mb-4">Donación de Alimentos</h2>
+    <form>
+      <!-- ... otros campos del formulario ... -->
+      <div class="mb-3">
+        <label for="cantidadAlimento" class="form-label">Cantidad</label>
+        <input type="number" class="form-control" id="cantidadAlimento" name="cantidadAlimento" required>
+      </div>
+      <div class="mb-3">
+        <label for="fechaVencimiento" class="form-label">Fecha de Vencimiento</label>
+        <input type="date" class="form-control" id="fechaVencimiento" name="fechaVencimiento" required>
+      </div>
+      <div class="mb-3">
+        <label for="estadoAlimento" class="form-label">Estado</label>
+        <input type="text" class="form-control" id="estadoAlimento" name="estadoAlimento" required>
+      </div>
+      <div class="mb-3">
+        <label for="tipoAlimento" class="form-label">Tipo</label>
+        <input type="text" class="form-control" id="tipoAlimento" name="tipoAlimento" required>
+      </div>
+    </form>
+    
+      <div class="mb-3 d-grid gap-2 d-md-flex justify-content-md-between">
+          <button type="button" class="btn btn-secondary" onclick="history.back()">Atrás</button>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+      </div>
+  
+  </div>
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+<!--  -->
+
+<div class="container mt-5">
+    <h2 class="mb-4">Datos de la donación</h2>
+    <form onsubmit="handleFormSubmit(event)">
+      <div class="mb-3">
+        <label class="form-label">Tipo</label>
+        <div>
+          <input type="radio" class="btn-check" name="tipo" id="alimento" value="alimento" autocomplete="off" checked>
+          <label class="btn btn-outline-primary" for="alimento">Alimento</label>
+  
+          <input type="radio" class="btn-check" name="tipo" id="producto" value="producto" autocomplete="off">
+          <label class="btn btn-outline-primary" for="producto">Producto</label>
+        </div>
+      </div>
+  
+      <div class="mb-3">
+        <label for="cantidad" class="form-label">Cantidad</label>
+        <input type="number" class="form-control" id="cantidad" name="cantidad" placeholder="Cantidad" required>
+      </div>
+  
+      <div class="d-grid">
+        <button type="submit" class="btn btn-primary">Siguiente</button>
+      </div>
+      
+    </form>
+  </div>
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <!--  -->
+  <div class="container mt-5">
+    <h2 class="mb-4">Donación de Productos</h2>
+    <form>
+      <div class="mb-3">
+        <label for="cantidadProducto" class="form-label">Cantidad</label>
+        <input type="number" class="form-control" id="cantidadProducto" name="cantidadProducto" required>
+      </div>
+      <div class="mb-3">
+        <label for="estadoProducto" class="form-label">Estado</label>
+        <input type="text" class="form-control" id="estadoProducto" name="estadoProducto" required>
+      </div>
+      <div class="mb-3">
+        <label for="tipoProducto" class="form-label">Tipo</label>
+        <input type="text" class="form-control" id="tipoProducto" name="tipoProducto" required>
+      </div>
+    </form>
+      <div class="mb-3 d-grid gap-2 d-md-flex justify-content-md-between">
+          <button type="button" class="btn btn-secondary" onclick="history.back()">Atrás</button>
+          <button type="submit" class="btn btn-primary">Enviar</button>
+      </div>
+    
+  </div>
+  

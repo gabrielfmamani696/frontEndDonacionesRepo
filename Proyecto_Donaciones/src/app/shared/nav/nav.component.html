@@ -1,0 +1,32 @@
+
+<!-- navbar-dark hara que el color de la letra sea blanco  -->
+
+
+<nav class="navbar navbar-dark bg-verde-oscuro navbar-expand-lg ">
+    <!-- <nav class="navbar navbar-expand-lg "> -->
+      <div class="logo">
+        <img src="/assets/img/logo.webp" width="90px">
+      </div>
+      <div class="container-fluid">
+        <a class="navbar-brand" routerLink="/">Food Donation</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse d-flex justify-content-end" id="navbarNavAltMarkup" >
+        <!-- <div class="collapse navbar-collapse" id="navbarNavAltMarkup" > -->
+          <div class="navbar-nav " >
+          <!-- <div class="navbar-nav ms-auto" > -->
+            <!-- <a class="navbar-brand" href="/">Pág. Principal</a> -->
+            <!-- 
+            <a class="navbar-brand" routerLink="voluntarios">Voluntarios</a>
+            <a class="navbar-brand" routerLink="donaciones">Donaciones</a>
+            <a class="navbar-brand" routerLink="reporgbenefica">R. de Org. Benéfica</a>
+            <a class="navbar-brand" routerLink="reporgreceptora">R. de Org. Receptora</a>
+             -->
+            <a class="navbar-brand" routerLink="solicitudusuario">Registrate</a>
+            <a *ngIf="!usuarioLoginOn" class="navbar-brand" routerLink="login">Log in</a>
+            <a *ngIf="usuarioLoginOn" class="navbar-brand" routerLink="/">Cerrar Sesion</a>
+          </div>
+        </div>
+      </div>
+    </nav>

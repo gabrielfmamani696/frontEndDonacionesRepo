@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { VoluntariosList } from './datos.mock'
 
 @Component({
   selector: 'app-datos-voluntario',
@@ -7,4 +8,6 @@ import { Component } from '@angular/core';
 })
 export class DatosVoluntarioComponent {
   // esto es para la tble
+  listaDeVoluntarios = VoluntariosList;
+  
 }

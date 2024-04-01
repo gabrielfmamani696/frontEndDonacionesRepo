@@ -1,0 +1,60 @@
+<p>datos-voluntario works!</p>
+<!-- tabla estatica -->
+<!-- 
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Telefono</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>ed</td>
+        <td>xd</td>
+        <td>nmnose</td>
+        <td>23252334</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>jf</td>
+        <td>Thornton</td>
+        <td>fat&#64;gmail.com</td>
+        <td>56453</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>larry</td>
+        <td>twitter</td>
+        <td>xd&#64;gmail.com</td>
+        <td>66747</td>
+      </tr>
+    </tbody>
+  </table> -->
+
+
+  <!-- tabal dinamca don datos de datos.mock.ts  -->
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Telefono</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let volunt of listaDeVoluntarios">
+        <th scope="row">{{volunt.id}}</th>
+        <td>{{volunt.nombre}}</td>
+        <td>{{volunt.apellido}}</td>
+        <td>{{volunt.correo}}</td>
+        <td>{{volunt.telefono}}</td>
+      </tr>
+    </tbody>
+  </table>

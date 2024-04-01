@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -7,9 +7,11 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
   styleUrl: './form-voluntarios.component.css'
 })
 export class FormVoluntariosComponent {
+// export class FormVoluntariosComponent implements OnInit{
 
   formularioVoluntario: FormGroup;
-
+  tipodonacion: string = 'si'
+  // tipodonacion?: string 
   constructor( private form: FormBuilder ){
     this.formularioVoluntario = this.form.group({
       // ['<valormostrado>, [<validador1>,<validador1>]']
@@ -19,16 +21,22 @@ export class FormVoluntariosComponent {
       conf_contrasena: ['', [Validators.required, Validators.minLength(3)]],
       correo: ['', [Validators.required, Validators.email ]],
       telefono: ['', [Validators.required]],
-      horario: ['', Validators.required],
-      turno: ['', Validators.required],
-      edad: ['',Validators.required] ,
+      // tipodonacion: ['', [Validators.required]],
+      // horario: ['', Validators.required],
+      // turno: ['', Validators.required],
+      // edad: ['',Validators.required] ,
     })
   } 
   
   enviar(){
     console.log(this.formularioVoluntario);
+    console.log(this.tipodonacion);
+    
   }
 
+  // ngOnInit(): void {
+  //   this.formularioVoluntario.valueChanges.subscribe(ti)
+  // }
   // shift alt a
   // este codigo era para el formulario plantilla
   /* 
