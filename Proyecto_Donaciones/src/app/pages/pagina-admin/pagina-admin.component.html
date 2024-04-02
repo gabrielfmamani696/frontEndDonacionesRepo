@@ -1,0 +1,88 @@
+<!-- <p>pagina-admin works!</p> -->
+<div>
+    <!-- <button (click)="cambiarTipoDatos('usuarios')">Usuarios</button>
+    <button (click)="cambiarTipoDatos('voluntarios')">Voluntarios</button> -->
+    <div class="container">
+      <div class="btn-group" role="group" aria-label="Basic example">
+          <button type="button" class="btn btn-custom" (click)="cambiarTipoDatos('usuarios')" >S. Usuarios</button>
+          <button type="button" class="btn btn-custom" (click)="cambiarTipoDatos('voluntarios')">S. Voluntarios</button>
+          <button type="button" class="btn btn-custom" (click)="cambiarTipoDatos('beneficiarios')">S. Beneficarios/Receptores</button>
+          <button type="button" class="btn btn-custom" (click)="cambiarTipoDatos('donadores')" >S. Donador</button>
+          <button type="button" class="btn btn-custom" (click)="cambiarTipoDatos('voluntarios_responsables')">S. Voluntarios Responsables</button>
+          <button type="button" class="btn btn-custom" (click)="cambiarTipoDatos('voluntarios_colaboradores')">S. Voluntarios Colaboradores</button>
+      </div>
+    </div>
+    <!-- Otros botones para otros tipos de datos -->
+  
+    <!-- Mostrar los datos según el tipo activo -->
+    <div *ngIf="activeDataType === 'usuarios'">
+      <!-- Aquí cargarías los datos de usuarios -->
+      <!-- <app-usuarios></app-usuarios>  -->
+      <a href="">Usuarios</a>
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Correo</th>
+            <th scope="col">Teléfono</th>
+            <th scope="col">Aceptar</th>
+            <th scope="col">Denegar/Eliminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s_usuarios of listaDeUsuarios">
+            <th scope="row">{{s_usuarios.id}}</th>
+            <td>{{s_usuarios.nombre}}</td>
+            <td>{{s_usuarios.apellido}}</td>
+            <td>{{s_usuarios.correo}}</td>
+            <td>{{s_usuarios.telefono}}</td>
+            <td>
+              <button type="button" class="btn btn-custom" (click)="aceptar(s_usuarios.id)" >Aceptar</button>
+            </td>
+            <td>
+              <button type="button" class="btn btn-custom" (click)="denegar(s_usuarios.id)" >Rechazar</button>
+            </td>
+          </tr>
+          <!-- <tr>
+            <th scope="row">2</th>
+            <td>x</td>
+            <td>y</td>
+            <td>z</td>
+            <td>a</td>
+            <td>
+              <button type="button" class="btn btn-custom" >Push me</button>
+            </td>
+          </tr> -->
+        </tbody>
+      </table>
+    </div>
+    <div *ngIf="activeDataType === 'voluntarios'">
+      <!-- Aquí cargarías los datos de voluntarios -->
+      <!-- <app-voluntarios></app-voluntarios>  -->
+      <a href="">Voluntarios</a>
+    </div>
+    <div *ngIf="activeDataType === 'beneficiarios'">
+      <!-- Aquí cargarías los datos de voluntarios -->
+      <!-- <app-voluntarios></app-voluntarios>  -->
+      <a href="">Beneficiarios</a>
+    </div>
+    <div *ngIf="activeDataType === 'donadores'">
+      <!-- Aquí cargarías los datos de voluntarios -->
+      <!-- <app-voluntarios></app-voluntarios>  -->
+      <a href="">Donadores</a>
+    </div>
+    <div *ngIf="activeDataType === 'voluntarios_responsables'">
+      <!-- Aquí cargarías los datos de voluntarios -->
+      <!-- <app-voluntarios></app-voluntarios>  -->
+      <a href="">Voluntarios Responsables</a>
+    </div>
+    <div *ngIf="activeDataType === 'voluntarios_colaboradores'">
+      <!-- Aquí cargarías los datos de voluntarios -->
+      <!-- <app-voluntarios></app-voluntarios>  -->
+      <a href="">Voluntarios Colaboradores</a>
+    </div>
+    <div></div>
+    <!-- Otros bloques para otros tipos de datos -->
+  </div>

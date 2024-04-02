@@ -14,6 +14,7 @@ export class LoginService {
 // los observadores se usan para el paso de datos mediante componentes
   currentUserLoginOn: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(false);
   currentUserData: BehaviorSubject<String> = new BehaviorSubject<String>("") ;
+  adminLoginOn: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(false);
   //  inyeccion de http para usar sus metodos
   constructor(private http: HttpClient) {
     /**
@@ -54,6 +55,16 @@ export class LoginService {
     sessionStorage.removeItem("token");
     this.currentUserLoginOn.next(false);
   }
+
+  // actualizacion de valores
+  loginAdmin(): void {
+    this.adminLoginOn.next(true);
+  }
+
+  logoutAdmin(): void {
+    this.adminLoginOn.next(false);
+  }
+  
 
   private handleError(error: HttpErrorResponse){
     if(error.status===0){

@@ -46,7 +46,7 @@ export class FormLoginUsuarioComponent implements OnInit {
   //    next: acciones a continuacion de una correcta conexion 
   //    error: acciones a continuacion de una conexion incorrecta 
   //    complete: acciones a continuacion de una conexion completa 
-  enviar(){
+  enviarLoginUsuario(){
     if(this.loginForm.valid){
       // console.log(this.loginForm);
       // loginForm se envia con formato de  LoginUsuarioRequest
@@ -75,4 +75,24 @@ export class FormLoginUsuarioComponent implements OnInit {
     }
     // console.log(this.tipodonacion);
   }
+
+  // enviarAdmin(){
+  //     this.LoginService.loginAdmin();
+      
+  //   }
+  // }
+
+  enviarGral(){
+    
+    if(this.loginForm.value.correo === 'admin@gmail.com'){
+      // console.log(this.loginForm.value.correo);
+      // la funcion se activa con este boton
+      this.LoginService.loginAdmin();
+      this.router.navigateByUrl('/adminpage');
+    }else{
+      this.enviarLoginUsuario();
+    }
+    // this.loginForm.value
+  }
+
 }

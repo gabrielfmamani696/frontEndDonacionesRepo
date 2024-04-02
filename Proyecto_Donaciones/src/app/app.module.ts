@@ -15,6 +15,7 @@ import { FormSolicitudUsuarioComponent } from './pages/form-solicitud-usuario/fo
 import { DatosUsuarioComponent } from './pages/datos-usuario/datos-usuario.component';
 import { NavComponent } from './shared/nav/nav.component';
 import { HttpClientModule, } from '@angular/common/http';
+import { PaginaAdminComponent } from './pages/pagina-admin/pagina-admin.component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { HttpClientModule, } from '@angular/common/http';
     FormLoginUsuarioComponent,
     FormSolicitudUsuarioComponent,
     DatosUsuarioComponent,
-    NavComponent
+    NavComponent,
+    PaginaAdminComponent
   ],
   imports: [
     BrowserModule,

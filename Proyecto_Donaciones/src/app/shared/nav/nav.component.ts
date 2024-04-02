@@ -9,6 +9,7 @@ import { LoginService } from '../../services/auth/login.service';
 // export class NavComponent implements OnInit, OnDestroy {
 export class NavComponent implements OnInit {
   usuarioLoginOn: Boolean = false;
+  adminLoginOn: Boolean = false ;
   // usuarioLoginOn: Boolean =true;
   constructor(private loginService:LoginService){
 
@@ -19,13 +20,32 @@ export class NavComponent implements OnInit {
   //   this.loginService.currentUserLoginOn.unsubscribe();
   // }
 
-  ngOnInit(): void {
-    this.loginService.currentUserLoginOn.subscribe(
-      {
-        next:(UserLoginOn) => {
-          this.usuarioLoginOn=UserLoginOn;
-        }
+  ngOnInit(): void {;
+    // alerta al cambio en currentUserLoginOn
+    // this.loginService.currentUserLoginOn.subscribe(
+    //   {
+    //     next:(UserLoginOn) => {
+    //       this.usuarioLoginOn=UserLoginOn;
+    //     }
+    //   }
+    // )
+
+
+    // alerta al cambio en adminLoginOn
+    this.loginService.adminLoginOn.subscribe({
+      next:(adminLO) => {
+        this.adminLoginOn = adminLO;
       }
-    )
+    })
+
+    // this.loginService.loginAdmin().subscribe({
+    //   next:(adminLO) => {
+    //     this.adminLoginOn = adminLO;
+    //   }
+    // })
+  }
+  
+  pagePrincipal() {
+    this.loginService.logoutAdmin();
   }
 }

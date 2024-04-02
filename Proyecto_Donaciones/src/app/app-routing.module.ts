@@ -10,6 +10,7 @@ import { DatosVoluntarioComponent } from './pages/datos-voluntario/datos-volunta
 import { DatosUsuarioComponent } from './pages/datos-usuario/datos-usuario.component';
 import { FormLoginUsuarioComponent } from './auth/form-login-usuario/form-login-usuario.component';
 import { FormSolicitudUsuarioComponent } from './pages/form-solicitud-usuario/form-solicitud-usuario.component';
+import { PaginaAdminComponent } from './pages/pagina-admin/pagina-admin.component';
 
 const routes: Routes = [
   {path: '', component: HomePrincipalComponent},
@@ -22,6 +23,7 @@ const routes: Routes = [
   {path: 'datausuario', component: DatosUsuarioComponent},
   {path: 'login', component: FormLoginUsuarioComponent},
   {path: 'solicitudusuario', component: FormSolicitudUsuarioComponent},
+  {path: 'adminpage', component: PaginaAdminComponent},
 
   
   {path: '**', redirectTo: '/', pathMatch: 'full'},

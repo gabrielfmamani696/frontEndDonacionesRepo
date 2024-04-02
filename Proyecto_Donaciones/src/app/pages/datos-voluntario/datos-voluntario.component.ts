@@ -9,5 +9,4 @@ import { VoluntariosList } from './datos.mock'
 export class DatosVoluntarioComponent {
   // esto es para la tble
   listaDeVoluntarios = VoluntariosList;
-  
 }
