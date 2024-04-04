@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tienda de Alimentos</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link href="css/estilos.css" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <div class="header-left">
+    <img src="img/logo.webp" alt="Logo" class="logo" width="10%">
+  </div>
+  <div class="header-right">
+    <a href="#inicio">Inicio</a>
+    <a href="#cerrar-sesion">Cerrar Sesión</a>
+  </div>
+</header>
+
+<div class="main-content">
+  <h1>Lista de productos/alimentos</h1>
+  <div class="search-filter-section">
+    <input type="search" placeholder="Buscar productos...">
+    <button>Filtrar</button>
+  </div>
+  <div class="product-grid">
+    <!-- Repeat this block for each product -->
+    <div class="product-item">
+      <h3>Nombre del Producto</h3>
+      <p>Descripción del producto...</p>
+      <button>Añadir al carrito</button>
+    </div>
+    <!-- ... -->
+  </div>
+</div>
+
+<div class="footer">
+  <button onclick="document.getElementById('myModal').style.display='block'">Ver productos seleccionados</button>
+</div>
+
+<!-- Modals and other elements here -->
+<div id="myModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="document.getElementById('myModal').style.display='none'">&times;</span>
+    <h2>Productos seleccionados</h2>
+    <div id="carrito"></div>
+    <button onclick="solicitarDonacion()">Solicitar donación</button>
+  </div>
+</div>
+
+<script>
+    var carritoDeCompras = [];
+
+// Función para añadir productos al carrito
+function anadirAlCarrito(producto) {
+  carritoDeCompras.push(producto);
+  alert('Producto añadido: ' + producto);
+}
+
+// Función para mostrar el carrito
+function mostrarCarrito() {
+  var modalCarrito = document.getElementById('carrito');
+  modalCarrito.innerHTML = '<ul>' + carritoDeCompras.map(function(item) {
+    return '<li>' + item + '</li>';
+  }).join('') + '</ul>';
+  document.getElementById('myModal').style.display='block';
+}
+
+// Función para solicitar donación
+function solicitarDonacion() {
+  alert('Donación solicitada para los siguientes productos: ' + carritoDeCompras.join(', '));
+  // Aquí podrías añadir una llamada a un servidor o lógica adicional
+}
+
+// Suponiendo que tienes botones para añadir al carrito, aquí un ejemplo de cómo podrían inicializarse
+productos.forEach(function(producto) {
+  var boton = document.createElement('button');
+  boton.innerText = 'Añadir ' + producto;
+  boton.onclick = function() { anadirAlCarrito(producto); };
+  document.body.appendChild(boton);
+});
+</script>
+
+</body>
+</html>

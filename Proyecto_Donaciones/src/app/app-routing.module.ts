@@ -12,6 +12,11 @@ import { FormLoginUsuarioComponent } from './auth/form-login-usuario/form-login-
 import { FormSolicitudUsuarioComponent } from './pages/formularios_solicitudes/form-solicitud-usuario/form-solicitud-usuario.component';
 import { PaginaAdminComponent } from './pages/pagina-admin/pagina-admin.component';
 import { FormReceptoresComponent } from './pages/formularios_solicitudes/form-receptores/form-receptores.component';
+import { PageVoluntarioComponent } from './pages/page-voluntario/page-voluntario.component';
+import { PageDonadorComponent } from './pages/page-donador/page-donador.component';
+import { PageBeneficiarioComponent } from './pages/page-beneficiario/page-beneficiario.component';
+// guards
+import { guardAdminGuard } from './guards/guard-admin.guard';
 
 const routes: Routes = [
   {path: '', component: HomePrincipalComponent},
@@ -26,8 +31,11 @@ const routes: Routes = [
   {path: 'datausuario', component: DatosUsuarioComponent},
   {path: 'login', component: FormLoginUsuarioComponent},
   {path: 'solicitudusuario', component: FormSolicitudUsuarioComponent},
-  {path: 'adminpage', component: PaginaAdminComponent},
-
+  {path: 'adminpage', component: PaginaAdminComponent, canActivate: [guardAdminGuard]},
+  // 
+  {path: 'pagevoluntario', component: PageVoluntarioComponent},
+  {path: 'pagedonador', component: PageDonadorComponent},
+  {path: 'pagebeneficiario', component: PageBeneficiarioComponent},
   
   {path: '**', redirectTo: '/', pathMatch: 'full'},
 ];

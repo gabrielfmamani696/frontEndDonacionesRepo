@@ -17,6 +17,9 @@ import { NavComponent } from './shared/nav/nav.component';
 import { HttpClientModule, } from '@angular/common/http';
 import { PaginaAdminComponent } from './pages/pagina-admin/pagina-admin.component';
 import { FormReceptoresComponent } from './pages/formularios_solicitudes/form-receptores/form-receptores.component';
+import { PageVoluntarioComponent } from './pages/page-voluntario/page-voluntario.component';
+import { PageDonadorComponent } from './pages/page-donador/page-donador.component';
+import { PageBeneficiarioComponent } from './pages/page-beneficiario/page-beneficiario.component';
 
 
 @NgModule({
@@ -33,7 +36,10 @@ import { FormReceptoresComponent } from './pages/formularios_solicitudes/form-re
     DatosUsuarioComponent,
     NavComponent,
     PaginaAdminComponent,
-    FormReceptoresComponent
+    FormReceptoresComponent,
+    PageVoluntarioComponent,
+    PageDonadorComponent,
+    PageBeneficiarioComponent
   ],
   imports: [
     BrowserModule,

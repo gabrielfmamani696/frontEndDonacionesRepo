@@ -12,6 +12,8 @@ import { Raro } from '../models/raro';
 })
 
 export class LoginService {
+  rol: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  // 
   raro: Raro = {idorganizacion: 0, mision: "", vision: "string", quehacemos: "string"};
   currentRaro: BehaviorSubject<Raro> = new BehaviorSubject<Raro>(this.raro);
 // los observadores se usan para el paso de datos mediante componentes
@@ -74,7 +76,11 @@ export class LoginService {
     this.currentUserData.next("");
     // analisar
   }
-  // actualizacion de valores
+  // actualizacion de valores actualizacion de valores actualizacion de valores actualizacion de valores
+  // actualizacion de valores actualizacion de valores actualizacion de valores actualizacion de valores
+  // actualizacion de valores actualizacion de valores actualizacion de valores actualizacion de valores
+  // actualizacion de valores actualizacion de valores actualizacion de valores actualizacion de valores
+  // actualizacion de valores actualizacion de valores actualizacion de valores actualizacion de valores
   loginAdmin(): void {
     this.adminLoginOn.next(true);
   }
@@ -90,6 +96,23 @@ export class LoginService {
   logoutUsuario(): void {
     this.currentUserLoginOn.next(false);
   }
+
+  adminRol(): void {
+    this.rol.next('admin');
+  }
+  nadaRol(): void {
+    this.rol.next('');
+  }
+
+  // adminValueVoid(): void {
+  //   this.rol.next('')
+  // }
+
+  // adminValue(): void {
+  //   sessionStorage.setItem('rol', 'admin');
+  //   rolAdmin: string =sessionStorage.getItem('rol');
+  //   this.rol.next();
+  // }
 
   private handleError(error: HttpErrorResponse){
     if(error.status===0){
@@ -115,7 +138,13 @@ export class LoginService {
   }
 
   usuarioData(id: number): Observable<Usuario> {
-    return this.http.get<Usuario>(environment.urlRaroID+id).pipe(
+
+    let token = sessionStorage.getItem('token');
+    // console.log(token);
+    
+    // const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
+    const head = new HttpHeaders().set("Authorization", "Bearer "+token);
+    return this.http.get<Usuario>(environment.urlUsuarioID+id, {headers:head}).pipe(
       tap( (userInfo) => {
         this.currentUser.next(userInfo);
       }),
@@ -126,7 +155,7 @@ export class LoginService {
   raroData(id: number): Observable<Raro> {
 
     let token = sessionStorage.getItem('token');
-    console.log(token);
+    // console.log(token);
     
     // const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
     const head = new HttpHeaders().set("Authorization", "Bearer "+token);
@@ -144,5 +173,22 @@ export class LoginService {
 
   get userLoginOn(): Observable<Boolean>{
     return this.currentUserLoginOn.asObservable();
+  }
+  // guard
+
+  
+  isAdmin(): boolean{
+    // if(sessionStorage.getItem('rol') === 'admin'){
+    //   return true;
+    // }else{
+    //   return false;
+    // }
+    const rolActual = this.rol.getValue();
+    // if(rolActual === 'admin'){
+    //   return true;
+    // }else{
+    //   return false;
+    // }
+    return rolActual === 'admin';
   }
 }

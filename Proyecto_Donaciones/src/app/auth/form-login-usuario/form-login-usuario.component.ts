@@ -58,7 +58,7 @@ export class FormLoginUsuarioComponent implements OnInit {
           // console.log(userData); // esto imprime informacion sensible, como el token cuidado al reiniciar operaciones
           this.currentUser = userData;
           // console.log(this.currentUser?.id); //este dato deberia manejarse en otros componentes
-          
+          // sessionStorage.setItem('rol', 'usuario');
         },
         error: (errorData) => {
           console.log(errorData);
@@ -87,6 +87,8 @@ export class FormLoginUsuarioComponent implements OnInit {
     if(this.loginForm.value.correo === 'admin@gmail.com'){
       // console.log(this.loginForm.value.correo);
       // la funcion se activa con este boton
+      // sessionStorage.setItem('rol', 'admin');
+      this.loginService.adminRol();
       this.loginService.loginAdmin();
       this.router.navigateByUrl('/adminpage');
     }else{

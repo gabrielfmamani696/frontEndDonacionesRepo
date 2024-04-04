@@ -66,6 +66,7 @@ export class NavComponent implements OnInit {
   LogOut(){
     this.pageLogOutAdmin();
     this.pageLogOutUsuario();
+    this.loginService.nadaRol();
   }
 
   // TODO
