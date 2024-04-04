@@ -1,0 +1,34 @@
+.textWhite {
+    color: white;
+}
+.titulo {
+    font-weight: bold; /* Negrita similar a un h1 */
+    /* Otros estilos de tu elección */
+}
+
+.titulo a {
+    font-size: 0.5em; /* Tamaño de fuente similar a un h1 */
+    color: inherit; /* Heredar el color del texto del elemento padre */
+    text-decoration: none; /* Quitar subrayado del enlace */
+}
+
+.verde_claro {
+    /* color: #ffffff;  */
+    background-color: #ffffff; /* Color de fondo personalizado */
+    border-color: #6ca40d; /* Color del borde */
+}
+/* 
+.verde_claro:hover {
+    background-color: #4e7b0a;
+    border-color: #4e7b0a; 
+} */
+.btn-custom-verde_claro {
+    color: #ffffff; /* Color del texto */
+    background-color: #6ca40d; /* Color de fondo personalizado */
+    border-color: #6ca40d; /* Color del borde */
+}
+
+.btn-custom-verde_claro:hover {
+    background-color: #4e7b0a; /* Cambiar color de fondo al pasar el ratón por encima */
+    border-color: #4e7b0a; /* Cambiar color del borde al pasar el ratón por encima */
+}

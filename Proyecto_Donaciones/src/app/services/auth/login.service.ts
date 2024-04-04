@@ -1,20 +1,31 @@
 import { Injectable } from '@angular/core';
 import { LoginUsuarioRequest } from './loginUsuarioRequest';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders  } from '@angular/common/http';
 import { Observable, catchError, throwError, BehaviorSubject, tap } from 'rxjs';
 import { Usuario } from './usuario';
 import { environment } from '../../../environments/environment';
 import { map } from 'rxjs/operators';
+import { Raro } from '../models/raro';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class LoginService {
+  raro: Raro = {idorganizacion: 0, mision: "", vision: "string", quehacemos: "string"};
+  currentRaro: BehaviorSubject<Raro> = new BehaviorSubject<Raro>(this.raro);
 // los observadores se usan para el paso de datos mediante componentes
   currentUserLoginOn: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(false);
   currentUserData: BehaviorSubject<String> = new BehaviorSubject<String>("") ;
+
   adminLoginOn: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(false);
+  solUsuarios: BehaviorSubject<Usuario[]> = new BehaviorSubject<Usuario[]>([]);
+
+  idUsuario: BehaviorSubject<number> = new BehaviorSubject<number>(1);
+  // solo para llenar
+  user: Usuario = { id: 1, nombre: "Juan", apellido: "Pérez", contrasena: "contraseña123", confcontrasena: "contraseña123", correo: "juan@example.com", telefono: 123456789 };
+  currentUser: BehaviorSubject<Usuario> = new BehaviorSubject<Usuario>(this.user);
+
   //  inyeccion de http para usar sus metodos
   constructor(private http: HttpClient) {
     /**
@@ -38,6 +49,7 @@ export class LoginService {
     // 
     return this.http.post<any>(environment.urlAuthLogin, credentials).pipe(
       tap( (userData) => {
+        // esta linea maneja el token
         sessionStorage.setItem("token", userData.token);
 
         this.currentUserData.next(userData.token);
@@ -51,11 +63,17 @@ export class LoginService {
   }
 
   // inyectar servicio en navbar
+  // logout(): void{
+  //   sessionStorage.removeItem("token");
+  //   this.currentUserLoginOn.next(false);
+  // }
+
   logout(): void{
     sessionStorage.removeItem("token");
     this.currentUserLoginOn.next(false);
+    this.currentUserData.next("");
+    // analisar
   }
-
   // actualizacion de valores
   loginAdmin(): void {
     this.adminLoginOn.next(true);
@@ -65,6 +83,13 @@ export class LoginService {
     this.adminLoginOn.next(false);
   }
   
+  loginUsuario(): void {
+    this.currentUserLoginOn.next(true);
+  }
+
+  logoutUsuario(): void {
+    this.currentUserLoginOn.next(false);
+  }
 
   private handleError(error: HttpErrorResponse){
     if(error.status===0){
@@ -78,6 +103,40 @@ export class LoginService {
     return throwError(()=> new Error('Algo fallo. Por favor intente nuevamente'))
   }
 
+  solicitudesUsuario(): Observable<Usuario[]> {
+    return this.http.get<Usuario[]>(environment.urlObtenerSolicitudUsuarios).pipe(
+      tap( (usersData) => {
+        this.solUsuarios.next(usersData);
+      }),
+      // map( (usersData) => userData.token),
+      catchError(this.handleError)
+    )
+    // return this.http.get<Usuario[]>;
+  }
+
+  usuarioData(id: number): Observable<Usuario> {
+    return this.http.get<Usuario>(environment.urlRaroID+id).pipe(
+      tap( (userInfo) => {
+        this.currentUser.next(userInfo);
+      }),
+      catchError(this.handleError)
+    )
+  }
+
+  raroData(id: number): Observable<Raro> {
+
+    let token = sessionStorage.getItem('token');
+    console.log(token);
+    
+    // const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
+    const head = new HttpHeaders().set("Authorization", "Bearer "+token);
+    return this.http.get<Raro>(environment.urlRaroID+id, {headers:head}).pipe(
+      tap( (raroInfo) => {
+        this.currentRaro.next(raroInfo);
+      }),
+      catchError(this.handleError)
+    )
+  }
 
   get userData(): Observable<String>{
     return this.currentUserData.asObservable();

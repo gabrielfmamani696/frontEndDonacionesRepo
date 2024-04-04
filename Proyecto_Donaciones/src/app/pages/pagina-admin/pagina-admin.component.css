@@ -9,3 +9,14 @@
     background-color: #032728; /* Cambiar color de fondo al pasar el ratón por encima */
     border-color: #032728; /* Cambiar color del borde al pasar el ratón por encima */
 }
+
+.btn-custom-verde_claro {
+    color: #ffffff; /* Color del texto */
+    background-color: #6ca40d; /* Color de fondo personalizado */
+    border-color: #6ca40d; /* Color del borde */
+}
+
+.btn-custom-verde_claro:hover {
+    background-color: #4e7b0a; /* Cambiar color de fondo al pasar el ratón por encima */
+    border-color: #4e7b0a; /* Cambiar color del borde al pasar el ratón por encima */
+}

@@ -1,21 +1,24 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
-import { FormVoluntariosComponent } from './pages/form-voluntarios/form-voluntarios.component';
-import { FormDonacionesComponent } from './pages/form-donaciones/form-donaciones.component';
-import { FormRepOrgBeneficaComponent } from './pages/form-rep-org-benefica/form-rep-org-benefica.component';
-import { FormRepOrgReceptoraComponent } from './pages/form-rep-org-receptora/form-rep-org-receptora.component';
+import { FormVoluntariosComponent } from './pages/formularios_solicitudes/form-voluntarios/form-voluntarios.component';
+import { FormDonacionesComponent } from './pages/formularios_solicitudes/form-donaciones/form-donaciones.component';
+import { FormRepOrgBeneficaComponent } from './pages/formularios_solicitudes/form-rep-org-benefica/form-rep-org-benefica.component';
+import { FormRepOrgReceptoraComponent } from './pages/formularios_solicitudes/form-rep-org-receptora/form-rep-org-receptora.component';
 import { HomePrincipalComponent } from './pages/home-principal/home-principal.component';
-import { DatosVoluntarioComponent } from './pages/datos-voluntario/datos-voluntario.component';
-import { DatosUsuarioComponent } from './pages/datos-usuario/datos-usuario.component';
+import { DatosVoluntarioComponent } from './pages/datos/datos-voluntario/datos-voluntario.component';
+import { DatosUsuarioComponent } from './pages/datos/datos-usuario/datos-usuario.component';
 import { FormLoginUsuarioComponent } from './auth/form-login-usuario/form-login-usuario.component';
-import { FormSolicitudUsuarioComponent } from './pages/form-solicitud-usuario/form-solicitud-usuario.component';
+import { FormSolicitudUsuarioComponent } from './pages/formularios_solicitudes/form-solicitud-usuario/form-solicitud-usuario.component';
 import { PaginaAdminComponent } from './pages/pagina-admin/pagina-admin.component';
+import { FormReceptoresComponent } from './pages/formularios_solicitudes/form-receptores/form-receptores.component';
 
 const routes: Routes = [
   {path: '', component: HomePrincipalComponent},
-  {path: 'voluntarios', component: FormVoluntariosComponent},
-  {path: 'donaciones', component: FormDonacionesComponent},
+  {path: 'solvoluntarios', component: FormVoluntariosComponent},
+  {path: 'soldonadores', component: FormDonacionesComponent},
+  {path: 'solreceptores', component: FormReceptoresComponent},
+
   {path: 'reporgbenefica', component: FormRepOrgBeneficaComponent},
   {path: 'reporgreceptora', component: FormRepOrgReceptoraComponent},
   {path: 'datavoluntarios', component: DatosVoluntarioComponent},

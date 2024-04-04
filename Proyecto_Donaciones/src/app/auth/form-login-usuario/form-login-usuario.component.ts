@@ -3,6 +3,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginService } from '../../services/auth/login.service';
 import { LoginUsuarioRequest } from '../../services/auth/loginUsuarioRequest';
+import { Usuario } from '../../services/auth/usuario';
 //se importan las librerias 
 
 
@@ -11,14 +12,16 @@ import { LoginUsuarioRequest } from '../../services/auth/loginUsuarioRequest';
   templateUrl: './form-login-usuario.component.html',
   styleUrl: './form-login-usuario.component.css'
 })
+
 export class FormLoginUsuarioComponent implements OnInit {
   // loginForm: FormGroup;
+  currentUser?: Usuario;
   loginError: string="";
   // loginForm esta enlazado al form de la vista mediante [formGroup]="loginForm" (ngSubmit) = "enviar()"
   // se crean los espacios password, con los validadores correspondientes y correo
   loginForm = this.fb.group({
-    password: ['789654123', [Validators.required, Validators.minLength(3)]],
-    correo: ['Royer@gmail.com', [Validators.required, Validators.email ]],
+    password: ['15354ler', [Validators.required, Validators.minLength(3)]],
+    correo: ['minio@minion.com', [Validators.required, Validators.email ]],
   })
   // tipodonacion: string = 'si'
   // tipodonacion?: string 
@@ -26,7 +29,7 @@ export class FormLoginUsuarioComponent implements OnInit {
   //inyeccion formBuilder, rutas y el LoginService
   // LoginService en src\app\services\auth\login.service.ts
   // contiene los metodos con las rutas para realizar la conexion con BE
-  constructor( private fb: FormBuilder, private router:Router, private LoginService: LoginService ){
+  constructor( private fb: FormBuilder, private router:Router, private loginService: LoginService ){
   } 
   
   ngOnInit(): void {
@@ -50,9 +53,12 @@ export class FormLoginUsuarioComponent implements OnInit {
     if(this.loginForm.valid){
       // console.log(this.loginForm);
       // loginForm se envia con formato de  LoginUsuarioRequest
-      this.LoginService.login(this.loginForm.value as LoginUsuarioRequest).subscribe({
+      this.loginService.login(this.loginForm.value as LoginUsuarioRequest).subscribe({
         next: (userData) => {
           // console.log(userData); // esto imprime informacion sensible, como el token cuidado al reiniciar operaciones
+          this.currentUser = userData;
+          // console.log(this.currentUser?.id); //este dato deberia manejarse en otros componentes
+          
         },
         error: (errorData) => {
           console.log(errorData);
@@ -76,23 +82,16 @@ export class FormLoginUsuarioComponent implements OnInit {
     // console.log(this.tipodonacion);
   }
 
-  // enviarAdmin(){
-  //     this.LoginService.loginAdmin();
-      
-  //   }
-  // }
 
   enviarGral(){
-    
     if(this.loginForm.value.correo === 'admin@gmail.com'){
       // console.log(this.loginForm.value.correo);
       // la funcion se activa con este boton
-      this.LoginService.loginAdmin();
+      this.loginService.loginAdmin();
       this.router.navigateByUrl('/adminpage');
     }else{
       this.enviarLoginUsuario();
     }
-    // this.loginForm.value
   }
 
 }

@@ -8,7 +8,15 @@
       <img src="/assets/img/logo.webp" width="90px">
     </div>
     <div class="container-fluid">
-      <a class="navbar-brand" routerLink="/" (click)="pagePrincipal()">Food Donation</a>
+      <!-- barra -->
+      <!-- <h1 class="textWhite titulo">
+        Food Donation
+      </h1> -->
+      
+      <h1 class="titulo textWhite">
+        <!-- <a class="navbar-brand" routerLink="/" (click)="LogOut()">Food Donation</a> -->
+        <a class="navbar-brand" routerLink="/" (click)="LogOut()">Food Donation</a>
+      </h1>
       <a *ngIf="adminLoginOn" class="navbar-brand" >Bienvenido Administrador</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -24,9 +32,48 @@
           <a class="navbar-brand" routerLink="reporgbenefica">R. de Org. Benéfica</a>
           <a class="navbar-brand" routerLink="reporgreceptora">R. de Org. Receptora</a>
             -->
-          <a *ngIf="!adminLoginOn" class="navbar-brand" routerLink="solicitudusuario">Registrate</a>
-          <a *ngIf="!adminLoginOn" class="navbar-brand" routerLink="login">Log in</a>
-          <a *ngIf="usuarioLoginOn" class="navbar-brand" routerLink="/">Cerrar Sesion</a>
+          <a *ngIf="!usuarioLoginOn" class="navbar-brand" routerLink="solicitudusuario">Registrate</a>
+          <a *ngIf="!usuarioLoginOn" class="navbar-brand" routerLink="login">Log in</a>
+          <a *ngIf="usuarioLoginOn" class="navbar-brand" routerLink="/" (click)="pageLogOutUsuario()">Cerrar Sesion</a>
+          <div *ngIf="usuarioLoginOn" class="btn-group">
+            <div *ngIf="usuarioLoginOn" class="btn-group ">
+
+              
+              <button type="button " class="btn btn-custom-verde_claro dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                Información del sistema
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end ">
+                <li><button class="dropdown-item " type="button" routerLink="tabvoluntarios" >Datos de Voluntarios</button></li>
+                <li><button class="dropdown-item " type="button" routerLink="tabdonadores" >Datos de Donadores</button></li>
+                <li><button class="dropdown-item " type="button" routerLink="tabreceptores" >Datos de Receptores</button></li>
+                <li><button class="dropdown-item " type="button" routerLink="tabdonaciones" >Datos de Donaciones</button></li>
+              </ul>
+            </div>
+
+
+            <div *ngIf="usuarioLoginOn" class="btn-group ">
+              <button type="button " class="btn btn-custom-verde_claro dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                ¿Deseas colaborar?
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end ">
+                <li><button class="dropdown-item " type="button" routerLink="solvoluntarios" >Solicitud para ser Voluntario</button></li>
+                <li><button class="dropdown-item " type="button" routerLink="soldonadores" >Solicitud para ser Donador</button></li>
+                <li><button class="dropdown-item " type="button" routerLink="solreceptores" >Solicitud para ser Receptor</button></li>
+              </ul>
+            </div>
+
+
+            <div *ngIf="usuarioLoginOn" class="btn-group ">
+              <button type="button " class="btn btn-custom-verde_claro dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                ¿Eres parte de nuestro sistema?
+              </button>
+              <ul class="dropdown-menu dropdown-menu-end ">
+                <li><button class="dropdown-item " type="button" routerLink="voluntarios" >Página de Voluntario</button></li>
+                <li><button class="dropdown-item " type="button" routerLink="donaciones" >Página de Donador</button></li>
+                <li><button class="dropdown-item " type="button" routerLink="receptores" >Página de Receptor</button></li>
+              </ul>
+            </div>
+          </div>
           <!-- <a *ngIf="usuarioLoginOn" class="navbar-brand" routerLink="/">Cerrar Sesion</a> -->
           <!-- <h1>{{adminLoginOn}}</h1> -->
         </div>
