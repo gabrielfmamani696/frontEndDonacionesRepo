@@ -4,16 +4,56 @@
   <button (click)="cambiarTipoDatos('voluntarios')">Voluntarios</button> -->
   <!-- <div class="container"> -->
   <div class="btn-group" role="group" aria-label="Basic example">
-    <button type="button" class="btn btn-custom-verde_claro" (click)="cambiarTipoDatos('usuarios')" >S. Usuarios</button>
-    <button type="button" class="btn btn-custom-verde_claro" (click)="cambiarTipoDatos('voluntarios')">S. Voluntarios</button>
-    <button type="button" class="btn btn-custom-verde_claro" (click)="cambiarTipoDatos('beneficiarios')">S. Beneficarios/Receptores</button>
-    <button type="button" class="btn btn-custom-verde_claro" (click)="cambiarTipoDatos('donadores')" >S. Donador</button>
-    <button type="button" class="btn btn-custom-verde_claro" (click)="cambiarTipoDatos('voluntarios_responsables')">S. Voluntarios Responsables</button>
-    <button type="button" class="btn btn-custom-verde_claro" (click)="cambiarTipoDatos('voluntarios_colaboradores')">S. Voluntarios Colaboradores</button>
+    <button type="button" class="btn btn-custom-verde_claro" (click)="cambiarTipoDatos('usuarios')">S. Usuarios</button>
+    <button type="button" class="btn btn-custom-verde_claro" (click)="cambiarTipoDatos('voluntarios')">S.
+      Voluntarios</button>
+    <button type="button" class="btn btn-custom-verde_claro" (click)="cambiarTipoDatos('beneficiarios')">S.
+      Beneficarios/Receptores</button>
+    <button type="button" class="btn btn-custom-verde_claro" (click)="cambiarTipoDatos('donadores')">S. Donador</button>
+    <button type="button" class="btn btn-custom-verde_claro" (click)="cambiarTipoDatos('voluntarios_responsables')">S.
+      Voluntarios Responsables</button>
+    <button type="button" class="btn btn-custom-verde_claro" (click)="cambiarTipoDatos('voluntarios_colaboradores')">S.
+      Voluntarios Colaboradores</button>
   </div>
   <!-- </div> -->
+
+
   <div *ngIf="activeDataType === 'usuarios'">
-    <a href="">Usuarios</a>
+    <button type="button" class="btn btn-custom-azul" (click)="displaySolicitudUsuariosRIP()">Recargar</button>
+    <!-- <a (click)="displayUsuariosRIP()" >Recargar</a> -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#IDBD</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Teléfono</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Aceptar</th>
+          <th scope="col">Rechazar</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usersRIPelement of usersRIP">
+          <th scope="row">{{usersRIPelement.id}}</th>
+          <td>{{usersRIPelement.nombre}}</td>
+          <td>{{usersRIPelement.apellido}}</td>
+          <td>{{usersRIPelement.correo}}</td>
+          <td>{{usersRIPelement.telefono}}</td>
+          <td>{{usersRIPelement.estado}}</td>
+          <td>
+            <button *ngIf="usersRIPelement.estado!=='Inabilitado'" type="button" class="btn btn-custom" (click)="aceptar(usersRIPelement.id)">Aceptar</button>
+          </td>
+          <td>
+            <button type="button" class="btn btn-custom" (click)="rechazarSolUsuario(usersRIPelement.id)">Rechazar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="activeDataType === 'usuarios'">
+    <!-- <a href="">Usuarios</a> -->
     <table class="table">
       <thead>
         <tr>
@@ -34,38 +74,43 @@
           <td>{{s_usuarios.correo}}</td>
           <td>{{s_usuarios.telefono}}</td>
           <td>
-            <button type="button" class="btn btn-custom" (click)="aceptar(s_usuarios.id)" >Aceptar</button>
+            <button type="button" class="btn btn-custom" (click)="aceptar(s_usuarios.id)">Aceptar</button>
           </td>
           <td>
-            <button type="button" class="btn btn-custom" (click)="denegar(s_usuarios.id)" >Rechazar</button>
+            <button type="button" class="btn btn-custom" (click)="rechazarSolUsuario(s_usuarios.id)">Rechazar</button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div *ngIf="activeDataType === 'voluntarios'">
-    <a href="">Voluntarios</a>
-  </div>
 
 
-  <div *ngIf="activeDataType === 'beneficiarios'">
-    <a href="">Beneficiarios</a>
-  </div>
-
-
-  <div *ngIf="activeDataType === 'donadores'">
-    <a href="">Donadores</a>
-  </div>
-
-
-  <div *ngIf="activeDataType === 'voluntarios_responsables'">
-    <a href="">Voluntarios Responsables</a>
-  </div>
-
-
-  <div *ngIf="activeDataType === 'voluntarios_colaboradores'">
-    <a href="">Voluntarios Colaboradores</a>
-  </div>
 
 
 </div>
+
+
+
+<!-- <div *ngIf="activeDataType === 'voluntarios'">
+  <a href="">Voluntarios</a>
+</div>
+
+
+<div *ngIf="activeDataType === 'beneficiarios'">
+  <a href="">Beneficiarios</a>
+</div>
+
+
+<div *ngIf="activeDataType === 'donadores'">
+  <a href="">Donadores</a>
+</div>
+
+
+<div *ngIf="activeDataType === 'voluntarios_responsables'">
+  <a href="">Voluntarios Responsables</a>
+</div>
+
+
+<div *ngIf="activeDataType === 'voluntarios_colaboradores'">
+  <a href="">Voluntarios Colaboradores</a>
+</div> -->

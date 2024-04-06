@@ -22,11 +22,7 @@ export class NavComponent implements OnInit {
 
   ngOnInit(): void {;
     // alerta al cambio en currentUserLoginOn
-    this.loginService.currentUserLoginOn.subscribe({
-      next:(UserLoginOn) => {
-        this.usuarioLoginOn=UserLoginOn;
-      }
-    })
+    this.isUserLoginOn();
 
 
     // alerta al cambio en adminLoginOn
@@ -43,6 +39,13 @@ export class NavComponent implements OnInit {
     // })
   }
   
+  isUserLoginOn(){
+    this.loginService.currentUserLoginOn.subscribe({
+      next: (userLoginOn) => {
+        this.usuarioLoginOn = userLoginOn;
+      },
+    });
+  }
 
   pageLogInAdmin() {
     this.loginService.loginAdmin();

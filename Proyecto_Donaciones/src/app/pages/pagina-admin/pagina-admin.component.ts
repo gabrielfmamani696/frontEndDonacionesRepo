@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Usuario } from '../../services/auth/usuario';
 import { LoginService } from '../../services/auth/login.service';
 import { Router } from '@angular/router';
+import { usuarioRechazadoInabilitadoPendiente } from '../../services/models/usuarioRechazadoInabilitadoPendiente';
 
 @Component({
   selector: 'app-pagina-admin',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
 })
 export class PaginaAdminComponent implements OnInit {
   loginError: string = '';
+  aceptarText: string = '';
   activeDataType: string = 'usuarios'; // Inicialmente, mostrar datos de usuarios
 
   // lista deberia ser vacia y llenarse con el metodo correspondiente
@@ -21,11 +23,32 @@ export class PaginaAdminComponent implements OnInit {
     // { id: 5, nombre: "xad", apellido: "Martínez", contrasena: "password789", confcontrasena: "password789", contenido: "<Nombre (Organizacion)>/<Tipo de Organizacion:>", telefono: 987654321 }
   ];
 
+  usersRIP?: usuarioRechazadoInabilitadoPendiente[] ;
 
   constructor( private router:Router, private loginService: LoginService) { }
   
   ngOnInit(): void {
     // this.displaySolUsuarios();
+    this.displaySolicitudUsuariosRIP();
+  }
+  // TODO necesito un token
+  // TODO necesito un token
+  // TODO necesito un token
+  // TODO necesito un token
+  // TODO necesito un token
+  displaySolicitudUsuariosRIP(){
+    this.loginService.allUsuarioRechazadoInabilitadoPendiente().subscribe({
+      next: (usersRIP_data) => {
+        this.usersRIP=usersRIP_data;
+      },
+      error: (errorData) => {
+        // console.log(errorData);
+        this.loginError = errorData;
+      },
+      complete: () => {
+        // console.log("Despliegue de datos completo"); 
+      }
+    })
   }
 
   displaySolUsuarios(){
@@ -35,7 +58,7 @@ export class PaginaAdminComponent implements OnInit {
         this.solDeUsuarios=usuariosData;
       },
       error: (errorData) => {
-        console.log(errorData);
+        // console.log(errorData);
         this.loginError = errorData;
       },
       complete: () => {
@@ -53,15 +76,40 @@ export class PaginaAdminComponent implements OnInit {
     this.activeDataType = tipo;
   }
   
-  
+  // 
+  mensajeAceptado?: string;
   // acepta la solicitud
   aceptar(id: number){
-    console.log('aceptado', id);
+    // console.log('aceptado', id);
+    this.loginService.userAceptar(id).subscribe({
+      next: (info) => {
+        this.aceptarText = info;
+        console.log("Aviso: "+this.aceptarText); 
+
+      },
+      error: (errorData) => {
+        this.loginError = errorData;
+      },
+      complete: () => {
+        console.log("usuario aceptado");
+      }
+    })
+    // this.displaySolicitudUsuariosRIP();
   }
 
 
   // denega y borra la solicitud
-  denegar(id: number){
-    console.log('denegado', id);
+  rechazarSolUsuario(id: number){
+    this.loginService.userSolRechazar(id).subscribe({
+      next: (info) => {
+        console.log('Aviso: '+ info);
+      }, 
+      error: (errorData) => {
+        this.loginError = errorData;
+      },
+      complete: () => {
+        console.log('usuario rechazado');
+      }
+    })
   }
 }

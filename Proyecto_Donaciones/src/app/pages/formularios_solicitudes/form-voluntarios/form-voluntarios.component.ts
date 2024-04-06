@@ -4,39 +4,37 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 @Component({
   selector: 'app-form-voluntarios',
   templateUrl: './form-voluntarios.component.html',
-  styleUrl: './form-voluntarios.component.css'
+  styleUrl: './form-voluntarios.component.css',
 })
 export class FormVoluntariosComponent {
-// export class FormVoluntariosComponent implements OnInit{
+  // export class FormVoluntariosComponent implements OnInit{
 
   formularioVoluntario: FormGroup;
-  tipodonacion: string = 'si'
-  // tipodonacion?: string 
-  constructor( private form: FormBuilder ){
+  tipodonacion: string = 'si';
+  loginError: string = '';
+  // tipodonacion?: string
+  constructor(private form: FormBuilder) {
     this.formularioVoluntario = this.form.group({
       // ['<valormostrado>, [<validador1>,<validador1>]']
       nombre: ['', Validators.required],
-      apellido: ['', Validators.required], 
+      apellido: ['', Validators.required],
       contrasena: ['', [Validators.required, Validators.minLength(3)]],
       conf_contrasena: ['', [Validators.required, Validators.minLength(3)]],
-      correo: ['', [Validators.required, Validators.email ]],
+      correo: ['', [Validators.required, Validators.email]],
       telefono: ['', [Validators.required]],
-      // tipodonacion: ['', [Validators.required]],
-      // horario: ['', Validators.required],
-      // turno: ['', Validators.required],
-      // edad: ['',Validators.required] ,
-    })
-  } 
-  
-  enviar(){
+    });
+  }
+
+  enviar() {
     console.log(this.formularioVoluntario);
     console.log(this.tipodonacion);
-    
   }
 
   // ngOnInit(): void {
   //   this.formularioVoluntario.valueChanges.subscribe(ti)
   // }
+
+  
   // shift alt a
   // este codigo era para el formulario plantilla
   /* 
