@@ -33,10 +33,8 @@ export class FormSolicitudUsuarioComponent {
           this.loginError = errorData;
         },
         complete: () => {
-          //confirmacion
-          // console.log("login completo");
-          alert("Envio de datos completo") 
-          this.router.navigateByUrl('/');
+          console.log("login completo");
+          // this.router.navigateByUrl('/');
           this.formularioSolicitudUsuario.reset();
         }
       })

@@ -10,4 +10,7 @@ export const environment = {
     urlAceptarUsuario: 'http://localhost:8090/messageUser/acceptUser/',
     urlRechazarUsuario: 'http://localhost:8090/messageUser/refusedUser/',
     urlInhabilitarUsuario: 'http://localhost:8090/messageUser/inabilitarUser/', //para usuarios q habian sido aceptados
+    urlFormDonacion: '/', //
+    urlFormAlimento: '/', //
+    urlFormProducto: '/', //
 }

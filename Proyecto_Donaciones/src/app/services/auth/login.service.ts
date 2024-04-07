@@ -9,6 +9,9 @@ import { Raro } from '../models/raro';
 import { formSolUsuario } from './formSolUsuario';
 import { usuarioRechazadoInabilitadoPendiente } from '../models/usuarioRechazadoInabilitadoPendiente';
 import { usuarioAceptado } from '../models/usuarioAceptado';
+import { formDonacion } from '../models/formDonacion';
+import { formAlimento } from '../models/formAlimento';
+import { formProducto } from '../models/formProducto';
 
 @Injectable({
   providedIn: 'root',
@@ -96,6 +99,31 @@ export class LoginService {
     return this.http
       .post(environment.urlFormSolUsuario, data, { responseType: 'text' })
       .pipe(catchError(this.handleError));
+  }
+
+  registroDonacion(data: formDonacion): Observable<any> {
+    return this.http.post(environment.urlFormDonacion, data ).pipe(
+      tap((userData) => {
+        this.currentUserLoginOn.next(true);
+      }),
+      catchError(this.handleError)
+    )
+  }
+  registroAlimento(data: formAlimento): Observable<any> {
+    return this.http.post(environment.urlFormAlimento, data ).pipe(
+      tap((userData) => {
+        // this.currentUserLoginOn.next(true);
+      }),
+      catchError(this.handleError)
+    )
+  }
+  registroProducto(data: formProducto): Observable<any> {
+    return this.http.post(environment.urlFormProducto, data ).pipe(
+      tap((userData) => {
+        // this.currentUserLoginOn.next(true);
+      }),
+      catchError(this.handleError)
+    )
   }
 
   // inyectar servicio en navbar
