@@ -17,13 +17,18 @@
     <p>Vision: {{currentRaro?.vision}}</p>
     <p>Actividad: {{currentRaro?.quehacemos}}</p>
 </div>
-<p>Te logeaste maestro</p>
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+<!-- <div *ngIf="usuarioActualmenteActivo">
+    <p>Nro. Org.: {{usuarioActualmenteActivo.id}}</p>
+    <p>Nro. Org.: {{usuarioActualmenteActivo.nombre}}</p>
+    <p>Mision: {{usuarioActualmenteActivo.apellido}}</p>
+    <p>Vision: {{usuarioActualmenteActivo.correo}}</p>
+    <p>Actividad: {{usuarioActualmenteActivo.telefono}}</p>
+</div> -->
+<!-- <p>Te logeaste maestro</p> -->
+<!-- <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
   Launch demo modal
 </button>
 
-<!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -33,7 +38,6 @@
       </div>
       <div class="modal-body">
         <div class="container">
-          <!-- <form [formGroup]="formularioSolicitudUsuario" (ngSubmit)="enviarFormSolUsuario()"> -->
       
           <div class="mb-3">
             <label for="confContrasena" class="form-label">Numero de Colaboradores</label>
@@ -41,7 +45,6 @@
           </div>
       
           <button type="submit" class="btn btn-primary">Enviar</button>
-          <!-- </form> -->
         </div>
       </div>
       <div class="modal-footer">
@@ -50,7 +53,7 @@
       </div>
     </div>
   </div>
-</div>
+</div> -->
 <!--  -->
 <div class="hero-section">
   <br>

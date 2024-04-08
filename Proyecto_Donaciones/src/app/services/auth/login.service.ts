@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { LoginUsuarioRequest } from './loginUsuarioRequest';
-import { HttpClient, HttpErrorResponse, HttpHeaders  } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, catchError, throwError, BehaviorSubject, tap } from 'rxjs';
 import { Usuario } from './usuario';
 import { environment } from '../../../environments/environment';
@@ -61,6 +61,15 @@ export class LoginService {
 
   mensajeAceptar: BehaviorSubject<string> = new BehaviorSubject<string>('');
   //  inyeccion de http para usar sus metodos
+
+  // Usuario actualmente activo
+  // usuarioActualmenteActivo: BehaviorSubject<Usuario> = new BehaviorSubject<Usuario>();
+  usuarioActualmenteActivo: BehaviorSubject<Usuario | null> = new BehaviorSubject<Usuario | null>(null);
+
+
+  // 
+  // 
+  // 
   constructor(private http: HttpClient) {
     /**
      * Revision de sessionStorage pues genera errores
@@ -158,6 +167,7 @@ export class LoginService {
   logoutUsuario(): void {
     this.currentUserLoginOn.next(false);
   }
+  
 // para setear el valor al id del usuario
   currentIdValueSet(id: number):void {
     this.currentUserID
@@ -171,6 +181,25 @@ export class LoginService {
   nadaRol(): void {
     this.rol.next('');
   }
+
+  setUsuarioActualmenteActivo(usuario: Usuario): void {
+    this.usuarioActualmenteActivo.next(usuario);
+  }
+
+
+  getUsuarioActualmenteActivo(): Usuario | null {
+    return this.usuarioActualmenteActivo.getValue();
+  }
+
+  // actualizacion de valores actualizacion de valores actualizacion de valores actualizacion de valores
+  // actualizacion de valores actualizacion de valores actualizacion de valores actualizacion de valores
+  // actualizacion de valores actualizacion de valores actualizacion de valores actualizacion de valores
+  // actualizacion de valores actualizacion de valores actualizacion de valores actualizacion de valores
+  // actualizacion de valores actualizacion de valores actualizacion de valores actualizacion de valores
+
+
+
+
 
   // adminValueVoid(): void {
   //   this.rol.next('')

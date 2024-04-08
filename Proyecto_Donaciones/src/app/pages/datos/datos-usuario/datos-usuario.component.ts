@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { LoginService } from '../../../services/auth/login.service';
 import { Usuario } from '../../../services/auth/usuario';
 import { Raro } from '../../../services/models/raro';
+import { UsuarioActualService } from '../../../services/share/usuario-actual.service';
+import { Usuario2 } from '../../../services/auth/usuario2';
 
 @Component({
   selector: 'app-datos-usuario',
@@ -9,12 +11,13 @@ import { Raro } from '../../../services/models/raro';
   styleUrl: './datos-usuario.component.css',
 })
 export class DatosUsuarioComponent implements OnInit {
+  usuarioActualmenteActivo?: Usuario2 | null;
   loginError: string = '';
   userLoginOn: Boolean = false;
   currentUser?: Usuario;
   currentRaro?: Raro;
   // userData?: Usuario;
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService, private userDataShare: UsuarioActualService) {}
 
   // ngOnDestroy(): void {
   //   this.loginService.currentUserData.unsubscribe();
@@ -22,6 +25,7 @@ export class DatosUsuarioComponent implements OnInit {
   // }
 
   ngOnInit(): void {
+    this.usuarioActualmenteActivo = this.userDataShare.getUsuarioActualmenteActivo();
     this.isUserLoginOn();
 
     // this.loginService.currentUserData.subscribe({
