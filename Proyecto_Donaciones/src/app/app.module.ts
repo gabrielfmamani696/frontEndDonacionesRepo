@@ -20,6 +20,7 @@ import { FormReceptoresComponent } from './pages/formularios_solicitudes/form-re
 import { PageVoluntarioComponent } from './pages/page-voluntario/page-voluntario.component';
 import { PageDonadorComponent } from './pages/page-donador/page-donador.component';
 import { PageBeneficiarioComponent } from './pages/page-beneficiario/page-beneficiario.component';
+import { PageVoluntarioColaboradorComponent } from './pages/page-voluntario-colaborador/page-voluntario-colaborador.component';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { PageBeneficiarioComponent } from './pages/page-beneficiario/page-benefi
     FormReceptoresComponent,
     PageVoluntarioComponent,
     PageDonadorComponent,
-    PageBeneficiarioComponent
+    PageBeneficiarioComponent,
+    PageVoluntarioColaboradorComponent
   ],
   imports: [
     BrowserModule,

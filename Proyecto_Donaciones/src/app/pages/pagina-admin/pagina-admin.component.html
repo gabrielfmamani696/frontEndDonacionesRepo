@@ -4,22 +4,115 @@
   <button (click)="cambiarTipoDatos('voluntarios')">Voluntarios</button> -->
   <!-- <div class="container"> -->
   <div class="btn-group" role="group" aria-label="Basic example">
-    <button type="button" class="btn btn-custom-verde_claro" (click)="cambiarTipoDatos('usuarios')">S. Usuarios</button>
-    <button type="button" class="btn btn-custom-verde_claro" (click)="cambiarTipoDatos('voluntarios')">S.
-      Voluntarios</button>
-    <button type="button" class="btn btn-custom-verde_claro" (click)="cambiarTipoDatos('beneficiarios')">S.
-      Beneficarios/Receptores</button>
-    <button type="button" class="btn btn-custom-verde_claro" (click)="cambiarTipoDatos('donadores')">S. Donador</button>
-    <button type="button" class="btn btn-custom-verde_claro" (click)="cambiarTipoDatos('voluntarios_responsables')">S.
-      Voluntarios Responsables</button>
-    <button type="button" class="btn btn-custom-verde_claro" (click)="cambiarTipoDatos('voluntarios_colaboradores')">S.
-      Voluntarios Colaboradores</button>
+    <button
+      type="button"
+      class="btn btn-custom-verde_claro"
+      (click)="cambiarTipoDatos('usuarios')"
+    >
+      S. Usuarios
+    </button>
+    <button
+      type="button"
+      class="btn btn-custom-verde_claro"
+      (click)="cambiarTipoDatos('voluntarios')"
+    >
+      S. Voluntarios
+    </button>
+    <button
+      type="button"
+      class="btn btn-custom-verde_claro"
+      (click)="cambiarTipoDatos('beneficiarios')"
+    >
+      S. Beneficarios/Receptores
+    </button>
+    <button
+      type="button"
+      class="btn btn-custom-verde_claro"
+      (click)="cambiarTipoDatos('donadores')"
+    >
+      S. Donador
+    </button>
+    <button
+      type="button"
+      class="btn btn-custom-verde_claro"
+      (click)="cambiarTipoDatos('voluntarios_responsables')"
+    >
+      S. Voluntarios Responsables
+    </button>
+    <button
+      type="button"
+      class="btn btn-custom-verde_claro"
+      (click)="cambiarTipoDatos('voluntarios_colaboradores')"
+    >
+      S. Voluntarios Colaboradores
+    </button>
   </div>
   <!-- </div> -->
+  <!-- Tabla --><!-- Tabla --><!-- Tabla --><!-- Tabla -->
+  <!-- Tabla --><!-- Tabla --><!-- Tabla --><!-- Tabla -->
+  <!-- Tabla --><!-- Tabla --><!-- Tabla --><!-- Tabla -->
 
+  <button
+    type="button"
+    class="btn btn-custom-azul"
+    (click)="actualizarDisplay('usuarios')"
+  >
+    Recargar
+  </button>
+  <div *ngIf="activeDataType === 'usuarios'" class="container">
+    <h1>Usuarios Habilitados</h1>
+  </div>
+  <div *ngIf="activeDataType === 'usuarios'">
+    <!-- <a (click)="displayUsuariosRIP()" >Recargar</a> -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#IDBD</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Teléfono</th>
+          <th scope="col">Rol</th>
+          <th scope="col">Estado</th>
+          <th scope="col">Deshabilitar</th>
+          <!-- <th scope="col">Rechazar</th> -->
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let usersHab of usuariosHabilitados">
+          <th scope="row">{{ usersHab.id }}</th>
+          <td>{{ usersHab.nombre }}</td>
+          <td>{{ usersHab.apellido }}</td>
+          <td>{{ usersHab.correo }}</td>
+          <td>{{ usersHab.telefono }}</td>
+          <td>{{ usersHab.rol }}</td>
+          <td>{{ usersHab.estado }}</td>
+          <td>
+            <button
+              *ngIf="usersHab.nombre !== 'admin'"
+              type="button"
+              class="btn btn-custom"
+              (click)="deshabUsuarioHabilitado(usersHab.id)"
+            >
+              Deshabilitar
+            </button>
+          </td>
+          <!-- <td>
+            <button type="button" class="btn btn-custom" (click)="rechazarSolUsuario(usersHab.id)">Rechazar</button>
+          </td> -->
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Tabla --><!-- Tabla --><!-- Tabla --><!-- Tabla -->
+  <!-- Tabla --><!-- Tabla --><!-- Tabla --><!-- Tabla -->
+  <!-- Tabla --><!-- Tabla --><!-- Tabla --><!-- Tabla -->
+  <div *ngIf="activeDataType === 'usuarios'" class="container1">
+    <h1>Otros Usuarios</h1>
+  </div>
 
   <div *ngIf="activeDataType === 'usuarios'">
-    <button type="button" class="btn btn-custom-azul" (click)="displaySolicitudUsuariosRIP()">Recargar</button>
     <!-- <a (click)="displayUsuariosRIP()" >Recargar</a> -->
     <table class="table">
       <thead>
@@ -36,22 +129,41 @@
       </thead>
       <tbody>
         <tr *ngFor="let usersRIPelement of usersRIP">
-          <th scope="row">{{usersRIPelement.id}}</th>
-          <td>{{usersRIPelement.nombre}}</td>
-          <td>{{usersRIPelement.apellido}}</td>
-          <td>{{usersRIPelement.correo}}</td>
-          <td>{{usersRIPelement.telefono}}</td>
-          <td>{{usersRIPelement.estado}}</td>
+          <th scope="row">{{ usersRIPelement.id }}</th>
+          <td>{{ usersRIPelement.nombre }}</td>
+          <td>{{ usersRIPelement.apellido }}</td>
+          <td>{{ usersRIPelement.correo }}</td>
+          <td>{{ usersRIPelement.telefono }}</td>
+          <td>{{ usersRIPelement.estado }}</td>
           <td>
-            <button *ngIf="usersRIPelement.estado!=='Inabilitado'" type="button" class="btn btn-custom" (click)="aceptar(usersRIPelement.id)">Aceptar</button>
+            <!-- Para que un usuario sea aceptado, debe estar rechazado o pendiente -->
+            <button
+              *ngIf="usersRIPelement.estado !== 'Inabilitado'"
+              type="button"
+              class="btn btn-custom"
+              (click)="aceptarSolUsuario(usersRIPelement.id)"
+            >
+              Aceptar
+            </button>
           </td>
           <td>
-            <button type="button" class="btn btn-custom" (click)="rechazarSolUsuario(usersRIPelement.id)">Rechazar</button>
+            <button
+              type="button"
+              class="btn btn-custom"
+              (click)="rechazarSolUsuario(usersRIPelement.id)"
+            >
+              Rechazar
+            </button>
           </td>
         </tr>
       </tbody>
     </table>
   </div>
+
+  <!-- Tabla --><!-- Tabla --><!-- Tabla --><!-- Tabla -->
+  <!-- Tabla --><!-- Tabla --><!-- Tabla --><!-- Tabla -->
+  <!-- Tabla --><!-- Tabla --><!-- Tabla --><!-- Tabla -->
+
   <div *ngIf="activeDataType === 'usuarios'">
     <!-- <a href="">Usuarios</a> -->
     <table class="table">
@@ -68,16 +180,28 @@
       </thead>
       <tbody>
         <tr *ngFor="let s_usuarios of solDeUsuarios">
-          <th scope="row">{{s_usuarios.id}}</th>
-          <td>{{s_usuarios.nombre}}</td>
-          <td>{{s_usuarios.apellido}}</td>
-          <td>{{s_usuarios.correo}}</td>
-          <td>{{s_usuarios.telefono}}</td>
+          <th scope="row">{{ s_usuarios.id }}</th>
+          <td>{{ s_usuarios.nombre }}</td>
+          <td>{{ s_usuarios.apellido }}</td>
+          <td>{{ s_usuarios.correo }}</td>
+          <td>{{ s_usuarios.telefono }}</td>
           <td>
-            <button type="button" class="btn btn-custom" (click)="aceptar(s_usuarios.id)">Aceptar</button>
+            <button
+              type="button"
+              class="btn btn-custom"
+              (click)="aceptarSolUsuario(s_usuarios.id)"
+            >
+              Aceptar
+            </button>
           </td>
           <td>
-            <button type="button" class="btn btn-custom" (click)="rechazarSolUsuario(s_usuarios.id)">Rechazar</button>
+            <button
+              type="button"
+              class="btn btn-custom"
+              (click)="rechazarSolUsuario(s_usuarios.id)"
+            >
+              Rechazar
+            </button>
           </td>
         </tr>
       </tbody>
@@ -85,11 +209,59 @@
   </div>
   <!-- <button type="button" class="btn btn-custom" (click)="imprimirUsuario()">Imprime usuario en la consola</button> -->
 
-
-
+  <div *ngIf="activeDataType === 'donadores'">
+    <button
+      type="button"
+      class="btn btn-custom-azul"
+      (click)="actualizarDisplay('donadores')"
+    >
+      Recargar
+    </button>
+    <!-- <a (click)="displayUsuariosRIP()" >Recargar</a> -->
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#IDBDVol</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Teléfono</th>
+          <th scope="col">Rol</th>
+          <th scope="col">Aceptar Donante</th>
+          <th scope="col">Rechazar Donante</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sdElement of solDonante">
+          <th scope="row">{{ sdElement.id }}</th>
+          <td>{{ sdElement.nombre }}</td>
+          <td>{{ sdElement.apellido }}</td>
+          <td>{{ sdElement.correo }}</td>
+          <td>{{ sdElement.telefono }}</td>
+          <td>{{ sdElement.rol }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-custom"
+              (click)="aceptarSolDonante(sdElement.id)"
+            >
+              Aceptar
+            </button>
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-custom"
+              (click)="rechazarSolDonante(sdElement.id)"
+            >
+              Rechazar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
-
-
 
 <!-- <div *ngIf="activeDataType === 'voluntarios'">
   <a href="">Voluntarios</a>

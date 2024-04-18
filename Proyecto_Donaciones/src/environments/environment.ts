@@ -10,7 +10,44 @@ export const environment = {
     urlAceptarUsuario: 'http://localhost:8090/messageUser/acceptUser/',
     urlRechazarUsuario: 'http://localhost:8090/messageUser/refusedUser/',
     urlInhabilitarUsuario: 'http://localhost:8090/messageUser/inabilitarUser/', //para usuarios q habian sido aceptados
+    urlUsuariosHabilitados: 'http://localhost:8090/messageUser/getHabilitados', //
+    urlDatosBasicosDeUsuario: 'http://localhost:8090/user/getSimpleUser', // Datos basicos de Usuario, mediante correo
+
+
+
+
+    urlAceptarUsuarioVoluntario: '',
+    urlInabilitarUsuario: 'http://localhost:8090/messageUser/inabilitarUser/', //Inabilitar usuario
+    urlRechazarUsuarioVoluntario: '',
+
+    urlAceptarUsuarioDonante: 'http://localhost:8090/messageUser/acceptMUserRol/',
+    urlRechazarUsuarioDonante: 'http://localhost:8090/messageUser/refusedMUserRol/',
+
+
+    urlFormRepOrgBenefica: '',
+    urlFormRepOrgDonadora: '',
+
     urlFormDonacion: '/', //
     urlFormAlimento: '/', //
     urlFormProducto: '/', //
+
+    urlDataTblAlimentoRecoger: '/', //
+    urlDataTblAlimentoEntregar: '/', //
+    urlDataTblProductoRecoger: '/', //
+    urlDataTblProductoEntregar: '/', //
+
+
+    
+    
+    urlRegistroResponsableRecogerAlimento: '/', //
+    urlNroColaboradoresParaResponsableRecogerAlimento: '/', //
+
+    
+    urlRegistroResponsableRecogerProducto: '/', //
+    urlNroColaboradoresParaResponsableRecogerProducto: '/', //
+
+    urlEnviarRolEscoger: 'http://localhost:8090/userPostRol/escogerRol', //Enviar el rol a escoger, post
+
+
+    urltblDataSolVoluntario: 'http://localhost:8090/messageUser/getPostAllDonantes', //mostrat tabala de solicitud de usuarios para voluntario/Obtener a postulantes Donantes
 }

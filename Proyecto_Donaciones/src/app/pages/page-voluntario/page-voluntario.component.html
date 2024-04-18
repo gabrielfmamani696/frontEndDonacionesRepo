@@ -1,1 +1,141 @@
-<p>page-voluntario works!</p>
+<!-- <p>page-voluntario works!</p> -->
+<h1>Alimento para recoger</h1>
+<div *ngIf="tblAlimentoRecoger">
+  <button type="button" class="btn btn-custom-azul" (click)="displayAlimentoRecoger()">Recargar</button>
+  <!-- <a (click)="displayUsuariosRIP()" >Recargar</a> -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#IDBD</th>
+        <th scope="col">Fecha de Vencimiento</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">¿Ser Responsable?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tblEleAR of tblAlimentoRecoger">
+        <th scope="row">{{tblEleAR.id_alimento}}</th>
+        <td>{{tblEleAR.fecha_venc}}</td>
+        <td>{{tblEleAR.estado}}</td>
+        <td>{{tblEleAR.tipo}}</td>
+        <td>{{tblEleAR.cantidad}}</td>
+        <td>
+          <!-- 
+            <button type="button" class="btn btn-custom"
+              (click)="serResponsableRecogerAlimento(tblEleAR.id_alimento)">Quiero ser Responsable de esta Actividad
+            </button> 
+          -->
+
+          <!-- Button trigger modal -->
+          <button (click)="setCurrentID(tblEleAR.id_alimento)" type="button" class="btn btn-custom"
+            data-bs-toggle="modal" data-bs-target="#ModalRecogerAlimento">
+            Quiero ser Responsable de esta Actividad
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalRecogerAlimento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Establece el numero de colaboradores</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+            <form [formGroup]="formColaboresAlimentoRecoger" (ngSubmit)="enviarFormRecogerAlimento()">
+            
+                <div class="mb-3">
+                    <label for="cantidad" class="labelCustom">Cantidad de colaboradores</label>
+                    <input type="number" class="form-control" id="cantidad" formControlName="cantidad">
+                </div>
+                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Enviar</button>
+            </form>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <h1>Alimento para entregar</h1> -->
+
+<h1>Producto para recoger</h1>
+<div *ngIf="tblProductoRecoger">
+  <button type="button" class="btn btn-custom-azul" (click)="displayProductoRecoger()">Recargar</button>
+  <!-- <a (click)="displayUsuariosRIP()" >Recargar</a> -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#IDBD</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">¿Ser Responsable?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let tblEleAR of tblProductoRecoger">
+        <th scope="row">{{tblEleAR.id_producto}}</th>
+        <td>{{tblEleAR.estado}}</td>
+        <td>{{tblEleAR.cantidad}}</td>
+        <td>{{tblEleAR.tipo}}</td>
+        <td>
+          <!-- 
+            <button type="button" class="btn btn-custom"
+              (click)="serResponsableRecogerAlimento(tblEleAR.id_alimento)">Quiero ser Responsable de esta Actividad
+            </button> 
+          -->
+
+          <!-- Button trigger modal -->
+          <button (click)="setCurrentID(tblEleAR.id_producto)" type="button" class="btn btn-custom"
+            data-bs-toggle="modal" data-bs-target="#ModalRecogerProducto">
+            Quiero ser Responsable de esta Actividad
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="ModalRecogerProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Establece el numero de colaboradores</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+            <form [formGroup]="formColaboresAlimentoRecoger" (ngSubmit)="enviarFormRecogerProducto()">
+            
+                <div class="mb-3">
+                    <label for="cantidad" class="labelCustom">Cantidad de colaboradores P</label>
+                    <input type="number" class="form-control" id="cantidad" formControlName="cantidad">
+                </div>
+                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Enviar</button>
+            </form>
+        </div>
+        
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <h1>Producto para entregar</h1> -->

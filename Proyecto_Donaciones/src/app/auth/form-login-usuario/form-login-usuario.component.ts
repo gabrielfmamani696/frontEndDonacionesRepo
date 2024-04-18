@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 import { LoginService } from '../../services/auth/login.service';
 import { LoginUsuarioRequest } from '../../services/auth/loginUsuarioRequest';
 import { Usuario } from '../../services/auth/usuario';
-//se importan las librerias 
-
+import { currentUsuarioSimpleDataC } from '../../services/models/currentUsuarioSimpleData';
+//se importan las librerias
 
 @Component({
   selector: 'app-form-login-usuario',
@@ -14,7 +14,13 @@ import { Usuario } from '../../services/auth/usuario';
 })
 export class FormLoginUsuarioComponent implements OnInit {
   // loginForm: FormGroup;
+  espera: number = 150;
+  sw: boolean = false;
+  curretUserCorreo?: string;
   currentUser?: Usuario;
+  // currentUsuarioSimpleData: currentUsuarioSimpleDataC = new currentUsuarioSimpleDataC();
+  currentUsuarioSimpleData: currentUsuarioSimpleDataC =
+    new currentUsuarioSimpleDataC();
   loginError: string = '';
   // loginForm esta enlazado al form de la vista mediante [formGroup]="loginForm" (ngSubmit) = "enviar()"
   // se crean los espacios password, con los validadores correspondientes y correo
@@ -51,6 +57,9 @@ export class FormLoginUsuarioComponent implements OnInit {
   //    complete: acciones a continuacion de una conexion completa
   enviarLoginUsuario() {
     if (this.loginForm.valid) {
+      this.loginService.currentCorreoValueSet(
+        this.loginForm.value.correo as string
+      );
       // console.log(this.loginForm);
       // loginForm se envia con formato de  LoginUsuarioRequest
       this.loginService
@@ -61,18 +70,48 @@ export class FormLoginUsuarioComponent implements OnInit {
             this.currentUser = userData;
             // console.log(this.currentUser?.id); //este dato deberia manejarse en otros componentes
             // sessionStorage.setItem('rol', 'usuario');
+            // this.sw = true;
           },
           error: (errorData) => {
             console.log(errorData);
-            this.loginError = errorData;
           },
           complete: () => {
             //confirmacion
             console.log('login completo');
-            //cuando una conexion se completa, se nos envia a la ruta: /datausuario
-            this.router.navigateByUrl('/datausuario');
             //se vacian los datos del formulario
-            this.loginForm.reset();
+
+            // mandar el correo para obtener datos
+            this.loginService
+              .datosbasicoUsuario(this.loginForm.value.correo as string)
+              .subscribe({
+                next: (userSimpleData) => {
+                  // this.currentUsuarioSimpleData = userSimpleData;
+                  // console.log('xddd: ', userSimpleData);
+                  // console.log('xddd222: ', this.currentUsuarioSimpleData);
+                  // console.log('holaaaa: ', this.loginService.getCurrentUsuarioSimpleData());
+                  this.currentUsuarioSimpleData = userSimpleData;
+                  this.loginService.currentUsuarioSimpleDataSet(userSimpleData);
+                  console.log('xddd222: ', this.currentUsuarioSimpleData);
+
+                },
+                error: (errorData) => {
+                  console.log(errorData);
+                },
+                complete: () => {
+
+                  
+                  setTimeout(() => {
+                    // console.log('loading :D: ', this.currentUsuarioSimpleData);
+                    console.log(
+                      'loading :3: ',
+                      this.loginService.getCurrentUsuarioSimpleData()
+                    );
+                    console.log('Completo');
+                    this.loginForm.reset();
+                    this.router.navigateByUrl('/datausuario');
+                  }, this.espera);
+                },
+              });
           },
         });
     } else {
@@ -80,7 +119,6 @@ export class FormLoginUsuarioComponent implements OnInit {
       this.loginForm.markAllAsTouched();
       alert('Error al ingresar los datos');
     }
-    // console.log(this.tipodonacion);
   }
 
   enviarGral() {

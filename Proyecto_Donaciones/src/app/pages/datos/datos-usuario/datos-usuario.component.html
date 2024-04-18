@@ -10,7 +10,9 @@
 
 </div> -->
 
-
+<div *ngIf="currentUserCorreo">
+  Bienvenido {{currentUserCorreo}}
+</div>
 <div *ngIf="userLoginOn">
     <p>Nro. Org.: {{currentRaro?.idorganizacion}}</p>
     <p>Mision: {{currentRaro?.mision}}</p>

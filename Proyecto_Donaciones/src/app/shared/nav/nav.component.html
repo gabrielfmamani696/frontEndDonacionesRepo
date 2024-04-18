@@ -36,7 +36,7 @@
           <a *ngIf="!usuarioLoginOn" class="navbar-brand" routerLink="login">Log in</a>
           <a *ngIf="usuarioLoginOn" class="navbar-brand" routerLink="/" (click)="pageLogOutUsuario()">Cerrar Sesion</a>
           <div *ngIf="usuarioLoginOn" class="btn-group">
-            <div *ngIf="usuarioLoginOn" class="btn-group ">
+            <div *ngIf="usuarioLoginOn" class="btn-group">
 
               
               <button type="button " class="btn btn-custom-verde_claro dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
@@ -56,23 +56,122 @@
                 ¿Deseas colaborar?
               </button>
               <ul class="dropdown-menu dropdown-menu-end ">
-                <li><button class="dropdown-item " type="button" routerLink="solvoluntarios" >Solicitud para ser Voluntario</button></li>
-                <li><button class="dropdown-item " type="button" routerLink="soldonadores" >Solicitud para ser Donador</button></li>
-                <li><button class="dropdown-item " type="button" routerLink="solreceptores" >Solicitud para ser Receptor</button></li>
+                <li><button class="dropdown-item " type="button" (click)="enviarRolVoluntarioSol()" >Solicitud para ser Voluntario</button></li>
+                <li><button class="dropdown-item " type="button" (click)="enviarRolDonadorSol()" >Solicitud para ser Donador</button></li>
+                <li><button class="dropdown-item " type="button" (click)="enviarRolReceptorSol()" >Solicitud para ser Receptor</button></li>
+                <!-- <li><button class="dropdown-item " type="button"  >Solicitud para Representante de Org. Benéfica</button></li> -->
+                <!-- <li><button class="dropdown-item " type="button"  >Solicitud para Representante de Org. Receptora</button></li> -->
+                <li>
+                  <!-- Button trigger modal -->
+                  <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    Solicitud para Representante de Org. Benéfica
+                  </button>
+                </li>
+                <li>
+                  <!-- Button trigger modal -->
+                  <button type="button" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#exampleModal2">
+                    Solicitud para Representante de Org. Receptora
+                  </button>
+                </li>
               </ul>
             </div>
-
+            
 
             <div *ngIf="usuarioLoginOn" class="btn-group ">
               <button type="button " class="btn btn-custom-verde_claro dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 ¿Eres parte de nuestro sistema?
               </button>
               <ul class="dropdown-menu dropdown-menu-end ">
-                <li><button class="dropdown-item " type="button" routerLink="pagevoluntario" >Página de Voluntario</button></li>
-                <li><button class="dropdown-item " type="button" routerLink="pagedonador" >Página de Donador</button></li>
-                <li><button class="dropdown-item " type="button" routerLink="pagebeneficiario" >Página de Receptor</button></li>
+                <li><button class="dropdown-item" type="button" routerLink="pagevoluntario" >Página de Voluntario</button></li>
+                <li><button class="dropdown-item" type="button" routerLink="pagevolColab" >Página de Voluntario-Colaborador</button></li>
+                <li><button class="dropdown-item" type="button" routerLink="pagedonador" >Página de Donador</button></li>
+                <li><button class="dropdown-item" type="button" routerLink="pagebeneficiario" >Página de Receptor</button></li>
               </ul>
             </div>
+            
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Llenar los datos para sel el representante de la Org. Benéfica</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="container">
+                        <form [formGroup]="formSolRepOrgBenefica" (ngSubmit)="enviarFormSolRepOrgBenefica()">
+                        
+                            <div class="mb-3">
+                                <label for="area_servicio" class="form-label">Área de Servicio</label>
+                                <input type="text" class="form-control" id="area_servicio" formControlName="area_servicio">
+                            </div>
+                            <div class="mb-3">
+                                <label for="tipo_a" class="form-label">Tipo de Alimento</label>
+                                <input type="text" class="form-control" id="tipo_a" formControlName="tipo_a">
+                            </div>
+                            <div class="mb-3">
+                                <label for="ubicacion" class="form-label">Ubicación</label>
+                                <input type="text" class="form-control" id="ubicacion" formControlName="ubicacion">
+                            </div>
+                            <div class="mb-3">
+                                <label for="nombre_org" class="form-label">Nombre de la organización</label>
+                                <input type="text" class="form-control" id="nombre_org" formControlName="nombre_org">
+                            </div>
+                            
+
+
+                            <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Enviar</button>
+                        </form>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Llenar los datos para sel el representante de la Org. Receptora</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="modal-body">
+                      <div class="container">
+                          <form [formGroup]="formSolRepOrgReceptora" (ngSubmit)="enviarFormSolRepOrgReceptora()">
+                              <div class="mb-3">
+                                  <label for="nombre_org" class="form-label">Nombre de la organización</label>
+                                  <input type="text" class="form-control" id="nombre_org" formControlName="nombre_org">
+                              </div>
+                          
+                              <div class="mb-3">
+                                  <label for="tipo_org" class="form-label">Tipo de organización (S.A., S.R.L., ...)</label>
+                                  <input type="text" class="form-control" id="tipo_org" formControlName="tipo_org">
+                              </div>
+                              <div class="mb-3">
+                                  <label for="ubicacion" class="form-label">Ubicación</label>
+                                  <input type="text" class="form-control" id="ubicacion" formControlName="ubicacion">
+                              </div>
+                              
+  
+  
+                              <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Enviar</button>
+                          </form>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                    <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
           </div>
           <!-- <a *ngIf="usuarioLoginOn" class="navbar-brand" routerLink="/">Cerrar Sesion</a> -->
           <!-- <h1>{{adminLoginOn}}</h1> -->

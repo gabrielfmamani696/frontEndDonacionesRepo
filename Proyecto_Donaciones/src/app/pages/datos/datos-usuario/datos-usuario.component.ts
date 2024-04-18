@@ -4,6 +4,7 @@ import { Usuario } from '../../../services/auth/usuario';
 import { Raro } from '../../../services/models/raro';
 import { UsuarioActualService } from '../../../services/share/usuario-actual.service';
 import { Usuario2 } from '../../../services/auth/usuario2';
+import { currentUsuarioSimpleDataC } from '../../../services/models/currentUsuarioSimpleData';
 
 @Component({
   selector: 'app-datos-usuario',
@@ -16,6 +17,9 @@ export class DatosUsuarioComponent implements OnInit {
   userLoginOn: Boolean = false;
   currentUser?: Usuario;
   currentRaro?: Raro;
+  currentUserCorreo?: string;
+  currentUsuarioSimpleData: currentUsuarioSimpleDataC =
+    new currentUsuarioSimpleDataC();
   // userData?: Usuario;
   constructor(private loginService: LoginService, private userDataShare: UsuarioActualService) {}
 
@@ -26,6 +30,9 @@ export class DatosUsuarioComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuarioActualmenteActivo = this.userDataShare.getUsuarioActualmenteActivo();
+    this.currentUsuarioSimpleData = this.loginService.getCurrentUsuarioSimpleData();
+    // this.currentUserCorreo = this.loginService.getCurrentCorreoValue();
+    this.currentUserCorreo = this.currentUsuarioSimpleData.correo;
     this.isUserLoginOn();
 
     // this.loginService.currentUserData.subscribe({

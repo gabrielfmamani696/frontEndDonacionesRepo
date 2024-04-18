@@ -12,6 +12,15 @@ import { usuarioAceptado } from '../models/usuarioAceptado';
 import { formDonacion } from '../models/formDonacion';
 import { formAlimento } from '../models/formAlimento';
 import { formProducto } from '../models/formProducto';
+import { formRepOrgBenefica } from '../models/formRepOrgBenefica';
+import { formRepOrgReceptora } from '../models/formRepOrgReceptora';
+import { Alimento } from '../models/alimento';
+import { Producto } from '../models/producto';
+import { formEnviarRolEscoger } from '../models/formEnviarRolEscoger';
+import { solUsuarioVoluntario } from '../models/solUsuarioVoluntario';
+import { solUsuarioDonador } from '../models/solUsuarioDonador';
+import { usuariosHabilitados } from '../models/usuariosHabilitados';
+import { currentUsuarioSimpleDataC } from '../models/currentUsuarioSimpleData';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +41,10 @@ export class LoginService {
   );
   currentUserData: BehaviorSubject<String> = new BehaviorSubject<String>('');
   currentUserID: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  currentUserCorreo: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  currentUsuarioSimpleData: BehaviorSubject<currentUsuarioSimpleDataC> = 
+    new BehaviorSubject<currentUsuarioSimpleDataC>( new currentUsuarioSimpleDataC);
+
 
   adminLoginOn: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(false);
   solUsuarios: BehaviorSubject<Usuario[]> = new BehaviorSubject<Usuario[]>([]);
@@ -40,10 +53,10 @@ export class LoginService {
   // solo para llenar
   users: Usuario = {
     id: 1,
-    nombre: 'Juan',
+    nombre: 'auto',
     apellido: 'Pérez',
-    contrasena: 'contraseña123',
-    confcontrasena: 'contraseña123',
+    contrasena: 'auto',
+    confcontrasena: 'auto',
     correo: 'juan@example.com',
     telefono: 123456789,
   };
@@ -64,12 +77,12 @@ export class LoginService {
 
   // Usuario actualmente activo
   // usuarioActualmenteActivo: BehaviorSubject<Usuario> = new BehaviorSubject<Usuario>();
-  usuarioActualmenteActivo: BehaviorSubject<Usuario | null> = new BehaviorSubject<Usuario | null>(null);
+  usuarioActualmenteActivo: BehaviorSubject<Usuario | null> =
+    new BehaviorSubject<Usuario | null>(null);
 
-
-  // 
-  // 
-  // 
+  //
+  //
+  //
   constructor(private http: HttpClient) {
     /**
      * Revision de sessionStorage pues genera errores
@@ -104,6 +117,15 @@ export class LoginService {
     //a su vez le esta mandando la BD, TODO EN FORMATO JSON
   }
 
+  enviarRolEscoger(credentials: formEnviarRolEscoger): Observable<any>{
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http.post(environment.urlEnviarRolEscoger, credentials, { headers: head, responseType: 'text'}).pipe(
+      catchError(this.handleError)
+    );
+    
+  }
+
   registroUsuario(data: formSolUsuario): Observable<any> {
     return this.http
       .post(environment.urlFormSolUsuario, data, { responseType: 'text' })
@@ -111,30 +133,82 @@ export class LoginService {
   }
 
   registroDonacion(data: formDonacion): Observable<any> {
-    return this.http.post(environment.urlFormDonacion, data ).pipe(
+    return this.http.post(environment.urlFormDonacion, data).pipe(
       tap((userData) => {
         this.currentUserLoginOn.next(true);
       }),
       catchError(this.handleError)
-    )
+    );
   }
   registroAlimento(data: formAlimento): Observable<any> {
-    return this.http.post(environment.urlFormAlimento, data ).pipe(
+    return this.http.post(environment.urlFormAlimento, data).pipe(
       tap((userData) => {
         // this.currentUserLoginOn.next(true);
       }),
       catchError(this.handleError)
-    )
+    );
   }
   registroProducto(data: formProducto): Observable<any> {
-    return this.http.post(environment.urlFormProducto, data ).pipe(
+    return this.http.post(environment.urlFormProducto, data).pipe(
       tap((userData) => {
         // this.currentUserLoginOn.next(true);
       }),
       catchError(this.handleError)
-    )
+    );
   }
 
+  registroRepOrgBenefica(data: formRepOrgBenefica): Observable<any> {
+    return this.http.post(environment.urlFormRepOrgBenefica, data).pipe(
+      tap((userData) => {
+        // this.currentUserLoginOn.next(true);
+      }),
+      catchError(this.handleError)
+    );
+  }
+  registroRepOrgReceptora(data: formRepOrgReceptora): Observable<any> {
+    return this.http.post(environment.urlFormRepOrgDonadora, data).pipe(
+      tap((userData) => {
+        // this.currentUserLoginOn.next(true);
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+
+  registroResponsableRecogerAlimento(info: Usuario): Observable<any>{
+    return this.http.post(environment.urlRegistroResponsableRecogerAlimento, info).pipe(
+      tap((userData) => {
+        // this.currentUserLoginOn.next(true);
+      }),
+      catchError(this.handleError)
+    );
+  }
+  registroNroColaboradoresParaResponsableRecogerAlimento(data: number): Observable<any>{
+    return this.http.post(environment.urlNroColaboradoresParaResponsableRecogerAlimento, data).pipe(
+      tap((userData) => {
+        // this.currentUserLoginOn.next(true);
+      }),
+      catchError(this.handleError)
+    );
+  }
+  ////
+  registroResponsableRecogerProducto(info: Usuario): Observable<any>{
+    return this.http.post(environment.urlRegistroResponsableRecogerProducto, info).pipe(
+      tap((userData) => {
+        // this.currentUserLoginOn.next(true);
+      }),
+      catchError(this.handleError)
+    );
+  }
+  registroNroColaboradoresParaResponsableRecogerProducto(data: number): Observable<any>{
+    return this.http.post(environment.urlNroColaboradoresParaResponsableRecogerProducto, data).pipe(
+      tap((userData) => {
+        // this.currentUserLoginOn.next(true);
+      }),
+      catchError(this.handleError)
+    );
+  }
+  ////
   // inyectar servicio en navbar
   // logout(): void{
   //   sessionStorage.removeItem("token");
@@ -167,12 +241,51 @@ export class LoginService {
   logoutUsuario(): void {
     this.currentUserLoginOn.next(false);
   }
-  
-// para setear el valor al id del usuario
-  currentIdValueSet(id: number):void {
-    this.currentUserID
-    .next(id);
+
+  // para setear el valor al id del usuario
+  currentIdValueSet(id: number): void {
+    this.currentUserID.next(id);
   }
+  // para setear el valor al id del usuario
+  currentCorreoValueSet(correo: string): void {
+    this.currentUserCorreo.next(correo);
+  }
+
+  getCurrentCorreoValue(): string {
+    return this.currentUserCorreo.getValue();
+  }
+
+  currentUsuarioSimpleDataSet(cuData: currentUsuarioSimpleDataC): void {
+    this.currentUsuarioSimpleData.next(cuData);
+  }
+
+  getCurrentUsuarioSimpleData(): currentUsuarioSimpleDataC {
+    return this.currentUsuarioSimpleData.getValue();
+  }
+
+  datosbasicoUsuario(correo: string): Observable<currentUsuarioSimpleDataC> {
+    let token = sessionStorage.getItem('token');
+    // console.log(token);
+
+    // const headers = new HttpHeaders({'Authorization': `Bearer ${token}`});
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    const body = { correo: correo };
+    // console.log('XD: ', correo);
+    
+    return this.http
+      .post<currentUsuarioSimpleDataC>(environment.urlDatosBasicosDeUsuario, body, { headers: head })
+      .pipe(
+        tap((userInfo) => {
+          // this.currentUsuarioSimpleDataSet(userInfo);
+          // console.log('xd: ', this.getCurrentUsuarioSimpleData());
+          
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+
+
 
   adminRol(): void {
     this.rol.next('admin');
@@ -186,7 +299,6 @@ export class LoginService {
     this.usuarioActualmenteActivo.next(usuario);
   }
 
-
   getUsuarioActualmenteActivo(): Usuario | null {
     return this.usuarioActualmenteActivo.getValue();
   }
@@ -196,10 +308,6 @@ export class LoginService {
   // actualizacion de valores actualizacion de valores actualizacion de valores actualizacion de valores
   // actualizacion de valores actualizacion de valores actualizacion de valores actualizacion de valores
   // actualizacion de valores actualizacion de valores actualizacion de valores actualizacion de valores
-
-
-
-
 
   // adminValueVoid(): void {
   //   this.rol.next('')
@@ -268,7 +376,18 @@ export class LoginService {
       );
   }
 
-  userAceptar(id: number): Observable<string> {
+  userInhabilitar(id: number): Observable<string> {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+
+    return this.http
+      .get(environment.urlInabilitarUsuario + id, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(catchError(this.handleError));
+  }
+  userSolAceptar(id: number): Observable<string> {
     let token = sessionStorage.getItem('token');
     const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
 
@@ -288,6 +407,72 @@ export class LoginService {
       .get(environment.urlRechazarUsuario + id, {
         headers: head,
         responseType: 'text',
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  userVolSolAceptar(id: number): Observable<any> {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+
+    return this.http
+      .get(environment.urlAceptarUsuarioVoluntario + id, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(catchError(this.handleError));
+  }
+  userVolSolRechazar(id: number): Observable<any> {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+
+    return this.http
+      .get(environment.urlRechazarUsuarioVoluntario + id, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(catchError(this.handleError));
+  }
+  userSolDonanteAceptar(id: number) {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+
+    return this.http
+      .get(environment.urlAceptarUsuarioDonante + id, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(catchError(this.handleError));
+  }
+  
+  userSolDonanteRechazar(id: number): Observable<any> {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+
+    return this.http
+      .delete(environment.urlRechazarUsuarioDonante + id, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  tblDataSolDonante(): Observable<solUsuarioDonador[]> {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http
+      .get<solUsuarioDonador[]>(environment.urltblDataSolVoluntario, {
+        headers: head
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  tblUsuariosHabilitados(): Observable<usuariosHabilitados[]> {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http
+      .get<usuariosHabilitados[]>(environment.urlUsuariosHabilitados, {
+        headers: head
       })
       .pipe(catchError(this.handleError));
   }
@@ -313,6 +498,53 @@ export class LoginService {
         catchError(this.handleError)
       );
   }
+
+  dataTblAlimentoRecoger(): Observable<Alimento[]> {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http.get<Alimento[]>(environment.urlDataTblAlimentoRecoger, { headers: head }).pipe(
+      tap((data) => {
+        // this.currentUsersRIP.next(data);
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  dataTblAlimentoEntregar(): Observable<Alimento[]> {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http.get<Alimento[]>(environment.urlDataTblAlimentoEntregar, { headers: head }).pipe(
+      tap((data) => {
+        // this.currentUsersRIP.next(data);
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  dataTblProductoRecoger(): Observable<Producto[]> {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http.get<Producto[]>(environment.urlDataTblProductoRecoger, { headers: head }).pipe(
+      tap((data) => {
+        // this.currentUsersRIP.next(data);
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+  dataTblProductoEntregar(): Observable<Producto[]> {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http.get<Producto[]>(environment.urlDataTblProductoEntregar, { headers: head }).pipe(
+      tap((data) => {
+        // this.currentUsersRIP.next(data);
+      }),
+      catchError(this.handleError)
+    );
+  }
+
+
+
 
   get userData(): Observable<String> {
     return this.currentUserData.asObservable();

@@ -3,6 +3,9 @@ import { Usuario } from '../../services/auth/usuario';
 import { LoginService } from '../../services/auth/login.service';
 import { Router } from '@angular/router';
 import { usuarioRechazadoInabilitadoPendiente } from '../../services/models/usuarioRechazadoInabilitadoPendiente';
+import { solUsuarioVoluntario } from '../../services/models/solUsuarioVoluntario';
+import { solUsuarioDonador } from '../../services/models/solUsuarioDonador';
+import { usuariosHabilitados } from '../../services/models/usuariosHabilitados';
 
 @Component({
   selector: 'app-pagina-admin',
@@ -52,16 +55,29 @@ export class PaginaAdminComponent implements OnInit {
   ];
 
   usersRIP: usuarioRechazadoInabilitadoPendiente[] = [];
+  solDonante: solUsuarioDonador[] = []
+  usuariosHabilitados: usuariosHabilitados [] = []
 
   constructor(private router: Router, private loginService: LoginService) {}
 
   ngOnInit(): void {
     // this.displaySolUsuarios();
     this.displaySolicitudUsuariosRIP();
+    this.displaySolDonante();
+    this.displayUsuariosHabilitados();
   }
   // TODO necesito un token
   // TODO necesito un token
   // TODO necesito un token
+
+  actualizarDisplay(seccion: string){
+    if(seccion === 'usuarios'){
+      this.displaySolicitudUsuariosRIP();
+      this.displayUsuariosHabilitados();
+    } else if (seccion === 'donadores'){
+      this.displaySolDonante();
+    }
+  }
   // TODO necesito un token
   // TODO necesito un token
   displaySolicitudUsuariosRIP() {
@@ -77,6 +93,37 @@ export class PaginaAdminComponent implements OnInit {
         // console.log("Despliegue de datos completo");
       },
     });
+  }
+
+  displayUsuariosHabilitados(){
+    this.loginService.tblUsuariosHabilitados().subscribe({
+      next: (tblUsuariosHabilitados) => {
+        this.usuariosHabilitados = tblUsuariosHabilitados;
+      },
+      error: (errorData) => {
+        // console.log(errorData);
+        this.loginError = errorData;
+      },
+      complete: () => {
+        // console.log("Despliegue de datos completo");
+      },
+    })
+  }
+
+  displaySolDonante(){
+    this.loginService.tblDataSolDonante().subscribe({
+      next: (tbl) => {
+        this.solDonante = tbl;
+      },
+      error: (errorData) => {
+        // console.log(errorData);
+        this.loginError = errorData;
+      },
+      complete: () => {
+        // console.log("Despliegue de datos completo");
+      },
+      
+    })
   }
 
   displaySolUsuarios() {
@@ -107,9 +154,26 @@ export class PaginaAdminComponent implements OnInit {
   //
   mensajeAceptado?: string;
   // acepta la solicitud
-  aceptar(id: number) {
+  deshabUsuarioHabilitado(id: number) {
     // console.log('aceptado', id);
-    this.loginService.userAceptar(id).subscribe({
+    this.loginService.userInhabilitar(id).subscribe({
+      next: (info) => {
+        this.aceptarText = info;
+        console.log('Aviso: ' + this.aceptarText);
+      },
+      error: (errorData) => {
+        this.loginError = errorData;
+      },
+      complete: () => {
+        console.log('usuario aceptado');
+      },
+    });
+    // this.displaySolicitudUsuariosRIP();
+  }
+  // acepta la solicitud
+  aceptarSolUsuario(id: number) {
+    // console.log('aceptado', id);
+    this.loginService.userSolAceptar(id).subscribe({
       next: (info) => {
         this.aceptarText = info;
         console.log('Aviso: ' + this.aceptarText);
@@ -134,10 +198,66 @@ export class PaginaAdminComponent implements OnInit {
         this.loginError = errorData;
       },
       complete: () => {
-        console.log('usuario rechazado');
+        // console.log('usuario rechazado');
       },
     });
   }
+
+  aceptarSolVol(id: number){
+    this.loginService.userVolSolAceptar(id).subscribe({
+      next: (info) => {
+        console.log('Aviso: ' + info);
+      },
+      error: (errorData) => {
+        this.loginError = errorData;
+      },
+      complete: () => {
+        // console.log('usuario rechazado');
+      },
+    })
+  }
+  
+  rechazarSolVol(id: number){
+    this.loginService.userVolSolRechazar(id).subscribe({
+      next: (info) => {
+        console.log('Aviso: ' + info);
+      },
+      error: (errorData) => {
+        this.loginError = errorData;
+      },
+      complete: () => {
+        // console.log('usuario rechazado');
+      },
+    })
+  }
+  aceptarSolDonante(id: number){
+    this.loginService.userSolDonanteAceptar(id).subscribe({
+      next: (info) => {
+        console.log('Aviso: ' + info);
+      },
+      error: (errorData) => {
+        this.loginError = errorData;
+      },
+      complete: () => {
+        // console.log('usuario rechazado');
+      },
+    })
+  }
+  
+  rechazarSolDonante(id: number){
+    this.loginService.userSolDonanteRechazar(id).subscribe({
+      next: (info) => {
+        console.log('Aviso: ' + info);
+      },
+      error: (errorData) => {
+        this.loginError = errorData;
+      },
+      complete: () => {
+        // console.log('usuario rechazado');
+      },
+    })
+  }
+
 
   // usuarioBuscado?: Usuario;
 

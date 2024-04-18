@@ -1,0 +1,66 @@
+:root {
+    --dark-color: #053c40;
+    --light-color: #1f9bab;
+    --accent-color: #6ca40d;
+  }
+  
+  h2 {
+    color: var(--light-color);
+  }
+  
+  .btn-outline-primary {
+    border-color: var(--light-color);
+    color: var(--light-color);
+  }
+  
+  .btn-outline-primary:hover {
+    background-color: var(--light-color);
+    color: #fff;
+  }
+  
+  .btn-outline-secondary {
+    border-color: var(--accent-color);
+    color: var(--accent-color);
+  }
+  
+  .btn-outline-secondary:hover {
+    background-color: var(--accent-color);
+    color: #fff;
+  }
+  
+  /* Asegúrate de personalizar más según tus necesidades */
+  
+  /* Estilos personalizados para los botones */
+.btn-custom-verde_oscuro {
+  color: #ffffff; /* Color del texto */
+  background-color: #053c3f; /* Color de fondo personalizado */
+  border-color: #053c3f; /* Color del borde */
+}
+
+.btn-custom-verde_oscuro:hover {
+  background-color: #032728; /* Cambiar color de fondo al pasar el ratón por encima */
+  border-color: #032728; /* Cambiar color del borde al pasar el ratón por encima */
+}
+
+.btn-custom-verde_claro {
+  color: #ffffff; /* Color del texto */
+  background-color: #6ca40d; /* Color de fondo personalizado */
+  border-color: #6ca40d; /* Color del borde */
+}
+
+.btn-custom-verde_claro:hover {
+  background-color: #4e7b0a; /* Cambiar color de fondo al pasar el ratón por encima */
+  border-color: #4e7b0a; /* Cambiar color del borde al pasar el ratón por encima */
+}
+
+.btn-custom-azul {
+  color: #ffffff; /* Color del texto */
+  background-color: #209bab; /* Color de fondo personalizado */
+  border-color: #209bab; /* Color del borde */
+}
+
+.btn-custom-azul:hover {
+  background-color: #0d7685; /* Cambiar color de fondo al pasar el ratón por encima */
+  border-color: #0d7685; /* Cambiar color del borde al pasar el ratón por encima */
+}
+
