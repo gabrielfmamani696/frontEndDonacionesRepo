@@ -1,5 +1,5 @@
 export interface usuarioRechazadoInabilitadoPendiente {
-    id: number,
+    idUser: number,
     nombre: string,
     apellido: string,
     correo: string,

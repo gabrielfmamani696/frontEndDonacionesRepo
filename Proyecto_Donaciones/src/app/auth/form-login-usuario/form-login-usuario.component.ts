@@ -91,7 +91,7 @@ export class FormLoginUsuarioComponent implements OnInit {
                   // console.log('holaaaa: ', this.loginService.getCurrentUsuarioSimpleData());
                   this.currentUsuarioSimpleData = userSimpleData;
                   this.loginService.currentUsuarioSimpleDataSet(userSimpleData);
-                  console.log('xddd222: ', this.currentUsuarioSimpleData);
+                  // console.log('xddd222: ', this.currentUsuarioSimpleData);
 
                 },
                 error: (errorData) => {

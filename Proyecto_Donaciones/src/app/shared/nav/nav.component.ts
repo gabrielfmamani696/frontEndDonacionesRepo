@@ -4,6 +4,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { formRepOrgBenefica } from '../../services/models/formRepOrgBenefica';
 import { formRepOrgReceptora } from '../../services/models/formRepOrgReceptora';
 import { formEnviarRolEscoger } from '../../services/models/formEnviarRolEscoger';
+import { currentUsuarioSimpleDataC } from '../../services/models/currentUsuarioSimpleData';
 
 @Component({
   selector: 'app-nav',
@@ -39,6 +40,7 @@ export class NavComponent implements OnInit {
     contenido: '',
   };
 
+  currentUsuarioSimpleData: currentUsuarioSimpleDataC = new currentUsuarioSimpleDataC();
   // usuarioLoginOn: Boolean =true;
   constructor(private loginService: LoginService, private fb: FormBuilder) {}
 
@@ -47,7 +49,8 @@ export class NavComponent implements OnInit {
   //   this.loginService.currentUserLoginOn.unsubscribe();
   // }
 
-  ngOnInit(): void {
+  ngOnInit(): void {//este oninit se inicia desde la pagina home
+    // console.log('', this.currentUsuarioSimpleData);
     // alerta al cambio en currentUserLoginOn
     this.isUserLoginOn();
     // this.currentUserCorreo = this.loginService.getCurrentCorreoValue();
@@ -253,6 +256,30 @@ export class NavComponent implements OnInit {
     this.loginService.nadaRol();
   }
 
+  escogerSubRolVol(rol: string){
+    
+    this.currentUsuarioSimpleData = this.loginService.getCurrentUsuarioSimpleData();
+    setTimeout(() => {
+      console.log(this.currentUsuarioSimpleData.rol);
+      if(this.currentUsuarioSimpleData.rol === 'Voluntario'){
+        // this.currentUsuarioSimpleData = this.loginService.getCurrentUsuarioSimpleData();
+        
+        // console.log('', this.currentUsuarioSimpleData.correo);
+        this.loginService.escogerSubRolVol(this.currentUsuarioSimpleData.correo, rol).subscribe({
+          next: (salida) => {
+            console.log('salida: ', salida);
+            alert('Su solicitud para ser ' + rol + ' ha sido enviada.')
+          },
+        });
+
+        // setTimeout(() => {
+        // }, 100);
+      } else {
+        alert('necesitas ser parte de los usuarios voluntarios para acceder a esta opcion ')
+      }
+    }, 200);
+    
+  }
   // TODO
   // Faltan otras 2 para usuario loggeado
 }

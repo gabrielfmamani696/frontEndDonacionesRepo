@@ -1,37 +1,43 @@
 <!-- <p>page-voluntario works!</p> -->
-<h1>Alimento para recoger</h1>
-<div *ngIf="tblAlimentoRecoger">
-  <button type="button" class="btn btn-custom-azul" (click)="displayAlimentoRecoger()">Recargar</button>
-  <!-- <a (click)="displayUsuariosRIP()" >Recargar</a> -->
+<h1>Alimento y productos para recoger</h1>
+<button type="button" class="btn btn-custom-azul" (click)="urlGetDonNoRealizadas()">Recargar</button>
+<div *ngIf="tblUrlGetDonNoRealizadas">
   <table class="table">
     <thead>
       <tr>
-        <th scope="col">#IDBD</th>
-        <th scope="col">Fecha de Vencimiento</th>
+        <th scope="col">#id</th>
+        <th scope="col">NombreU</th>
+        <th scope="col">ApellidoU</th>
+        <th scope="col">FonoU</th>
+        <th scope="col">Ctd</th>
+        <th scope="col">A/p</th>
+        <th scope="col">FechaHoraProg</th>
         <th scope="col">Estado</th>
-        <th scope="col">Tipo</th>
-        <th scope="col">Cantidad</th>
+        <!-- <th scope="col">MailResp.</th> -->
+        <th scope="col">#ColReq</th>
+        <th scope="col">#Col</th>
         <th scope="col">¿Ser Responsable?</th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let tblEleAR of tblAlimentoRecoger">
-        <th scope="row">{{tblEleAR.id_alimento}}</th>
-        <td>{{tblEleAR.fecha_venc}}</td>
-        <td>{{tblEleAR.estado}}</td>
-        <td>{{tblEleAR.tipo}}</td>
-        <td>{{tblEleAR.cantidad}}</td>
+      <tr *ngFor="let elementA of tblUrlGetDonacionesNoRealizadasSinResponsable">
+        <th scope="row">{{elementA.idDonacion}}</th>
+        <td>{{elementA.nombreU}}</td>
+        <td>{{elementA.apellidoU}}</td>
+        <td>{{elementA.telefonoU}}</td>
+        <td>{{elementA.cantidad}}</td>
+        <td>{{elementA.tipo_ap}}</td>
+        <td>{{elementA.fechaHoraProg}}</td>
+        <td>{{elementA.estado}}</td>
+        <!-- <td>{{elementA.correoResponsable}}</td> -->
+        <td>{{elementA.nroRequeridoCol}}</td>
+        <td>{{elementA.nroColaboradores}}</td>
         <td>
-          <!-- 
-            <button type="button" class="btn btn-custom"
-              (click)="serResponsableRecogerAlimento(tblEleAR.id_alimento)">Quiero ser Responsable de esta Actividad
-            </button> 
-          -->
+          
 
-          <!-- Button trigger modal -->
-          <button (click)="setCurrentID(tblEleAR.id_alimento)" type="button" class="btn btn-custom"
+          <button (click)="setCurrentID(elementA.idDonacion)" type="button" class="btn btn-custom"
             data-bs-toggle="modal" data-bs-target="#ModalRecogerAlimento">
-            Quiero ser Responsable de esta Actividad
+            Ser Responsable
           </button>
         </td>
       </tr>
@@ -39,8 +45,6 @@
   </table>
 </div>
 
-
-<!-- Modal -->
 <div class="modal fade" id="ModalRecogerAlimento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -61,20 +65,17 @@
         </div>
         
       </div>
-      <div class="modal-footer">
+      <!-- <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-      </div>
+      </div> -->
     </div>
   </div>
 </div>
 
-<!-- <h1>Alimento para entregar</h1> -->
 
-<h1>Producto para recoger</h1>
+<!-- <h1>Producto para recoger</h1>
 <div *ngIf="tblProductoRecoger">
   <button type="button" class="btn btn-custom-azul" (click)="displayProductoRecoger()">Recargar</button>
-  <!-- <a (click)="displayUsuariosRIP()" >Recargar</a> -->
   <table class="table">
     <thead>
       <tr>
@@ -92,13 +93,8 @@
         <td>{{tblEleAR.cantidad}}</td>
         <td>{{tblEleAR.tipo}}</td>
         <td>
-          <!-- 
-            <button type="button" class="btn btn-custom"
-              (click)="serResponsableRecogerAlimento(tblEleAR.id_alimento)">Quiero ser Responsable de esta Actividad
-            </button> 
-          -->
 
-          <!-- Button trigger modal -->
+
           <button (click)="setCurrentID(tblEleAR.id_producto)" type="button" class="btn btn-custom"
             data-bs-toggle="modal" data-bs-target="#ModalRecogerProducto">
             Quiero ser Responsable de esta Actividad
@@ -109,7 +105,6 @@
   </table>
 </div>
 
-<!-- Modal -->
 <div class="modal fade" id="ModalRecogerProducto" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -132,10 +127,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
       </div>
     </div>
   </div>
-</div>
-
-<!-- <h1>Producto para entregar</h1> -->
+</div> -->

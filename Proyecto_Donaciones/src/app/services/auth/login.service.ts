@@ -21,6 +21,9 @@ import { solUsuarioVoluntario } from '../models/solUsuarioVoluntario';
 import { solUsuarioDonador } from '../models/solUsuarioDonador';
 import { usuariosHabilitados } from '../models/usuariosHabilitados';
 import { currentUsuarioSimpleDataC } from '../models/currentUsuarioSimpleData';
+import { postulantesSubRolVolC } from '../models/postulantesSubRolVol';
+import { getAllPostulantesRolVolC } from '../models/getAllPostulantesRolVol';
+import { urlGetDonNoRealizadasC } from '../models/getDonNoRealizadas';
 
 @Injectable({
   providedIn: 'root',
@@ -42,9 +45,10 @@ export class LoginService {
   currentUserData: BehaviorSubject<String> = new BehaviorSubject<String>('');
   currentUserID: BehaviorSubject<number> = new BehaviorSubject<number>(0);
   currentUserCorreo: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  currentUsuarioSimpleData: BehaviorSubject<currentUsuarioSimpleDataC> = 
-    new BehaviorSubject<currentUsuarioSimpleDataC>( new currentUsuarioSimpleDataC);
-
+  currentUsuarioSimpleData: BehaviorSubject<currentUsuarioSimpleDataC> =
+    new BehaviorSubject<currentUsuarioSimpleDataC>(
+      new currentUsuarioSimpleDataC()
+    );
 
   adminLoginOn: BehaviorSubject<Boolean> = new BehaviorSubject<Boolean>(false);
   solUsuarios: BehaviorSubject<Usuario[]> = new BehaviorSubject<Usuario[]>([]);
@@ -117,13 +121,17 @@ export class LoginService {
     //a su vez le esta mandando la BD, TODO EN FORMATO JSON
   }
 
-  enviarRolEscoger(credentials: formEnviarRolEscoger): Observable<any>{
+  enviarRolEscoger(credentials: formEnviarRolEscoger): Observable<any> {
     let token = sessionStorage.getItem('token');
     const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
-    return this.http.post(environment.urlEnviarRolEscoger, credentials, { headers: head, responseType: 'text'}).pipe(
-      catchError(this.handleError)
-    );
-    
+    console.log('', credentials);
+
+    return this.http
+      .post(environment.urlEnviarRolEscoger, credentials, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(catchError(this.handleError));
   }
 
   registroUsuario(data: formSolUsuario): Observable<any> {
@@ -133,28 +141,52 @@ export class LoginService {
   }
 
   registroDonacion(data: formDonacion): Observable<any> {
-    return this.http.post(environment.urlFormDonacion, data).pipe(
-      tap((userData) => {
-        this.currentUserLoginOn.next(true);
-      }),
-      catchError(this.handleError)
-    );
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    console.log(data);
+    return this.http
+      .post(environment.urlFormDonacion, data, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(
+        // tap((userData) => {
+        //   // this.currentUserLoginOn.next(true);
+        //   console.log('salida: ', userData);
+
+        // }),
+        catchError(this.handleError)
+      );
   }
   registroAlimento(data: formAlimento): Observable<any> {
-    return this.http.post(environment.urlFormAlimento, data).pipe(
-      tap((userData) => {
-        // this.currentUserLoginOn.next(true);
-      }),
-      catchError(this.handleError)
-    );
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http
+      .post(environment.urlFormAlimento, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(
+        tap((userData) => {
+          // this.currentUserLoginOn.next(true);
+        }),
+        catchError(this.handleError)
+      );
   }
   registroProducto(data: formProducto): Observable<any> {
-    return this.http.post(environment.urlFormProducto, data).pipe(
-      tap((userData) => {
-        // this.currentUserLoginOn.next(true);
-      }),
-      catchError(this.handleError)
-    );
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http
+      .post(environment.urlFormProducto, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(
+        tap((userData) => {
+          // this.currentUserLoginOn.next(true);
+        }),
+        catchError(this.handleError)
+      );
   }
 
   registroRepOrgBenefica(data: formRepOrgBenefica): Observable<any> {
@@ -174,39 +206,50 @@ export class LoginService {
     );
   }
 
-
-  registroResponsableRecogerAlimento(info: Usuario): Observable<any>{
-    return this.http.post(environment.urlRegistroResponsableRecogerAlimento, info).pipe(
-      tap((userData) => {
-        // this.currentUserLoginOn.next(true);
-      }),
-      catchError(this.handleError)
-    );
+  registroResponsableRecogerAlimento(info: Usuario): Observable<any> {
+    return this.http
+      .post(environment.urlRegistroResponsableRecogerAlimento, info)
+      .pipe(
+        tap((userData) => {
+          // this.currentUserLoginOn.next(true);
+        }),
+        catchError(this.handleError)
+      );
   }
-  registroNroColaboradoresParaResponsableRecogerAlimento(data: number): Observable<any>{
-    return this.http.post(environment.urlNroColaboradoresParaResponsableRecogerAlimento, data).pipe(
-      tap((userData) => {
-        // this.currentUserLoginOn.next(true);
-      }),
-      catchError(this.handleError)
-    );
+  registroNroColaboradoresParaResponsableRecogerAlimento(
+    data: number
+  ): Observable<any> {
+    return this.http
+      .post(environment.urlNroColaboradoresParaResponsableRecogerAlimento, data)
+      .pipe(
+        tap((userData) => {
+          // this.currentUserLoginOn.next(true);
+        }),
+        catchError(this.handleError)
+      );
   }
   ////
-  registroResponsableRecogerProducto(info: Usuario): Observable<any>{
-    return this.http.post(environment.urlRegistroResponsableRecogerProducto, info).pipe(
-      tap((userData) => {
-        // this.currentUserLoginOn.next(true);
-      }),
-      catchError(this.handleError)
-    );
+  registroResponsableRecogerProducto(info: Usuario): Observable<any> {
+    return this.http
+      .post(environment.urlRegistroResponsableRecogerProducto, info)
+      .pipe(
+        tap((userData) => {
+          // this.currentUserLoginOn.next(true);
+        }),
+        catchError(this.handleError)
+      );
   }
-  registroNroColaboradoresParaResponsableRecogerProducto(data: number): Observable<any>{
-    return this.http.post(environment.urlNroColaboradoresParaResponsableRecogerProducto, data).pipe(
-      tap((userData) => {
-        // this.currentUserLoginOn.next(true);
-      }),
-      catchError(this.handleError)
-    );
+  registroNroColaboradoresParaResponsableRecogerProducto(
+    data: number
+  ): Observable<any> {
+    return this.http
+      .post(environment.urlNroColaboradoresParaResponsableRecogerProducto, data)
+      .pipe(
+        tap((userData) => {
+          // this.currentUserLoginOn.next(true);
+        }),
+        catchError(this.handleError)
+      );
   }
   ////
   // inyectar servicio en navbar
@@ -271,21 +314,21 @@ export class LoginService {
     const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
     const body = { correo: correo };
     // console.log('XD: ', correo);
-    
+
     return this.http
-      .post<currentUsuarioSimpleDataC>(environment.urlDatosBasicosDeUsuario, body, { headers: head })
+      .post<currentUsuarioSimpleDataC>(
+        environment.urlDatosBasicosDeUsuario,
+        body,
+        { headers: head }
+      )
       .pipe(
         tap((userInfo) => {
           // this.currentUsuarioSimpleDataSet(userInfo);
           // console.log('xd: ', this.getCurrentUsuarioSimpleData());
-          
         }),
         catchError(this.handleError)
       );
   }
-
-
-
 
   adminRol(): void {
     this.rol.next('admin');
@@ -444,7 +487,7 @@ export class LoginService {
       })
       .pipe(catchError(this.handleError));
   }
-  
+
   userSolDonanteRechazar(id: number): Observable<any> {
     let token = sessionStorage.getItem('token');
     const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
@@ -461,8 +504,8 @@ export class LoginService {
     let token = sessionStorage.getItem('token');
     const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
     return this.http
-      .get<solUsuarioDonador[]>(environment.urltblDataSolVoluntario, {
-        headers: head
+      .get<solUsuarioDonador[]>(environment.urltblDataSolDonante, {
+        headers: head,
       })
       .pipe(catchError(this.handleError));
   }
@@ -472,7 +515,7 @@ export class LoginService {
     const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
     return this.http
       .get<usuariosHabilitados[]>(environment.urlUsuariosHabilitados, {
-        headers: head
+        headers: head,
       })
       .pipe(catchError(this.handleError));
   }
@@ -502,49 +545,58 @@ export class LoginService {
   dataTblAlimentoRecoger(): Observable<Alimento[]> {
     let token = sessionStorage.getItem('token');
     const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
-    return this.http.get<Alimento[]>(environment.urlDataTblAlimentoRecoger, { headers: head }).pipe(
-      tap((data) => {
-        // this.currentUsersRIP.next(data);
-      }),
-      catchError(this.handleError)
-    );
+    return this.http
+      .get<Alimento[]>(environment.urlDataTblAlimentoRecoger, { headers: head })
+      .pipe(
+        tap((data) => {
+          // this.currentUsersRIP.next(data);
+        }),
+        catchError(this.handleError)
+      );
   }
 
   dataTblAlimentoEntregar(): Observable<Alimento[]> {
     let token = sessionStorage.getItem('token');
     const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
-    return this.http.get<Alimento[]>(environment.urlDataTblAlimentoEntregar, { headers: head }).pipe(
-      tap((data) => {
-        // this.currentUsersRIP.next(data);
-      }),
-      catchError(this.handleError)
-    );
+    return this.http
+      .get<Alimento[]>(environment.urlDataTblAlimentoEntregar, {
+        headers: head,
+      })
+      .pipe(
+        tap((data) => {
+          // this.currentUsersRIP.next(data);
+        }),
+        catchError(this.handleError)
+      );
   }
 
   dataTblProductoRecoger(): Observable<Producto[]> {
     let token = sessionStorage.getItem('token');
     const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
-    return this.http.get<Producto[]>(environment.urlDataTblProductoRecoger, { headers: head }).pipe(
-      tap((data) => {
-        // this.currentUsersRIP.next(data);
-      }),
-      catchError(this.handleError)
-    );
+    return this.http
+      .get<Producto[]>(environment.urlDataTblProductoRecoger, { headers: head })
+      .pipe(
+        tap((data) => {
+          // this.currentUsersRIP.next(data);
+        }),
+        catchError(this.handleError)
+      );
   }
 
   dataTblProductoEntregar(): Observable<Producto[]> {
     let token = sessionStorage.getItem('token');
     const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
-    return this.http.get<Producto[]>(environment.urlDataTblProductoEntregar, { headers: head }).pipe(
-      tap((data) => {
-        // this.currentUsersRIP.next(data);
-      }),
-      catchError(this.handleError)
-    );
+    return this.http
+      .get<Producto[]>(environment.urlDataTblProductoEntregar, {
+        headers: head,
+      })
+      .pipe(
+        tap((data) => {
+          // this.currentUsersRIP.next(data);
+        }),
+        catchError(this.handleError)
+      );
   }
-
-
-
 
   get userData(): Observable<String> {
     return this.currentUserData.asObservable();
@@ -568,5 +620,128 @@ export class LoginService {
     //   return false;
     // }
     return rolActual === 'admin';
+  }
+
+  // urlObtenerPostulantesDonantesRepresentantes(){
+  //   urlObtenerPostulantesDonantesRepresentantes
+
+  // }
+  escogerSubRolVol(correo: string, subrol: string): Observable<any> {
+    // devuelve boolean
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    const body = {
+      correo: correo,
+      subrol: subrol,
+    };
+    console.log('bdy: ', body);
+
+    return this.http
+      .post(environment.urlEscogerSubRolVol, body, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(
+        tap((data) => {
+          // this.currentUsersRIP.next(data);
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  displayGetAllPostulantesSubRolVol(): Observable<postulantesSubRolVolC[]> {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http
+      .get<postulantesSubRolVolC[]>(environment.urlGetAllPostulantesSubRolVol, {
+        headers: head,
+      })
+      .pipe(
+        tap((data) => {
+          // this.currentUsersRIP.next(data);
+        }),
+        catchError(this.handleError)
+      );
+  }
+  
+  urlUserPostRolAcceptMessageUserVol(id: number) {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+
+    return this.http
+      .get(environment.urlUserPostRolAcceptMessageUserVol + id, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(catchError(this.handleError));
+  }
+  urlUserPostRolDeletteMessageUserVol(id: number) {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+
+    return this.http
+      .delete(environment.urlUserPostRolDeletteMessageUserVol + id, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(catchError(this.handleError));
+  }
+  urlUserPostRolRefusedMessageUserVol(id: number) {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+
+    return this.http
+      .get(environment.urlUserPostRolRefusedMessageUserVol + id, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+
+
+  urlGetAllPostulantesRolVol(): Observable<getAllPostulantesRolVolC[]> {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http
+      .get<getAllPostulantesRolVolC[]>(environment.urlGetAllPostulantesRolVol, {
+        headers: head,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  urlAceptarPostulantesRolVol(id: number) {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+
+    return this.http
+      .get(environment.urlAceptarPostulantesRolVol + id, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  urlRechazarPostulantesRolVol(id: number) {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+
+    return this.http
+      .delete(environment.urlRechazarPostulantesRolVol + id, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  urlGetDonNoRealizadas(): Observable<urlGetDonNoRealizadasC[]> {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http
+      .get<urlGetDonNoRealizadasC[]>(environment.urlGetDonNoRealizadas, {
+        headers: head,
+      })
+      .pipe(catchError(this.handleError));
+    // urlGetDonNoRealizadas
   }
 }

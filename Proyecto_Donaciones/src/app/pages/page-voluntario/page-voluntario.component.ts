@@ -5,6 +5,7 @@ import { Producto } from '../../services/models/producto';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Usuario } from '../../services/auth/usuario';
 import { Router } from '@angular/router';
+import { urlGetDonNoRealizadasC } from '../../services/models/getDonNoRealizadas';
 
 @Component({
   selector: 'app-page-voluntario',
@@ -13,43 +14,22 @@ import { Router } from '@angular/router';
 })
 export class PageVoluntarioComponent implements OnInit {
   // Variables
-  tblAlimentoRecoger: Alimento[] = [
-    {
-      id_alimento: 0, fecha_venc: 'x', estado: 'x', tipo: 'x', cantidad: 0,
-    },
-    {
-      id_alimento: 1, fecha_venc: 'y', estado: 'y', tipo: 'y', cantidad: 1,
-    },
-  ];
+  tblUrlGetDonNoRealizadas: urlGetDonNoRealizadasC[] = [];
+  tblUrlGetDonacionesNoRealizadasSinResponsable: urlGetDonNoRealizadasC[] = [];
+  tblUrlGetDonacionesNoRealizadasSinColaboradores: urlGetDonNoRealizadasC[] = [];
   tblAlimentoEntregar: Alimento[] = [
     {
       id_alimento: 2, fecha_venc: 'z', estado: 'z', tipo: 'z', cantidad: 2,
-    },
-    // Agrega más registros según necesites
-    {
-      id_alimento: 3, fecha_venc: 'a', estado: 'a', tipo: 'a', cantidad: 3,
     },
   ];
   tblProductoRecoger: Producto[] = [
     {
       id_producto: 1, estado: 'Disponible', cantidad: 10, tipo: 'Electrónico',
     },
-    {
-      id_producto: 2, estado: 'Agotado', cantidad: 0, tipo: 'Ropa',
-    },
-    {
-      id_producto: 3, estado: 'Disponible', cantidad: 5, tipo: 'Libro',
-    },
   ];
   tblProductoEntregar: Producto[] = [
     {
       id_producto: 4, estado: 'Disponible', cantidad: 20, tipo: 'Herramientas',
-    },
-    {
-      id_producto: 5, estado: 'Agotado', cantidad: 0, tipo: 'Electrodoméstico',
-    },
-    {
-      id_producto: 6, estado: 'En reparación', cantidad: 2, tipo: 'Electrónico',
     },
   ];
 
@@ -67,6 +47,7 @@ export class PageVoluntarioComponent implements OnInit {
     // this.displayAlimentoRecoger();
     // this.displayProductoEntregar();
     // this.displayProductoRecoger();
+    this.urlGetDonNoRealizadas()
   }
 
   setCurrentID(id: number) {
@@ -77,19 +58,19 @@ export class PageVoluntarioComponent implements OnInit {
 
   enviarFormColaboresAlimentoRecoger() {}
 
-  displayAlimentoRecoger() {
-    this.loginService.dataTblAlimentoRecoger().subscribe({
-      next: (data) => {
-        this.tblAlimentoRecoger = data;
-      },
-      error: (errorData) => {
-        console.log(errorData);
-      },
-      complete: () => {
-        console.log('Despliegue de datos completo');
-      },
-    });
-  }
+  // displayAlimentoRecoger() {
+  //   this.loginService.dataTblAlimentoRecoger().subscribe({
+  //     next: (data) => {
+  //       this.tblAlimentoRecoger = data;
+  //     },
+  //     error: (errorData) => {
+  //       console.log(errorData);
+  //     },
+  //     complete: () => {
+  //       console.log('Despliegue de datos completo');
+  //     },
+  //   });
+  // }
 
   displayAlimentoEntregar() {
     this.loginService.dataTblAlimentoEntregar().subscribe({
@@ -243,4 +224,22 @@ export class PageVoluntarioComponent implements OnInit {
   }
   
   serResponsableRecogerAlimento(id: number) {}
+
+
+  urlGetDonNoRealizadas(){
+    this.loginService.urlGetDonNoRealizadas().subscribe({
+      next: (data) => {
+        this.tblUrlGetDonNoRealizadas = data;
+      },
+      error: (errorData) => {
+        console.log(errorData);
+      },
+      complete: () => {
+        console.log('Despliegue de datos completo');
+      },
+    });
+    setTimeout(() => {
+      this.tblUrlGetDonacionesNoRealizadasSinResponsable =this.tblUrlGetDonNoRealizadas.filter(donacion => donacion.estado === "SinResponsable");
+    }, 200);
+  }
 }

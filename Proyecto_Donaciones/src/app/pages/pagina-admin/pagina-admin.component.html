@@ -1,4 +1,4 @@
-<!-- <p>pagina-admin works!</p> -->
+<!-- BOTONES PARAA ESCOGER ESL DISLPAY -->
 <div>
   <!-- <button (click)="cambiarTipoDatos('usuarios')">Usuarios</button>
   <button (click)="cambiarTipoDatos('voluntarios')">Voluntarios</button> -->
@@ -51,14 +51,14 @@
   <!-- Tabla --><!-- Tabla --><!-- Tabla --><!-- Tabla -->
   <!-- Tabla --><!-- Tabla --><!-- Tabla --><!-- Tabla -->
   <!-- Tabla --><!-- Tabla --><!-- Tabla --><!-- Tabla -->
-
   <button
     type="button"
     class="btn btn-custom-azul"
-    (click)="actualizarDisplay('usuarios')"
+    (click)="actualizarDisplay(activeDataType)"
   >
     Recargar
   </button>
+
   <div *ngIf="activeDataType === 'usuarios'" class="container">
     <h1>Usuarios Habilitados</h1>
   </div>
@@ -108,7 +108,7 @@
   <!-- Tabla --><!-- Tabla --><!-- Tabla --><!-- Tabla -->
   <!-- Tabla --><!-- Tabla --><!-- Tabla --><!-- Tabla -->
   <!-- Tabla --><!-- Tabla --><!-- Tabla --><!-- Tabla -->
-  <div *ngIf="activeDataType === 'usuarios'" class="container1">
+  <div *ngIf="activeDataType === 'usuarios'" class="container">
     <h1>Otros Usuarios</h1>
   </div>
 
@@ -129,7 +129,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let usersRIPelement of usersRIP">
-          <th scope="row">{{ usersRIPelement.id }}</th>
+          <th scope="row">{{ usersRIPelement.idUser }}</th>
           <td>{{ usersRIPelement.nombre }}</td>
           <td>{{ usersRIPelement.apellido }}</td>
           <td>{{ usersRIPelement.correo }}</td>
@@ -141,7 +141,7 @@
               *ngIf="usersRIPelement.estado !== 'Inabilitado'"
               type="button"
               class="btn btn-custom"
-              (click)="aceptarSolUsuario(usersRIPelement.id)"
+              (click)="aceptarSolUsuario(usersRIPelement.idUser)"
             >
               Aceptar
             </button>
@@ -150,7 +150,7 @@
             <button
               type="button"
               class="btn btn-custom"
-              (click)="rechazarSolUsuario(usersRIPelement.id)"
+              (click)="rechazarSolUsuario(usersRIPelement.idUser)"
             >
               Rechazar
             </button>
@@ -164,8 +164,7 @@
   <!-- Tabla --><!-- Tabla --><!-- Tabla --><!-- Tabla -->
   <!-- Tabla --><!-- Tabla --><!-- Tabla --><!-- Tabla -->
 
-  <div *ngIf="activeDataType === 'usuarios'">
-    <!-- <a href="">Usuarios</a> -->
+  <!-- <div *ngIf="activeDataType === 'usuarios'">
     <table class="table">
       <thead>
         <tr>
@@ -206,17 +205,17 @@
         </tr>
       </tbody>
     </table>
-  </div>
+  </div> -->
   <!-- <button type="button" class="btn btn-custom" (click)="imprimirUsuario()">Imprime usuario en la consola</button> -->
 
   <div *ngIf="activeDataType === 'donadores'">
-    <button
+    <!-- <button
       type="button"
       class="btn btn-custom-azul"
       (click)="actualizarDisplay('donadores')"
     >
       Recargar
-    </button>
+    </button> -->
     <!-- <a (click)="displayUsuariosRIP()" >Recargar</a> -->
     <table class="table">
       <thead>
@@ -232,18 +231,18 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let sdElement of solDonante">
-          <th scope="row">{{ sdElement.id }}</th>
-          <td>{{ sdElement.nombre }}</td>
-          <td>{{ sdElement.apellido }}</td>
-          <td>{{ sdElement.correo }}</td>
-          <td>{{ sdElement.telefono }}</td>
-          <td>{{ sdElement.rol }}</td>
+        <tr *ngFor="let pvelement of solDonante">
+          <th scope="row">{{ pvelement.idmensaje }}</th>
+          <td>{{ pvelement.nombre }}</td>
+          <td>{{ pvelement.apellido }}</td>
+          <td>{{ pvelement.correo }}</td>
+          <td>{{ pvelement.telefono }}</td>
+          <td>{{ pvelement.rol }}</td>
           <td>
             <button
               type="button"
               class="btn btn-custom"
-              (click)="aceptarSolDonante(sdElement.id)"
+              (click)="aceptarSolDonante(pvelement.idmensaje)"
             >
               Aceptar
             </button>
@@ -252,7 +251,151 @@
             <button
               type="button"
               class="btn btn-custom"
-              (click)="rechazarSolDonante(sdElement.id)"
+              (click)="rechazarSolDonante(pvelement.idmensaje)"
+            >
+              Rechazar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div *ngIf="activeDataType === 'voluntarios_responsables'">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#ID</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Telefono</th>
+          <th scope="col">EstadoMSubRol</th>
+          <th scope="col">Subrol</th>
+          <th scope="col">Aceptar SR</th>
+          <th scope="col">Rechazar SR</th>
+        </tr>
+      </thead>
+      <!-- ctrl+F2 -->
+      <tbody>
+        <tr *ngFor="let pvelement of postulantesSubRolVolResp">
+          <th scope="row">{{ pvelement.idmensajeSubRol }}</th>
+          <td>{{ pvelement.nombre }}</td>
+          <td>{{ pvelement.apellido }}</td>
+          <td>{{ pvelement.correo }}</td>
+          <td>{{ pvelement.telefono }}</td>
+          <td>{{ pvelement.estadoMensajeSubRol }}</td>
+          <td>{{ pvelement.subrol }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-custom"
+              (click)="aceptarPostulantesSubRolVol(pvelement.idmensajeSubRol)"
+            >
+              Aceptar
+            </button>
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-custom"
+              (click)="rechazarPostulantesSubRolVol(pvelement.idmensajeSubRol)"
+            >
+              Rechazar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="activeDataType === 'voluntarios_colaboradores'">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#ID</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Telefono</th>
+          <th scope="col">EstadoMSubRol</th>
+          <th scope="col">Subrol</th>
+          <th scope="col">Aceptar SR</th>
+          <th scope="col">Rechazar SR</th>
+        </tr>
+      </thead>
+      <!-- ctrl+F2 -->
+      <tbody>
+        <tr *ngFor="let pvelement of postulantesSubRolVolColab">
+          <th scope="row">{{ pvelement.idmensajeSubRol }}</th>
+          <td>{{ pvelement.nombre }}</td>
+          <td>{{ pvelement.apellido }}</td>
+          <td>{{ pvelement.correo }}</td>
+          <td>{{ pvelement.telefono }}</td>
+          <td>{{ pvelement.estadoMensajeSubRol }}</td>
+          <td>{{ pvelement.subrol }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-custom"
+              (click)="aceptarPostulantesSubRolVol(pvelement.idmensajeSubRol)"
+            >
+              Aceptar
+            </button>
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-custom"
+              (click)="rechazarPostulantesSubRolVol(pvelement.idmensajeSubRol)"
+            >
+              Rechazar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <div *ngIf="activeDataType === 'voluntarios'">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#idmensaje</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Telefono</th>
+          <th scope="col">Rol</th>
+          <th scope="col">Aceptar Vol</th>
+          <th scope="col">Rechazar Vol</th>
+        </tr>
+      </thead>
+      <!-- ctrl+F2 -->
+      <tbody>
+        <tr *ngFor="let pvelement of postulantesVol">
+          <th scope="row">{{ pvelement.idmensaje }}</th>
+          <td>{{ pvelement.nombre }}</td>
+          <td>{{ pvelement.apellido }}</td>
+          <td>{{ pvelement.correo }}</td>
+          <td>{{ pvelement.telefono }}</td>
+          <td>{{ pvelement.rol }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-custom"
+              (click)="aceptarPostulantesVol(pvelement.idmensaje)"
+            >
+              Aceptar
+            </button>
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-custom"
+              (click)="rechazarPostulantesVol(pvelement.idmensaje)"
             >
               Rechazar
             </button>
@@ -262,27 +405,3 @@
     </table>
   </div>
 </div>
-
-<!-- <div *ngIf="activeDataType === 'voluntarios'">
-  <a href="">Voluntarios</a>
-</div>
-
-
-<div *ngIf="activeDataType === 'beneficiarios'">
-  <a href="">Beneficiarios</a>
-</div>
-
-
-<div *ngIf="activeDataType === 'donadores'">
-  <a href="">Donadores</a>
-</div>
-
-
-<div *ngIf="activeDataType === 'voluntarios_responsables'">
-  <a href="">Voluntarios Responsables</a>
-</div>
-
-
-<div *ngIf="activeDataType === 'voluntarios_colaboradores'">
-  <a href="">Voluntarios Colaboradores</a>
-</div> -->

@@ -6,6 +6,8 @@ import { usuarioRechazadoInabilitadoPendiente } from '../../services/models/usua
 import { solUsuarioVoluntario } from '../../services/models/solUsuarioVoluntario';
 import { solUsuarioDonador } from '../../services/models/solUsuarioDonador';
 import { usuariosHabilitados } from '../../services/models/usuariosHabilitados';
+import { postulantesSubRolVolC } from '../../services/models/postulantesSubRolVol';
+import { getAllPostulantesRolVolC } from '../../services/models/getAllPostulantesRolVol';
 
 @Component({
   selector: 'app-pagina-admin',
@@ -16,7 +18,10 @@ export class PaginaAdminComponent implements OnInit {
   loginError: string = '';
   aceptarText: string = '';
   activeDataType: string = 'usuarios'; // Inicialmente, mostrar datos de usuarios
-
+  postulantesSubRolVol: postulantesSubRolVolC[] = [];
+  postulantesSubRolVolResp: postulantesSubRolVolC[] = [];
+  postulantesSubRolVolColab: postulantesSubRolVolC[] = [];
+  postulantesVol: getAllPostulantesRolVolC[] = [];
   // lista deberia ser vacia y llenarse con el metodo correspondiente
   solDeUsuarios: Usuario[] = [
     {
@@ -27,36 +32,12 @@ export class PaginaAdminComponent implements OnInit {
       correo: 'juan@example.com',
       telefono: 123456789,
     },
-    {
-      id: 2,
-      nombre: 'María',
-      apellido: 'Gómez',
-      contrasena: 'clave456',
-      correo: 'maria@example.com',
-      telefono: 987654321,
-    },
-    {
-      id: 3,
-      nombre: 'Pedro',
-      apellido: 'Martínez',
-      contrasena: 'password789',
-      correo: 'pedro@example.com',
-      telefono: 987654321,
-    },
-    {
-      id: 4,
-      nombre: 'xad',
-      apellido: 'Martínez',
-      contrasena: 'password789',
-      correo: 'xad@example.com',
-      telefono: 987654321,
-    },
     // { id: 5, nombre: "xad", apellido: "Martínez", contrasena: "password789", confcontrasena: "password789", contenido: "<Nombre (Organizacion)>/<Tipo de Organizacion:>", telefono: 987654321 }
   ];
 
   usersRIP: usuarioRechazadoInabilitadoPendiente[] = [];
-  solDonante: solUsuarioDonador[] = []
-  usuariosHabilitados: usuariosHabilitados [] = []
+  solDonante: solUsuarioDonador[] = [];
+  usuariosHabilitados: usuariosHabilitados[] = [];
 
   constructor(private router: Router, private loginService: LoginService) {}
 
@@ -65,17 +46,26 @@ export class PaginaAdminComponent implements OnInit {
     this.displaySolicitudUsuariosRIP();
     this.displaySolDonante();
     this.displayUsuariosHabilitados();
+    this.displayGetAllPostulantesSubRolVol();
+    this.urlGetAllPostulantesRolVol();
   }
   // TODO necesito un token
   // TODO necesito un token
   // TODO necesito un token
 
-  actualizarDisplay(seccion: string){
-    if(seccion === 'usuarios'){
+  actualizarDisplay(seccion: string) {
+    if (seccion === 'usuarios') {
       this.displaySolicitudUsuariosRIP();
       this.displayUsuariosHabilitados();
-    } else if (seccion === 'donadores'){
+    } else if (seccion === 'donadores') {
       this.displaySolDonante();
+    } else if (
+      seccion === 'voluntarios_responsables' ||
+      seccion === 'voluntarios_colaboradores'
+    ) {
+      this.displayGetAllPostulantesSubRolVol();
+    } else if (seccion === 'voluntarios') {
+      this.urlGetAllPostulantesRolVol();
     }
   }
   // TODO necesito un token
@@ -95,7 +85,7 @@ export class PaginaAdminComponent implements OnInit {
     });
   }
 
-  displayUsuariosHabilitados(){
+  displayUsuariosHabilitados() {
     this.loginService.tblUsuariosHabilitados().subscribe({
       next: (tblUsuariosHabilitados) => {
         this.usuariosHabilitados = tblUsuariosHabilitados;
@@ -107,10 +97,10 @@ export class PaginaAdminComponent implements OnInit {
       complete: () => {
         // console.log("Despliegue de datos completo");
       },
-    })
+    });
   }
 
-  displaySolDonante(){
+  displaySolDonante() {
     this.loginService.tblDataSolDonante().subscribe({
       next: (tbl) => {
         this.solDonante = tbl;
@@ -122,8 +112,7 @@ export class PaginaAdminComponent implements OnInit {
       complete: () => {
         // console.log("Despliegue de datos completo");
       },
-      
-    })
+    });
   }
 
   displaySolUsuarios() {
@@ -203,7 +192,7 @@ export class PaginaAdminComponent implements OnInit {
     });
   }
 
-  aceptarSolVol(id: number){
+  aceptarSolVol(id: number) {
     this.loginService.userVolSolAceptar(id).subscribe({
       next: (info) => {
         console.log('Aviso: ' + info);
@@ -214,10 +203,10 @@ export class PaginaAdminComponent implements OnInit {
       complete: () => {
         // console.log('usuario rechazado');
       },
-    })
+    });
   }
-  
-  rechazarSolVol(id: number){
+
+  rechazarSolVol(id: number) {
     this.loginService.userVolSolRechazar(id).subscribe({
       next: (info) => {
         console.log('Aviso: ' + info);
@@ -228,9 +217,9 @@ export class PaginaAdminComponent implements OnInit {
       complete: () => {
         // console.log('usuario rechazado');
       },
-    })
+    });
   }
-  aceptarSolDonante(id: number){
+  aceptarSolDonante(id: number) {
     this.loginService.userSolDonanteAceptar(id).subscribe({
       next: (info) => {
         console.log('Aviso: ' + info);
@@ -241,10 +230,10 @@ export class PaginaAdminComponent implements OnInit {
       complete: () => {
         // console.log('usuario rechazado');
       },
-    })
+    });
   }
-  
-  rechazarSolDonante(id: number){
+
+  rechazarSolDonante(id: number) {
     this.loginService.userSolDonanteRechazar(id).subscribe({
       next: (info) => {
         console.log('Aviso: ' + info);
@@ -255,9 +244,8 @@ export class PaginaAdminComponent implements OnInit {
       complete: () => {
         // console.log('usuario rechazado');
       },
-    })
+    });
   }
-
 
   // usuarioBuscado?: Usuario;
 
@@ -272,7 +260,9 @@ export class PaginaAdminComponent implements OnInit {
   //   console.log(this.usuarioBuscado);
   // }
 
-  buscarUsuarioPorCorreo(correo: string): usuarioRechazadoInabilitadoPendiente | undefined {
+  buscarUsuarioPorCorreo(
+    correo: string
+  ): usuarioRechazadoInabilitadoPendiente | undefined {
     return this.usersRIP.find((usuario) => usuario.correo === correo);
   }
 
@@ -280,7 +270,134 @@ export class PaginaAdminComponent implements OnInit {
     const usuarioBuscado = this.buscarUsuarioPorCorreo('Lone@gmail.com');
     console.log(usuarioBuscado);
     console.log(usuarioBuscado?.correo);
-    console.log(usuarioBuscado?.id);
+    console.log(usuarioBuscado?.idUser);
     console.log(usuarioBuscado?.estado);
+  }
+
+  displayGetAllPostulantesSubRolVol() {
+    this.loginService.displayGetAllPostulantesSubRolVol().subscribe({
+      next: (pSRVdata) => {
+        // console.log(userData); // esto imprime informacion sensible, como el token cuidado al reiniciar operaciones
+        this.postulantesSubRolVol = pSRVdata;
+      },
+      error: (errorData) => {
+        // console.log(errorData);
+        this.loginError = errorData;
+      },
+      complete: () => {
+        //confirmacion
+        // console.log('display completo', this.postulantesSubRolVol);
+        console.log('display completo');
+        //cuando una conexion se completa, se nos envia a la ruta: /datausuario
+        // this.router.navigateByUrl('/datausuario');
+        //se vacian los datos del formulario
+        // this.loginForm.reset();
+      },
+    });
+
+    setTimeout(() => {
+      console.log(':D', this.postulantesSubRolVol);
+      this.postulantesSubRolVolResp = this.postulantesSubRolVol.filter(
+        (postulante) => postulante.subrol === 'Responsable'
+      );
+      this.postulantesSubRolVolColab = this.postulantesSubRolVol.filter(
+        (postulante) => postulante.subrol === 'Colaborador'
+      );
+      console.log(':D', this.postulantesSubRolVolResp);
+      console.log(':D', this.postulantesSubRolVolColab);
+    }, 500);
+
+    // console.log(':D',this.postulantesSubRolVolResp );
+    // console.log(':D',this.postulantesSubRolVolColab );
+  }
+
+  aceptarPostulantesSubRolVol(id: number) {
+    this.loginService.urlUserPostRolAcceptMessageUserVol(id).subscribe({
+      next: (info) => {
+        console.log('Aviso: ' + info);
+      },
+      error: (errorData) => {
+        this.loginError = errorData;
+      },
+      complete: () => {
+        // console.log('usuario rechazado');
+      },
+    });
+  }
+  rechazarPostulantesSubRolVol(id: number) {
+    this.urlUserPostRolRefusedMessageUserVol(id);
+    // primero debe rechazarse el subrol
+    setTimeout(() => {
+      this.loginService.urlUserPostRolDeletteMessageUserVol(id).subscribe({
+        next: (info) => {
+          console.log('Aviso: ' + info);
+        },
+        error: (errorData) => {
+          this.loginError = errorData;
+        },
+        complete: () => {
+          // console.log('usuario rechazado');
+        },
+      });
+    }, 250);
+  }
+
+  urlUserPostRolRefusedMessageUserVol(id: number) {
+    // primero debe rechazarse el subrol
+
+    this.loginService.urlUserPostRolRefusedMessageUserVol(id).subscribe({
+      next: (info) => {
+        console.log('Aviso: ' + info);
+      },
+      error: (errorData) => {
+        this.loginError = errorData;
+      },
+      complete: () => {
+        // console.log('usuario rechazado');
+      },
+    });
+  }
+
+  urlGetAllPostulantesRolVol() {
+    this.loginService.urlGetAllPostulantesRolVol().subscribe({
+      next: (gaPRV) => {
+        // console.log(userData); // esto imprime informacion sensible, como el token cuidado al reiniciar operaciones
+        this.postulantesVol = gaPRV;
+      },
+      error: (errorData) => {
+        // console.log(errorData);
+        this.loginError = errorData;
+      },
+      complete: () => {
+        console.log('display  postulantes vol completo');
+      },
+    });
+  }
+
+  aceptarPostulantesVol(id: number) {
+    this.loginService.urlAceptarPostulantesRolVol(id).subscribe({
+      next: (info) => {
+        console.log('Aviso: ' + info);
+      },
+      error: (errorData) => {
+        this.loginError = errorData;
+      },
+      complete: () => {
+        // console.log('usuario rechazado');
+      },
+    });
+  }
+  rechazarPostulantesVol(id: number) {
+    this.loginService.urlRechazarPostulantesRolVol(id).subscribe({
+      next: (info) => {
+        console.log('Aviso: ' + info);
+      },
+      error: (errorData) => {
+        this.loginError = errorData;
+      },
+      complete: () => {
+        // console.log('usuario rechazado');
+      },
+    });
   }
 }

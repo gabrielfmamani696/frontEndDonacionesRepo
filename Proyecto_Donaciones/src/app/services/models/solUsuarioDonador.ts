@@ -1,5 +1,5 @@
 export interface solUsuarioDonador {
-    id: number,
+    idmensaje: number,
     nombre: string,
     apellido: string,
     correo: string,

@@ -1,181 +1,303 @@
 <!-- <p>page-donador works!</p> -->
 
 <div class="hero-section">
-    <br>
-    <br />
-    <br />
-    <br />
-    <br />
-    <h1>Alimentando Sueños, Nutriendo Comunidades: ¡Juntos, Hacemos la Diferencia!</h1>
-    <p>En nuestro compromiso por construir un mundo más solidario y justo, cada donación de alimentos es un paso hacia
-        adelante, un rayo de esperanza que ilumina el camino hacia un futuro donde todas las comunidades, sin importar
-        su
-        origen o circunstancias, puedan prosperar y alcanzar su máximo potencial.</p>
+  <br />
+  <br />
+  <br />
+  <br />
+  <br />
+  <h1>
+    Alimentando Sueños, Nutriendo Comunidades: ¡Juntos, Hacemos la Diferencia!
+  </h1>
+  <p>
+    En nuestro compromiso por construir un mundo más solidario y justo, cada
+    donación de alimentos es un paso hacia adelante, un rayo de esperanza que
+    ilumina el camino hacia un futuro donde todas las comunidades, sin importar
+    su origen o circunstancias, puedan prosperar y alcanzar su máximo potencial.
+  </p>
 
-    <!-- <button class="donate-button">Dona Ya!</button> -->
-    <!-- <button type="button" class="btn btn-custom-azul btn-lg" (click)="formDonacion()">Dona Ya!</button> -->
+  <!-- <button class="donate-button">Dona Ya!</button> -->
+  <!-- <button type="button" class="btn btn-custom-azul btn-lg" (click)="formDonacion()">Dona Ya!</button> -->
 
+  <!-- Button trigger modal -->
+  <button
+    type="button"
+    class="btn btn-custom-azul btn-lg"
+    data-bs-toggle="modal"
+    data-bs-target="#pageDonadorModal"
+  >
+    Dona Ya!
+  </button>
 
-    <!-- Button trigger modal -->
-    <button type="button" class="btn btn-custom-azul btn-lg" data-bs-toggle="modal" data-bs-target="#pageDonadorModal">
-        Dona Ya!
-    </button>
-
-    <!-- Modal -->
-    <div class="modal fade" id="pageDonadorModal" tabindex="-1" aria-labelledby="pageDonadorModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="pageDonadorModalLabel">Ingrese los datos de la donación</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="container">
-                        <form [formGroup]="donacionForm" (ngSubmit)="enviarFormDonacion()">
-                        
-                            <div class="mb-3">
-                                <label for="cantidad" class="labelCustom">Cantidad</label>
-                                <input type="number" class="form-control" id="cantidad" formControlName="cantidad">
-                            </div>
-                            <div class="mb-3">
-                                <label for="fecha_hora" class="labelCustom">Hora Disponible para el recojo</label>
-                                <input type="time" class="form-control" id="fecha_hora" formControlName="fecha_hora">
-                            </div>
-                            <!-- <div class="mb-3">
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="pageDonadorModal"
+    tabindex="-1"
+    aria-labelledby="pageDonadorModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="pageDonadorModalLabel">
+            Ingrese los datos de la donación
+          </h1>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <div class="container">
+            <form [formGroup]="donacionForm" (ngSubmit)="enviarFormDonacion()">
+              <div class="mb-3">
+                <label for="cantidad" class="labelCustom">Cantidad</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="cantidad"
+                  formControlName="cantidad"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="fechaHoraRecogida" class="labelCustom"
+                  >Hora Disponible para el recojo</label
+                >
+                <input
+                  type="datetime-local"
+                  class="form-control"
+                  id="fechaHoraRecogida"
+                  formControlName="fechaHoraRecogida"
+                />
+              </div>
+              <!-- <div class="mb-3">
                                 <label for="fecha_hora" class="labelCustom">Hora Disponible para el recojo</label>
                                 <input type="date" class="form-control" id="fecha_hora" formControlName="fecha_hora">
                             </div> -->
-                            <!-- <div class="mb-3">
+              <!-- <div class="mb-3">
                                 <label for="tipo_ap" class="labelCustom">Tipo de donación (Alimento/Producto)</label>
                                 <input type="" class="form-control" id="tipo_ap" formControlName="tipo_ap">
                             </div> -->
 
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="tipo_ap" formControlName="tipo_ap" [value]="'Alimento'" (change)="actualizarTipoDonacion('Alimento')" [checked]="tipodonacion === 'Alimento'">
-                                <label class="form-check-label labelCustom" for="exampleRadios1" >
-                                    Alimento
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="tipo_ap" formControlName="tipo_ap" [value]="'Producto'" (change)="actualizarTipoDonacion('Producto')" [checked]="tipodonacion === 'Producto'">
-                                <label class="form-check-label labelCustom" for="exampleRadios2">
-                                    Producto
-                                </label>
-                            </div>
-                            
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="tipo_ap"
+                  formControlName="tipo_ap"
+                  [value]="'Alimento'"
+                  (change)="actualizarTipoDonacion('Alimento')"
+                  [checked]="tipodonacion === 'Alimento'"
+                />
+                <label
+                  class="form-check-label labelCustom"
+                  for="exampleRadios1"
+                >
+                  Alimento
+                </label>
+              </div>
+              <div class="form-check">
+                <input
+                  class="form-check-input"
+                  type="radio"
+                  name="tipo_ap"
+                  formControlName="tipo_ap"
+                  [value]="'Producto'"
+                  (change)="actualizarTipoDonacion('Producto')"
+                  [checked]="tipodonacion === 'Producto'"
+                />
+                <label
+                  class="form-check-label labelCustom"
+                  for="exampleRadios2"
+                >
+                  Producto
+                </label>
+              </div>
 
+              <button type="submit" class="btn btn-primary" 
+              data-bs-dismiss="modal">Enviar</button>
+            </form>
+          </div>
+          <!-- LOGRO -->
+          <!-- <div *ngIf="tipodonacion === 'Alimento'" class="container">
+            <h1>Alimentos</h1>
+            <form [formGroup]="donacionAlimentoForm" (ngSubmit)="enviar()">
+              <div class="mb-3">
+                <label for="fechaVenc" class="labelCustom"
+                  >Fecha de Vencimiento</label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  id="fechaVenc"
+                  formControlName="fechaVenc"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="estado" class="labelCustom">Estado</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="estado"
+                  formControlName="estado"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="cantidad" class="labelCustom">Cantidad</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="cantidad"
+                  formControlName="cantidad"
+                />
+              </div>
+              
 
-                            <!-- <button type="submit" class="btn btn-primary">Enviar</button> -->
-                        </form>
-                    </div>
-                    <div *ngIf="tipodonacion === 'Alimento'" class="container">
-                        <h1>Alimentos</h1>
-                        <form [formGroup]="donacionAlimentoForm" (ngSubmit)="enviar()">
-                        
-                            <div class="mb-3">
-                                <label for="fechaVenc" class="labelCustom">Fecha de Vencimiento</label>
-                                <input type="date" class="form-control" id="fechaVenc" formControlName="fechaVenc">
-                            </div>
-                            <div class="mb-3">
-                                <label for="estado" class="labelCustom">Estado</label>
-                                <input type="text" class="form-control" id="estado" formControlName="estado">
-                            </div>
-                            <div class="mb-3">
-                                <label for="cantidad" class="labelCustom">Cantidad</label>
-                                <input type="number" class="form-control" id="cantidad" formControlName="cantidad">
-                            </div>
-                            <!-- <div class="mb-3">
-                                <label for="fecha_hora" class="labelCustom">Hora Disponible para el recojo</label>
-                                <input type="date" class="form-control" id="fecha_hora" formControlName="fecha_hora">
-                            </div> -->
-                            <div class="mb-3">
-                                <label for="tipo" class="labelCustom">Tipo de donación Alimento</label>
-                                <input type="" class="form-control" id="tipo" formControlName="tipo">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Enviar</button>
-                        </form>
-                    </div>
-                    <div *ngIf="tipodonacion === 'Producto'" class="container">
-                        <h1>Productos</h1>
-                        <form [formGroup]="donacionProductoForm" (ngSubmit)="enviar()">
-                        
-                            <div class="mb-3">
-                                <label for="cantidad" class="labelCustom">Estado</label>
-                                <input type="text" class="form-control" id="cantidad" formControlName="estado">
-                            </div>
-                            <div class="mb-3">
-                                <label for="fecha_hora" class="labelCustom">Cantidad</label>
-                                <input type="number" class="form-control" id="fecha_hora" formControlName="cantidad">
-                            </div>
-                            <!-- <div class="mb-3">
-                                <label for="fecha_hora" class="labelCustom">Hora Disponible para el recojo</label>
-                                <input type="date" class="form-control" id="fecha_hora" formControlName="fecha_hora">
-                            </div> -->
-                            <div class="mb-3">
-                                <label for="tipo" class="labelCustom">Tipo de Producto</label>
-                                <input type="text" class="form-control" id="tipo" formControlName="tipo">
-                            </div>
-                            <button type="submit" class="btn btn-primary">Enviar</button>
-                        </form>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                    <!-- <button type="button" class="btn btn-primary">Enviar</button> -->
-                </div>
-            </div>
+              <div class="mb-3">
+                <label for="tipo" class="labelCustom"
+                  >Tipo de donación Alimento</label
+                >
+                <input
+                  type=""
+                  class="form-control"
+                  id="tipo"
+                  formControlName="tipo"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+          </div>
+          <div *ngIf="tipodonacion === 'Producto'" class="container">
+            <h1>Productos</h1>
+            <form [formGroup]="donacionProductoForm" (ngSubmit)="enviar()">
+              <div class="mb-3">
+                <label for="cantidad" class="labelCustom">Estado</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="cantidad"
+                  formControlName="estado"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="fecha_hora" class="labelCustom">Cantidad</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="fecha_hora"
+                  formControlName="cantidad"
+                />
+              </div>
+              <div class="mb-3">
+                <label for="tipo" class="labelCustom">Tipo de Producto</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="tipo"
+                  formControlName="tipo"
+                />
+              </div>
+              <button type="submit" class="btn btn-primary">Enviar</button>
+            </form>
+          </div> -->
+          
+          <!-- LOGRO -->
         </div>
+        <div class="modal-footer">
+          <button
+            type="button"
+            class="btn btn-secondary"
+            data-bs-dismiss="modal"
+          >
+            Cerrar
+          </button>
+          <!-- <button type="button" class="btn btn-primary">Enviar</button> -->
+        </div>
+      </div>
     </div>
+  </div>
 
-    <br>
-    <br>
-    <br>
-    <br>
+  <br />
+  <br />
+  <br />
+  <br />
 </div>
 <div class="footer" id="sobre nosotros">
-    <h3>Sobre nosotros</h3>
-    <p>Nuestro sistema de donación de alimentos trabaja en estrecha colaboración con organizaciones benéficas locales
-        para
-        recolectar alimentos excedentes de establecimientos comerciales, agricultores y otros proveedores. Luego,
-        clasificamos y distribuimos estos alimentos a través de una red de puntos de distribución estratégicamente
-        ubicados,
-        que incluyen comedores comunitarios, refugios para personas sin hogar, escuelas y otras instituciones benéficas.
+  <h3>Sobre nosotros</h3>
+  <p>
+    Nuestro sistema de donación de alimentos trabaja en estrecha colaboración
+    con organizaciones benéficas locales para recolectar alimentos excedentes de
+    establecimientos comerciales, agricultores y otros proveedores. Luego,
+    clasificamos y distribuimos estos alimentos a través de una red de puntos de
+    distribución estratégicamente ubicados, que incluyen comedores comunitarios,
+    refugios para personas sin hogar, escuelas y otras instituciones benéficas.
+    Además de la distribución directa de alimentos, también nos comprometemos a
+    educar a la comunidad sobre la importancia de reducir el desperdicio de
+    alimentos y fomentar prácticas alimentarias sostenibles. Trabajamos para
+    sensibilizar sobre el impacto del hambre y el desperdicio de alimentos en
+    nuestra sociedad, promoviendo la participación activa de individuos y
+    empresas en nuestra misión. Nuestro sistema de donación de alimentos se basa
+    en principios de transparencia, eficiencia y colaboración, y buscamos
+    constantemente formas innovadoras de mejorar nuestros procesos para
+    maximizar el alcance de nuestra ayuda y minimizar nuestro impacto ambiental.
+  </p>
 
-        Además de la distribución directa de alimentos, también nos comprometemos a educar a la comunidad sobre la
-        importancia de reducir el desperdicio de alimentos y fomentar prácticas alimentarias sostenibles. Trabajamos
-        para
-        sensibilizar sobre el impacto del hambre y el desperdicio de alimentos en nuestra sociedad, promoviendo la
-        participación activa de individuos y empresas en nuestra misión.
-
-        Nuestro sistema de donación de alimentos se basa en principios de transparencia, eficiencia y colaboración, y
-        buscamos constantemente formas innovadoras de mejorar nuestros procesos para maximizar el alcance de nuestra
-        ayuda y
-        minimizar nuestro impacto ambiental.
-    </p>
-
-    <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-            <div class="carousel-item active" data-bs-interval="2500">
-                <img src="assets/img/img1.webp" class="d-block w-100" alt="..." width="350px" height="300px">
-            </div>
-            <div class="carousel-item" data-bs-interval="2500">
-                <img src="assets/img/img2.webp" class="d-block w-100" alt="..." width="350px" height="300px">
-            </div>
-            <div class="carousel-item" data-bs-interval="2500">
-                <img src="assets/img/mision.webp" class="d-block w-100" alt="..." width="350px" height="300px">
-            </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
-            data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
-            data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
+  <div
+    id="carouselExampleAutoplaying"
+    class="carousel slide"
+    data-bs-ride="carousel"
+  >
+    <div class="carousel-inner">
+      <div class="carousel-item active" data-bs-interval="2500">
+        <img
+          src="assets/img/img1.webp"
+          class="d-block w-100"
+          alt="..."
+          width="350px"
+          height="300px"
+        />
+      </div>
+      <div class="carousel-item" data-bs-interval="2500">
+        <img
+          src="assets/img/img2.webp"
+          class="d-block w-100"
+          alt="..."
+          width="350px"
+          height="300px"
+        />
+      </div>
+      <div class="carousel-item" data-bs-interval="2500">
+        <img
+          src="assets/img/mision.webp"
+          class="d-block w-100"
+          alt="..."
+          width="350px"
+          height="300px"
+        />
+      </div>
     </div>
+    <button
+      class="carousel-control-prev"
+      type="button"
+      data-bs-target="#carouselExampleAutoplaying"
+      data-bs-slide="prev"
+    >
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Previous</span>
+    </button>
+    <button
+      class="carousel-control-next"
+      type="button"
+      data-bs-target="#carouselExampleAutoplaying"
+      data-bs-slide="next"
+    >
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="visually-hidden">Next</span>
+    </button>
+  </div>
 </div>
 
 <!-- 
