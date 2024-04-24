@@ -1,1 +1,73 @@
-<p>page-beneficiario works!</p>
+<button type="button" class="btn btn-custom-azul" (click)="display()">Recargar</button>
+<div class="container">
+</div>
+<div class="container">
+  <h1>Alimentos</h1>
+  <form [formGroup]="formBenefAlimento" (ngSubmit)="enviarFormBenefAlimento()">
+  
+      <div class="mb-3">
+          <label for="fechaHoraProgramada" class="labelCustom">Fecha de recepción(Se debe establecer antes de enviar)</label>
+          <input type="datetime-local" class="form-control" id="fechaHoraProgramada" formControlName="fechaHoraProgramada">
+          <button type="submit" class="btn btn-primary" >Enviar</button>
+      </div>
+  </form>
+  <!-- <button type="button" class="btn btn-custom-azul" >Pedir</button> -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#IDAlimento</th>
+        <th scope="col">F_Vencimiento</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Cantidad</th>
+        <th scope="col">Elegir 1</th>
+        <th scope="col">Dejar 1</th>
+        <th scope="col">Pedido Actual</th>
+        <!-- <th scope="col">Rechazar</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ali of alimentos">
+        <th scope="row">{{ ali.idAlimento }}</th>
+        <td>{{ ali.fecha_Vencimiento }}</td>
+        <td>{{ ali.estado }}</td>
+        <td>{{ ali.tipo }}</td>
+        <td>{{ ali.cantidad }}</td>
+        <td>
+          <button type="button" class="btn btn-custom-azul" (click)="agregarElemento(ali.idAlimento)">Sumar</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-custom-azul" (click)="dejarElemento(ali.idAlimento)">Restar</button>
+        </td>
+        <td>
+          <div *ngIf="this.arrayObjetos[ali.idAlimento]" >
+            <p>{{this.arrayObjetos[ali.idAlimento]}}</p>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div class="container">
+    <h1>Productos</h1>
+  <!-- <a (click)="urlGetAllAlimentos()" >Recargar</a> -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#IDProducto</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Cantidad</th>
+        <!-- <th scope="col">Rechazar</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of productos">
+        <th scope="row">{{ p.idProducto }}</th>
+        <td>{{ p.estado }}</td>
+        <td>{{ p.tipo }}</td>
+        <td>{{ p.cantidad }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

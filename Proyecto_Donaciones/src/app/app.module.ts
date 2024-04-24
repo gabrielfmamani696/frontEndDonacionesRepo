@@ -21,6 +21,7 @@ import { PageVoluntarioComponent } from './pages/page-voluntario/page-voluntario
 import { PageDonadorComponent } from './pages/page-donador/page-donador.component';
 import { PageBeneficiarioComponent } from './pages/page-beneficiario/page-beneficiario.component';
 import { PageVoluntarioColaboradorComponent } from './pages/page-voluntario-colaborador/page-voluntario-colaborador.component';
+import { DatosDonacionesComponent } from './pages/datos/datos-donaciones/datos-donaciones.component';
 
 
 @NgModule({
@@ -41,7 +42,8 @@ import { PageVoluntarioColaboradorComponent } from './pages/page-voluntario-cola
     PageVoluntarioComponent,
     PageDonadorComponent,
     PageBeneficiarioComponent,
-    PageVoluntarioColaboradorComponent
+    PageVoluntarioColaboradorComponent,
+    DatosDonacionesComponent
   ],
   imports: [
     BrowserModule,

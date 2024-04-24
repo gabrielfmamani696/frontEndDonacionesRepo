@@ -1,65 +1,128 @@
 <!-- <p>page-voluntario-colaborador works!</p> -->
 
-<div class="container mt-4">
-    <div class="alert alert-success" role="alert" *ngIf="mostrarMensaje">
-      Se le enviará un mensaje de confirmación.
-    </div>
-    <h2>Donaciones para Recoger</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Tipo de Donación</th>
-          <th>Detalles de la Donación</th>
-          <th>Disponibilidad</th>
-          <th>Número de Voluntarios</th>
-          <th>Voluntarios Requeridos</th>
-          <th>Cantidad</th>
-          <th>Acción</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let donacion of donacionesRecoger; let i = index">
-          <td>{{ donacion.tipoDonacion }}</td>
-          <td>{{ donacion.detalles }}</td>
-          <td>{{ donacion.disponibilidad | date: 'short' }}</td>
-          <td>{{ donacion.nroVoluntarios }}</td>
-          <td>{{ donacion.cantidadRequeridaVoluntarios }}</td>
-          <td>{{ donacion.cantidad }}</td>
-          <td>
-            <button class="btn btn-custom-verde_oscuro" (click)="postular('recoger', i)" [disabled]="donacion.nroVoluntarios >= donacion.cantidadRequeridaVoluntarios">Postularse</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  
-    <h2>Donaciones para Entregar</h2>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>Tipo de Donación</th>
-          <th>Detalles de la Donación</th>
-          <th>Disponibilidad</th>
-          <th>Número de Voluntarios</th>
-          <th>Voluntarios Requeridos</th>
-          <th>Cantidad</th>
-          <th>Acción</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let donacion of donacionesEntregar; let i = index">
-          <td>{{ donacion.tipoDonacion }}</td>
-          <td>{{ donacion.detalles }}</td>
-          <td>{{ donacion.disponibilidad | date: 'short' }}</td>
-          <td>{{ donacion.nroVoluntarios }}</td>
-          <td>{{ donacion.cantidadRequeridaVoluntarios }}</td>
-          <td>{{ donacion.cantidad }}</td>
-          <td>
-            <button class="btn btn-custom-verde_oscuro" (click)="postular('entregar', i)" [disabled]="donacion.nroVoluntarios >= donacion.cantidadRequeridaVoluntarios">Postularse</button>
-            
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    
-    
+<!-- <div class="container mt-4">
+  <div class="alert alert-success" role="alert" *ngIf="mostrarMensaje">
+    Se le enviará un mensaje de confirmación.
   </div>
+  <h2>Donaciones para Recoger</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Tipo de Donación</th>
+        <th>Detalles de la Donación</th>
+        <th>Disponibilidad</th>
+        <th>Número de Voluntarios</th>
+        <th>Voluntarios Requeridos</th>
+        <th>Cantidad</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let donacion of donacionesRecoger; let i = index">
+        <td>{{ donacion.tipoDonacion }}</td>
+        <td>{{ donacion.detalles }}</td>
+        <td>{{ donacion.disponibilidad | date : "short" }}</td>
+        <td>{{ donacion.nroVoluntarios }}</td>
+        <td>{{ donacion.cantidadRequeridaVoluntarios }}</td>
+        <td>{{ donacion.cantidad }}</td>
+        <td>
+          <button
+            class="btn btn-custom-verde_oscuro"
+            (click)="postular('recoger', i)"
+            [disabled]="
+              donacion.nroVoluntarios >= donacion.cantidadRequeridaVoluntarios
+            "
+          >
+            Postularse
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Donaciones para Entregar</h2>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Tipo de Donación</th>
+        <th>Detalles de la Donación</th>
+        <th>Disponibilidad</th>
+        <th>Número de Voluntarios</th>
+        <th>Voluntarios Requeridos</th>
+        <th>Cantidad</th>
+        <th>Acción</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let donacion of donacionesEntregar; let i = index">
+        <td>{{ donacion.tipoDonacion }}</td>
+        <td>{{ donacion.detalles }}</td>
+        <td>{{ donacion.disponibilidad | date : "short" }}</td>
+        <td>{{ donacion.nroVoluntarios }}</td>
+        <td>{{ donacion.cantidadRequeridaVoluntarios }}</td>
+        <td>{{ donacion.cantidad }}</td>
+        <td>
+          <button
+            class="btn btn-custom-verde_oscuro"
+            (click)="postular('entregar', i)"
+            [disabled]="
+              donacion.nroVoluntarios >= donacion.cantidadRequeridaVoluntarios
+            "
+          >
+            Postularse
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div> -->
+
+
+<h1>Alimento y Productos para recoger</h1>
+<button type="button" class="btn btn-custom-azul" (click)="urlGetDonNoRealizadas()">Recargar</button>
+<div *ngIf="tblUrlGetDonacionesNoRealizadasSinColaboradores">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#id</th>
+        <th scope="col">NombreU</th>
+        <th scope="col">ApellidoU</th>
+        <th scope="col">FonoU</th>
+        <th scope="col">Ctd</th>
+        <th scope="col">A/P</th>
+        <th scope="col">FechaHoraProg</th>
+        <th scope="col">Estado</th>
+        <th scope="col">MailResp.</th>
+        <th scope="col">#ColReq</th>
+        <th scope="col">#Col</th>
+        <th scope="col">¿Ser Responsable?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let elementA of tblUrlGetDonacionesNoRealizadasSinColaboradores">
+        <th scope="row">{{elementA.idDonacion}}</th>
+        <td>{{elementA.nombreU}}</td>
+        <td>{{elementA.apellidoU}}</td>
+        <td>{{elementA.telefonoU}}</td>
+        <td>{{elementA.cantidad}}</td>
+        <td>{{elementA.tipo_ap}}</td>
+        <td>{{elementA.fechaHoraProg}}</td>
+        <td>{{elementA.estado}}</td>
+        <td>{{elementA.correoResponsable}}</td>
+        <td>{{elementA.nroRequeridoCol}}</td>
+        <td>{{elementA.nroColaboradores}}</td>
+        <td>
+          
+          <!-- agregar modal o eliminar -->
+          <button (click)="serColaborador(elementA.idDonacion)" type="button" class="btn btn-custom-verde_claro">
+            Ser Colaborador
+          </button>
+          <!-- <button (click)="serColaborador(elementA.idDonacion)" type="button" class="btn btn-custom-verde_claro"
+            data-bs-toggle="modal" data-bs-target="#ModalRecogerAlimento">
+            Ser Colaborador
+          </button> -->
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

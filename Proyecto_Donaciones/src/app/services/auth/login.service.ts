@@ -24,6 +24,7 @@ import { currentUsuarioSimpleDataC } from '../models/currentUsuarioSimpleData';
 import { postulantesSubRolVolC } from '../models/postulantesSubRolVol';
 import { getAllPostulantesRolVolC } from '../models/getAllPostulantesRolVol';
 import { urlGetDonNoRealizadasC } from '../models/getDonNoRealizadas';
+import { urlGetAllSolicitudBC } from '../models/urlGetAllSolicitudB';
 
 @Injectable({
   providedIn: 'root',
@@ -663,7 +664,7 @@ export class LoginService {
         catchError(this.handleError)
       );
   }
-  
+
   urlUserPostRolAcceptMessageUserVol(id: number) {
     let token = sessionStorage.getItem('token');
     const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
@@ -697,8 +698,6 @@ export class LoginService {
       })
       .pipe(catchError(this.handleError));
   }
-
-
 
   urlGetAllPostulantesRolVol(): Observable<getAllPostulantesRolVolC[]> {
     let token = sessionStorage.getItem('token');
@@ -743,5 +742,226 @@ export class LoginService {
       })
       .pipe(catchError(this.handleError));
     // urlGetDonNoRealizadas
+  }
+
+  urlEscogerDonResponsable(id: number, correo: string): Observable<any> {
+    // devuelve boolean
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    const body = {
+      idDonacion: id,
+      correo: correo,
+    };
+    // console.log('bdy: ', body);
+
+    return this.http
+      .post(environment.urlEscogerDonResponsable, body, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(
+        tap((data) => {
+          // this.currentUsersRIP.next(data);
+        }),
+        catchError(this.handleError)
+      );
+  }
+  urlEstablecerNroVolDonC(
+    id: number,
+    correo: string,
+    nrovol: number
+  ): Observable<any> {
+    // devuelve boolean
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    const body = {
+      iddonacion: id,
+      correo: correo,
+      nroVoluntarios: nrovol,
+    };
+    // console.log('bdy: ', body);
+
+    return this.http
+      .post(environment.urlEstablecerNroVolDonC, body, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(
+        tap((data) => {
+          // this.currentUsersRIP.next(data);
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  urlEscogerDonColaborador(id: number, correo: string): Observable<any> {
+    // devuelve boolean
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    const body = {
+      idDonacion: id,
+      correo: correo,
+    };
+    console.log('bdy: ', body);
+
+    return this.http
+      .post(environment.urlEscogerDonColaborador, body, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(
+        tap((data) => {
+          // this.currentUsersRIP.next(data);
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  urlGetAllAlimentos(): Observable<Alimento[]> {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http
+      .get<Alimento[]>(environment.urlGetAllAlimentos, {
+        headers: head,
+      })
+      .pipe(
+        tap((data) => {
+          // this.currentUsersRIP.next(data);
+        }),
+        catchError(this.handleError)
+      );
+  }
+  urlGetAllProductos(): Observable<Producto[]> {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http
+      .get<Producto[]>(environment.urlGetAllProductos, {
+        headers: head,
+      })
+      .pipe(
+        tap((data) => {
+          // this.currentUsersRIP.next(data);
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  urlGetPostAllReceptores(): Observable<getAllPostulantesRolVolC[]>{
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http
+      .get<getAllPostulantesRolVolC[]>(environment.urlGetPostAllReceptores, {
+        headers: head,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  urlRealizarSolicitudBene(correo: string, cantidad: number, tipo: string, fecha: string): Observable<any> {
+    // devuelve boolean
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    const body = {
+      correo : correo,
+      cantidad: cantidad,
+      tipo_ap: tipo,
+      fechaHoraProgramada: fecha,
+    };
+    console.log('bdy: ', body);
+
+    return this.http
+      .post(environment.urlRealizarSolicitudBene, body, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(
+        tap((data) => {
+          // this.currentUsersRIP.next(data);
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  urlGetAllSolicitudB(): Observable<urlGetAllSolicitudBC[]>{
+    
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http
+      .get<urlGetAllSolicitudBC[]>(environment.urlGetAllSolicitudB, {
+        headers: head,
+      })
+      .pipe(catchError(this.handleError));
+  }
+
+  urlEscogerSolResponsable(id: number, correo: string): Observable<any> {
+    // devuelve boolean
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    const body = {
+      idSolicitud: id,
+      correo: correo,
+    };
+    console.log('bdy: ', body);
+
+    return this.http
+      .post(environment.urlEscogerSolResponsable, body, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(
+        tap((data) => {
+          // this.currentUsersRIP.next(data);
+        }),
+        catchError(this.handleError)
+      );
+  }
+  urlEstablecerNroVolSolC(
+    id: number,
+    correo: string,
+    nrovol: number
+  ): Observable<any> {
+    // devuelve boolean
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    const body = {
+      idsolicitud: id,
+      correo: correo,
+      nroVoluntarios: nrovol,
+    };
+    console.log('bdy: ', body);
+
+    return this.http
+      .post(environment.urlEstablecerNroVolSolC, body, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(
+        tap((data) => {
+          // this.currentUsersRIP.next(data);
+        }),
+        catchError(this.handleError)
+      );
+  }
+
+  urlEscogerSolColaborador(id: number, correo: string): Observable<any> {
+    // devuelve boolean
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    const body = {
+      idSolicitud: id,
+      correo: correo,
+    };
+    console.log('bdy: ', body);
+
+    return this.http
+      .post(environment.urlEscogerSolColaborador, body, {
+        headers: head,
+        responseType: 'text',
+      })
+      .pipe(
+        tap((data) => {
+          // this.currentUsersRIP.next(data);
+        }),
+        catchError(this.handleError)
+      );
   }
 }

@@ -37,6 +37,7 @@ export class PaginaAdminComponent implements OnInit {
 
   usersRIP: usuarioRechazadoInabilitadoPendiente[] = [];
   solDonante: solUsuarioDonador[] = [];
+  solReceptor: getAllPostulantesRolVolC[] = [];
   usuariosHabilitados: usuariosHabilitados[] = [];
 
   constructor(private router: Router, private loginService: LoginService) {}
@@ -44,9 +45,10 @@ export class PaginaAdminComponent implements OnInit {
   ngOnInit(): void {
     // this.displaySolUsuarios();
     this.displaySolicitudUsuariosRIP();
-    this.displaySolDonante();
     this.displayUsuariosHabilitados();
     this.displayGetAllPostulantesSubRolVol();
+    this.displaySolDonante();
+    this.urlGetPostAllReceptores();
     this.urlGetAllPostulantesRolVol();
   }
   // TODO necesito un token
@@ -66,6 +68,8 @@ export class PaginaAdminComponent implements OnInit {
       this.displayGetAllPostulantesSubRolVol();
     } else if (seccion === 'voluntarios') {
       this.urlGetAllPostulantesRolVol();
+    } else if (seccion === 'beneficiarios') {
+      this.urlGetPostAllReceptores();
     }
   }
   // TODO necesito un token
@@ -359,19 +363,22 @@ export class PaginaAdminComponent implements OnInit {
   }
 
   urlGetAllPostulantesRolVol() {
-    this.loginService.urlGetAllPostulantesRolVol().subscribe({
-      next: (gaPRV) => {
-        // console.log(userData); // esto imprime informacion sensible, como el token cuidado al reiniciar operaciones
-        this.postulantesVol = gaPRV;
-      },
-      error: (errorData) => {
-        // console.log(errorData);
-        this.loginError = errorData;
-      },
-      complete: () => {
-        console.log('display  postulantes vol completo');
-      },
-    });
+    setTimeout(()=> {
+      this.loginService.urlGetAllPostulantesRolVol().subscribe({
+        next: (gaPRV) => {
+          // console.log(userData); // esto imprime informacion sensible, como el token cuidado al reiniciar operaciones
+          this.postulantesVol = gaPRV;
+        },
+        error: (errorData) => {
+          // console.log(errorData);
+          this.loginError = errorData;
+        },
+        complete: () => {
+          console.log('display  postulantes vol completo');
+        },
+      });
+
+    }, 100)
   }
 
   aceptarPostulantesVol(id: number) {
@@ -388,6 +395,47 @@ export class PaginaAdminComponent implements OnInit {
     });
   }
   rechazarPostulantesVol(id: number) {
+    this.loginService.urlRechazarPostulantesRolVol(id).subscribe({
+      next: (info) => {
+        console.log('Aviso: ' + info);
+      },
+      error: (errorData) => {
+        this.loginError = errorData;
+      },
+      complete: () => {
+        // console.log('usuario rechazado');
+      },
+    });
+  }
+  urlGetPostAllReceptores(){
+    this.loginService.urlGetPostAllReceptores().subscribe({
+      next: (solr) => {
+        // console.log(userData); // esto imprime informacion sensible, como el token cuidado al reiniciar operaciones
+        this.solReceptor = solr;
+      },
+      error: (errorData) => {
+        // console.log(errorData);
+        this.loginError = errorData;
+      },
+      complete: () => {
+        console.log('display  postulantes rec completo');
+      },
+    });    
+  }
+  aceptarSolReceptor(id: number){
+    this.loginService.urlAceptarPostulantesRolVol(id).subscribe({
+      next: (info) => {
+        console.log('Aviso: ' + info);
+      },
+      error: (errorData) => {
+        this.loginError = errorData;
+      },
+      complete: () => {
+        // console.log('usuario rechazado');
+      },
+    });
+  }
+  rechazarSolReceptor(id: number){
     this.loginService.urlRechazarPostulantesRolVol(id).subscribe({
       next: (info) => {
         console.log('Aviso: ' + info);

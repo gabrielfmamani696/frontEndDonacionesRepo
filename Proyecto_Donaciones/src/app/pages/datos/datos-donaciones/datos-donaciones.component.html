@@ -1,0 +1,25 @@
+<button type="button" class="btn btn-custom-azul" (click)="urlGetAllAlimentos()">Recargar</button>
+<div class="container">
+  <!-- <a (click)="urlGetAllAlimentos()" >Recargar</a> -->
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#IDAlimento</th>
+        <th scope="col">F_Vencimiento</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Tipo</th>
+        <th scope="col">Cantidad</th>
+        <!-- <th scope="col">Rechazar</th> -->
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let ali of alimentos">
+        <th scope="row">{{ ali.idAlimento }}</th>
+        <td>{{ ali.fecha_Vencimiento }}</td>
+        <td>{{ ali.estado }}</td>
+        <td>{{ ali.tipo }}</td>
+        <td>{{ ali.cantidad }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

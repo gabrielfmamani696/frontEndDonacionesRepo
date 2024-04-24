@@ -23,7 +23,7 @@
       class="btn btn-custom-verde_claro"
       (click)="cambiarTipoDatos('beneficiarios')"
     >
-      S. Beneficarios/Receptores
+      S. Benef./Receptores
     </button>
     <button
       type="button"
@@ -37,14 +37,14 @@
       class="btn btn-custom-verde_claro"
       (click)="cambiarTipoDatos('voluntarios_responsables')"
     >
-      S. Voluntarios Responsables
+      S. Vol. Responsables
     </button>
     <button
       type="button"
       class="btn btn-custom-verde_claro"
       (click)="cambiarTipoDatos('voluntarios_colaboradores')"
     >
-      S. Voluntarios Colaboradores
+      S. Vol. Colaboradores
     </button>
   </div>
   <!-- </div> -->
@@ -209,14 +209,6 @@
   <!-- <button type="button" class="btn btn-custom" (click)="imprimirUsuario()">Imprime usuario en la consola</button> -->
 
   <div *ngIf="activeDataType === 'donadores'">
-    <!-- <button
-      type="button"
-      class="btn btn-custom-azul"
-      (click)="actualizarDisplay('donadores')"
-    >
-      Recargar
-    </button> -->
-    <!-- <a (click)="displayUsuariosRIP()" >Recargar</a> -->
     <table class="table">
       <thead>
         <tr>
@@ -252,6 +244,50 @@
               type="button"
               class="btn btn-custom"
               (click)="rechazarSolDonante(pvelement.idmensaje)"
+            >
+              Rechazar
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div *ngIf="activeDataType === 'beneficiarios'">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">#IDBDRec</th>
+          <th scope="col">Nombre</th>
+          <th scope="col">Apellido</th>
+          <th scope="col">Correo</th>
+          <th scope="col">Teléfono</th>
+          <th scope="col">Rol</th>
+          <th scope="col">Aceptar Receptor</th>
+          <th scope="col">Rechazar Receptor</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let srelement of solReceptor">
+          <th scope="row">{{ srelement.idmensaje }}</th>
+          <td>{{ srelement.nombre }}</td>
+          <td>{{ srelement.apellido }}</td>
+          <td>{{ srelement.correo }}</td>
+          <td>{{ srelement.telefono }}</td>
+          <td>{{ srelement.rol }}</td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-custom"
+              (click)="aceptarSolReceptor(srelement.idmensaje)"
+            >
+              Aceptar
+            </button>
+          </td>
+          <td>
+            <button
+              type="button"
+              class="btn btn-custom"
+              (click)="rechazarSolReceptor(srelement.idmensaje)"
             >
               Rechazar
             </button>

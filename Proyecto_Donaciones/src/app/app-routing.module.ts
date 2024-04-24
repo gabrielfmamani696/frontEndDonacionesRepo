@@ -18,6 +18,7 @@ import { PageBeneficiarioComponent } from './pages/page-beneficiario/page-benefi
 // guards
 import { guardAdminGuard } from './guards/guard-admin.guard';
 import { PageVoluntarioColaboradorComponent } from './pages/page-voluntario-colaborador/page-voluntario-colaborador.component';
+import { DatosDonacionesComponent } from './pages/datos/datos-donaciones/datos-donaciones.component';
 
 const routes: Routes = [
   {path: '', component: HomePrincipalComponent},
@@ -30,6 +31,7 @@ const routes: Routes = [
   {path: 'datavoluntarios', component: DatosVoluntarioComponent},
   // //////
   {path: 'datausuario', component: DatosUsuarioComponent},
+  {path: 'datadonacion', component: DatosDonacionesComponent},
   {path: 'login', component: FormLoginUsuarioComponent},
   {path: 'solicitudusuario', component: FormSolicitudUsuarioComponent},
   {path: 'adminpage', component: PaginaAdminComponent, canActivate: [guardAdminGuard]},

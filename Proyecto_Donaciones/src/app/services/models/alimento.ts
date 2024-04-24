@@ -1,6 +1,6 @@
 export interface Alimento {
-    id_alimento: number,
-    fecha_venc: string,
+    idAlimento: number,
+    fecha_Vencimiento: string,
     estado: string,
     tipo: string,
     cantidad: number,

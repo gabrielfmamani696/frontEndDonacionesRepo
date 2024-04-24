@@ -1,5 +1,5 @@
 export interface Producto {
-    id_producto: number,
+    idProducto: number,
     estado: string,
     cantidad: number,
     tipo: string,

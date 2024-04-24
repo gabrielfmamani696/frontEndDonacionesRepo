@@ -1,7 +1,7 @@
 <!-- <p>page-voluntario works!</p> -->
-<h1>Alimento y productos para recoger</h1>
+<h1>Alimento y Productos para recoger</h1>
 <button type="button" class="btn btn-custom-azul" (click)="urlGetDonNoRealizadas()">Recargar</button>
-<div *ngIf="tblUrlGetDonNoRealizadas">
+<div *ngIf="tblUrlGetDonacionesNoRealizadasSinResponsable">
   <table class="table">
     <thead>
       <tr>
@@ -54,7 +54,79 @@
       </div>
       <div class="modal-body">
         <div class="container">
-            <form [formGroup]="formColaboresAlimentoRecoger" (ngSubmit)="enviarFormRecogerAlimento()">
+            <form [formGroup]="formColaboresAlimentoRecoger" (ngSubmit)="serResponsableRecoger()">
+            
+                <div class="mb-3">
+                    <label for="cantidad" class="labelCustom">Cantidad de colaboradores</label>
+                    <input type="number" class="form-control" id="cantidad" formControlName="cantidad">
+                </div>
+                <button type="submit" class="btn btn-primary" data-bs-dismiss="modal">Enviar</button>
+            </form>
+        </div>
+        
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+<h1>Alimento y Productos para distribuir</h1>
+<button type="button" class="btn btn-custom-azul" (click)="urlGetDonNoRealizadas()">Recargar</button>
+<div *ngIf="tblUrlGetDonacionesNoRealizadasSinResponsable">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#id</th>
+        <th scope="col">NombreU</th>
+        <th scope="col">ApellidoU</th>
+        <th scope="col">FonoU</th>
+        <th scope="col">Ctd</th>
+        <th scope="col">A/p</th>
+        <th scope="col">FechaHoraProg</th>
+        <th scope="col">Estado</th>
+        <!-- <th scope="col">MailResp.</th> -->
+        <th scope="col">#ColReq</th>
+        <th scope="col">#Col</th>
+        <th scope="col">¿Ser Responsable?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let elemRep of tblGetAllSolicitudBSinResponsable">
+        <th scope="row">{{elemRep.idSolicitud}}</th>
+        <td>{{elemRep.nombreU}}</td>
+        <td>{{elemRep.apellidoU}}</td>
+        <td>{{elemRep.telefonoU}}</td>
+        <td>{{elemRep.cantidad}}</td>
+        <td>{{elemRep.tipo_ap}}</td>
+        <td>{{elemRep.fechaHoraProg}}</td>
+        <td>{{elemRep.estado}}</td>
+        <!-- <td>{{elementA.correoResponsable}}</td> -->
+        <td>{{elemRep.nroRequeridoCol}}</td>
+        <td>{{elemRep.nroColaboradores}}</td>
+        <td>
+          
+
+          <button (click)="setCurrentID(elemRep.idSolicitud)" type="button" class="btn btn-custom"
+            data-bs-toggle="modal" data-bs-target="#ModalEntregarAlimento">
+            Ser Responsable2
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="modal fade" id="ModalEntregarAlimento" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Establece el numero de colaboradores</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+            <form [formGroup]="formColaboresAlimentoRecoger" (ngSubmit)="serResponsableEntregar()">
             
                 <div class="mb-3">
                     <label for="cantidad" class="labelCustom">Cantidad de colaboradores</label>

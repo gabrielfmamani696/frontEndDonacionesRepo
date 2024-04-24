@@ -56,14 +56,29 @@ export const environment = {
 
     urltblDataSolDonante: 'http://localhost:8090/messageUser/getPostAllDonantes', //Obtener a postulantes Donantes
     urlGetAllPostulantesRolVol: 'http://localhost:8090/userPostRol/getAllPostulantesRolVol', //Obtener a postulantes voluntario
-    urlAceptarPostulantesRolVol: 'http://localhost:8090/messageUser/acceptMUserRol/', //Obtener a postulantes voluntario
-    urlRechazarPostulantesRolVol: 'http://localhost:8090/messageUser/refusedMUserRol/', //Obtener a postulantes voluntario
+    urlAceptarPostulantesRolVol: 'http://localhost:8090/messageUser/acceptMUserRol/', //aceptr a postulantes voluntario
+    urlRechazarPostulantesRolVol: 'http://localhost:8090/messageUser/refusedMUserRol/', //rechazar a postulantes voluntario
 
 
 
     urlObtenerPostulantesDonantesRepresentantes: 'http://localhost:8090/messageUser/getPostDonantesOrg', //Obtener a postulantes Donantes Representantes
-    urlGetDonNoRealizadas: 'http://localhost:8090/donaciones/getDonNoRealizadas', //En salida: el atributo 'estado' puede tener los siguientes valores: SinResponsable, Pendiente, Realizado.
-    
+    urlGetDonNoRealizadas: 'http://localhost:8090/donaciones/getDonNoRealizadas', //En salida: el atrib1uto 'estado' puede tener los siguientes valores: SinResponsable, Pendiente, Realizado.
+    urlEscogerDonResponsable: 'http://localhost:8090/voluntarioUser/escogerDonResponsable', //Que un usuario voluntario Responsable puede escoger donacion
+    urlEstablecerNroVolDonC: 'http://localhost:8090/voluntarioUser/establecerNroVolDonC', //Que un usuario voluntario Responsable puede escoger donacion
+    urlEscogerDonColaborador: 'http://localhost:8090/voluntarioUser/escogerDonColaborador', //Que un usuario voluntario Responsable puede escoger donacion
+
+
+
+
+    urlGetPostAllReceptores: 'http://localhost:8090/messageUser/getPostAllReceptores', //Despliqgue de solicitud de receptores
+    urlGetAllAlimentos: 'http://localhost:8090/alimentos/getAllAlimentos', //Obtener todos los alimnetos del inventario
+    urlGetAllProductos: 'http://localhost:8090/productos/getAllProductos', //Obtener todos los productos del inventario
+    urlRealizarSolicitudBene: 'http://localhost:8090/solicitudes/realizarSolicitud', //Realizar una Solicitud, accion que puede realizar un Usuario Receptor
+    urlGetAllSolicitudB: 'http://localhost:8090/solicitudes/getAllSolicitud', //Mostrar las Solicitudes anteriroes
+
+    urlEscogerSolResponsable : 'http://localhost:8090/voluntarioUser/escogerSolResponsable ', //Receptores
+    urlEstablecerNroVolSolC: 'http://localhost:8090/voluntarioUser/establecerNroVolSolC', //Receptores
+    urlEscogerSolColaborador: 'http://localhost:8090/voluntarioUser/escogerSolColaborador', //Receptores
 
 
 }
