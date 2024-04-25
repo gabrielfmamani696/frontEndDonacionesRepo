@@ -4,6 +4,7 @@ import { LoginService } from '../../services/auth/login.service';
 import { Router } from '@angular/router';
 import { urlGetDonNoRealizadasC } from '../../services/models/getDonNoRealizadas';
 import { currentUsuarioSimpleDataC } from '../../services/models/currentUsuarioSimpleData';
+import { urlGetAllSolicitudBC } from '../../services/models/urlGetAllSolicitudB';
 
 @Component({
   selector: 'app-page-voluntario-colaborador',
@@ -16,6 +17,8 @@ export class PageVoluntarioColaboradorComponent implements OnInit{
   tblUrlGetDonNoRealizadas: urlGetDonNoRealizadasC[] = [];
   tblUrlGetDonacionesNoRealizadasSinColaboradores: urlGetDonNoRealizadasC[] =
     [];
+  tblGetAllSolicitudB: urlGetAllSolicitudBC[] = [];
+  tblGetAllSolicitudBSinColabaradores: urlGetAllSolicitudBC[] = [];
   constructor(
     private loginService: LoginService,
     private fb: FormBuilder,
@@ -27,6 +30,7 @@ export class PageVoluntarioColaboradorComponent implements OnInit{
     // this.loginService.getCurrentUsuarioSimpleData();
     this.urlGetDonNoRealizadas();
     this.currentUsuarioSimpleData = this.loginService.getCurrentUsuarioSimpleData();
+    this.urlGetAllSolicitudB();
   }
   donacionesRecoger = [
     {
@@ -100,4 +104,41 @@ export class PageVoluntarioColaboradorComponent implements OnInit{
       this.urlGetDonNoRealizadas();
     }, 200)
   }
+
+  urlGetAllSolicitudB(){
+    this.loginService.urlGetAllSolicitudB().subscribe({
+      next: (data) => {
+        this.tblGetAllSolicitudB = data;
+      },
+      error: (errorData) => {
+        console.log(errorData);
+      },
+      complete: () => {
+        console.log('Despliegue de datos 2 completo');
+      },
+    });
+    setTimeout(() => {
+      this.tblGetAllSolicitudBSinColabaradores =
+        this.tblGetAllSolicitudB.filter(
+          (donacion) => donacion.estado === 'Pendiente'
+        );
+    }, 200);
+  }
+
+  urlEscogerSolColaborador(id: number){
+    setTimeout(() => {
+      this.loginService
+        .urlEscogerSolColaborador(id, this.currentUsuarioSimpleData.correo)
+        .subscribe({
+          next: (salida) => {
+            console.log('salida: ', salida);
+            // alert('Su solicitud para ser ha sido enviada.')
+          },
+        });  
+
+    }, 150)
+    setTimeout(() => {
+      this.urlGetAllSolicitudB();
+    }, 200)
+  } 
 }
