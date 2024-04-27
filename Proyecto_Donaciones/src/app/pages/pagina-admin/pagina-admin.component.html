@@ -207,7 +207,9 @@
     </table>
   </div> -->
   <!-- <button type="button" class="btn btn-custom" (click)="imprimirUsuario()">Imprime usuario en la consola</button> -->
-
+  <div *ngIf="activeDataType === 'donadores'" class="container">
+    <h1>Solicitud de Donadores</h1>
+  </div>
   <div *ngIf="activeDataType === 'donadores'">
     <table class="table">
       <thead>
@@ -251,6 +253,9 @@
         </tr>
       </tbody>
     </table>
+  </div>
+  <div *ngIf="activeDataType === 'beneficiarios'" class="container">
+    <h1>Solicitud de Beneficiarios</h1>
   </div>
   <div *ngIf="activeDataType === 'beneficiarios'">
     <table class="table">
@@ -297,7 +302,9 @@
     </table>
   </div>
 
-
+  <div *ngIf="activeDataType === 'voluntarios_responsables'" class="container">
+    <h1>Solicitud de Voluntarios Responsables</h1>
+  </div>
   <div *ngIf="activeDataType === 'voluntarios_responsables'">
     <table class="table">
       <thead>
@@ -345,7 +352,9 @@
       </tbody>
     </table>
   </div>
-
+  <div *ngIf="activeDataType === 'voluntarios_colaboradores'" class="container">
+    <h1>Solicitud de Voluntarios Colaboradores</h1>
+  </div>
   <div *ngIf="activeDataType === 'voluntarios_colaboradores'">
     <table class="table">
       <thead>
@@ -394,7 +403,9 @@
     </table>
   </div>
 
-
+  <div *ngIf="activeDataType === 'voluntarios'" class="container">
+    <h1>Solicitud de Voluntarios</h1>
+  </div>
   <div *ngIf="activeDataType === 'voluntarios'">
     <table class="table">
       <thead>
