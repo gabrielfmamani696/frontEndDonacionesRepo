@@ -1,34 +1,177 @@
-/* Estilos personalizados para los botones */
-.btn-custom {
-    color: #ffffff; /* Color del texto */
-    background-color: #053c3f; /* Color de fondo personalizado */
-    border-color: #053c3f; /* Color del borde */
-}
+/* Variables de colores para un fácil mantenimiento */
+:root {
+    --color-dark-green: #053c40;
+    --color-light-blue: #1f9bab;
+    --color-green: #6ca40d;
+    --text-color: #fff;
+    --background-color: var(--color-dark-green);
+  }
+  
+  /* Reset básico para estilos */
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+  }
+  
+  .container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Botones y navegación */
+  .btn {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin: 0.5rem;
+  }
+  
+  .btn:hover {
+    cursor: pointer;
+  }
+  
+  .btn-custom {
+    background-color: transparent;
+    border: 2px solid var(--color-light-blue);
+    color: var(--color-light-blue);
+  }
+  
+  .btn-custom:hover {
+    background-color: var(--color-light-blue);
+    color: var(--text-color);
+  }
+  
+  /* Tablas y celdas */
+  .table {
+    width: 100%;
+    border: 1px solid #aaa;
+    border-spacing: 5px; 
+    border-collapse: collapse;
+    margin-top: 1rem;
+  }
+  
+  .table thead th {
+    background-color: var(--color-dark-green);
+    color: var(--text-color);
+    text-align: center;
+    padding: 10px;
+  }
+  
+  .table th,
+  .table td {
+    text-align: center;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  .table tfoot {
+    background-color: #053c40; 
+    color: white;
+  }
+  .table tbody tr:hover {
+    background-color: var(--color-light-blue);
+    color: var(--text-color);
+  }
+  
+  
 
-.btn-custom:hover {
-    background-color: #032728; /* Cambiar color de fondo al pasar el ratón por encima */
-    border-color: #032728; /* Cambiar color del borde al pasar el ratón por encima */
-}
-
-.btn-custom-verde_claro {
-    color: #ffffff; /* Color del texto */
-    background-color: #6ca40d; /* Color de fondo personalizado */
-    border-color: #6ca40d; /* Color del borde */
-}
-
-.btn-custom-verde_claro:hover {
-    background-color: #4e7b0a; /* Cambiar color de fondo al pasar el ratón por encima */
-    border-color: #4e7b0a; /* Cambiar color del borde al pasar el ratón por encima */
-}
-
-.btn-custom-azul {
-    color: #ffffff; /* Color del texto */
-    background-color: #209bab; /* Color de fondo personalizado */
-    border-color: #209bab; /* Color del borde */
-}
-
-.btn-custom-azul:hover {
-    background-color: #0d7685; /* Cambiar color de fondo al pasar el ratón por encima */
-    border-color: #0d7685; /* Cambiar color del borde al pasar el ratón por encima */
-}
-
+  /* Responsive design */
+  @media (max-width: 768px) {
+    .btn-group {
+      flex-direction: column;
+    }
+  
+    .btn {
+      width: 100%;
+      margin-top: 0.3rem;
+    }
+  
+    .container {
+      margin: 1rem;
+      padding: 1rem;
+    }
+  
+    .table {
+      font-size: 0.9rem;
+    }
+  }
+/* Estilos de botones mejorados con tu paleta de colores */
+.btn {
+    font-size: 1rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.75rem 1.25rem;
+    border-radius: 5px;
+    border-bottom: 2px solid #053c40;
+    transition: background-color 0.3s, box-shadow 0.3s, transform 0.3s;
+    margin: 0.375rem;
+    cursor: pointer;
+    display: inline-block;
+    line-height: 1.5;
+    text-align: center;
+    vertical-align: middle;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+  }
+  
+  .btn-rechazar {
+    background-color: #053c40; 
+    color: #ffffff;
+  }
+  .button:hover {
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.2);
+    border-bottom: 2px solid #6ca40d;
+  }
+  .btn-rechazar:hover,
+  .btn-rechazar:focus {
+    background-color: #198a94;
+    color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(31, 155, 171, 0.5);
+  }
+  
+  .btn-aceptar {
+    background-color: #6ca40d; 
+    color: #ffffff;
+  }  
+  .btn-recargar {
+    background-color: #1f9bab; 
+    color: #ffffff;
+  } 
+  .btn-deshabilitar {
+    background-color: #ff7979; 
+    color: #ffffff;
+  }
+  
+  .btn-aceptar:hover,
+  .btn-aceptar:focus {
+    background-color: #9dcc4a;
+    color: #ffffff;
+    box-shadow: 0 0 0 3px rgba(108, 164, 13, 0.5);
+  }
+  
+  @media (hover: hover) {
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+  }
+  
+  /* Ajuste para dispositivos móviles */
+  @media (max-width: 768px) {
+    .btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+    }
+  }
+    

@@ -77,7 +77,7 @@ export class PageDonadorComponent implements OnInit {
 
     // console.log(this.donacionForm.value);
     setTimeout(() => {
-      if(this.currentUsuarioSimpleData.rol === 'Donador'){
+      if(this.currentUsuarioSimpleData.rol === 'Donante'){
         this.loginService
         .registroDonacion(this.donacionForm.value as formDonacion)
         .subscribe({
@@ -87,10 +87,11 @@ export class PageDonadorComponent implements OnInit {
           complete: () => {
             // this.router.navigateByUrl('/');
             this.donacionForm.reset();
+            alert('Donación realizada')
           },
         });
       } else {
-        alert('Usted NO es un usuario DONADOR')
+        alert('Usted NO es un usuario Donante')
       }
     }, 200);
     

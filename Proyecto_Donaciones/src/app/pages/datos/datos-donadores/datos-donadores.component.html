@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-custom-azul" (click)="display()">Recargar</button>
+<button type="button" class="btn btn-custom-azul" (click)="urlGetAllDonantes()">Recargar</button>
 <table class="table">
   <thead>
     <tr>
@@ -8,18 +8,18 @@
       <th scope="col">Correo</th>
       <th scope="col">Teléfono</th>
       <th scope="col">Estado Gral.</th>
-      <th scope="col">Subrol</th>
+      <th scope="col">Razón Social</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let volunt of listaDeVoluntarios">
+    <tr *ngFor="let volunt of donantes">
       <!-- <th scope="row">{{volunt.id}}</th> -->
       <td>{{volunt.nombreUser}}</td>
-      <td>{{volunt.apellido}}</td>
+      <td>{{volunt.apellidoUser}}</td>
       <td>{{volunt.correo}}</td>
       <td>{{volunt.telefono}}</td>
-      <td>{{volunt.estadoGeneralUser}}</td>
-      <td>{{volunt.subrol}}</td>
+      <td>{{volunt.estado}}</td>
+      <td>{{volunt.nombreOrg}}</td>
     </tr>
   </tbody>
 </table>

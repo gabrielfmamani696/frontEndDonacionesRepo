@@ -19,6 +19,8 @@ import { PageBeneficiarioComponent } from './pages/page-beneficiario/page-benefi
 import { guardAdminGuard } from './guards/guard-admin.guard';
 import { PageVoluntarioColaboradorComponent } from './pages/page-voluntario-colaborador/page-voluntario-colaborador.component';
 import { DatosDonacionesComponent } from './pages/datos/datos-donaciones/datos-donaciones.component';
+import { DatosDonadoresComponent } from './pages/datos/datos-donadores/datos-donadores.component';
+import { DatosReceptoresComponent } from './pages/datos/datos-receptores/datos-receptores.component';
 
 const routes: Routes = [
   {path: '', component: HomePrincipalComponent},
@@ -29,6 +31,8 @@ const routes: Routes = [
   {path: 'reporgbenefica', component: FormRepOrgBeneficaComponent},
   {path: 'reporgreceptora', component: FormRepOrgReceptoraComponent},
   {path: 'datavoluntarios', component: DatosVoluntarioComponent},
+  {path: 'datadonadores', component: DatosDonadoresComponent},
+  {path: 'datareceptores', component: DatosReceptoresComponent},
   // //////
   {path: 'datausuario', component: DatosUsuarioComponent},
   {path: 'datadonacion', component: DatosDonacionesComponent},

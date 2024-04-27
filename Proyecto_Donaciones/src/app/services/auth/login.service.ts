@@ -25,6 +25,9 @@ import { postulantesSubRolVolC } from '../models/postulantesSubRolVol';
 import { getAllPostulantesRolVolC } from '../models/getAllPostulantesRolVol';
 import { urlGetDonNoRealizadasC } from '../models/getDonNoRealizadas';
 import { urlGetAllSolicitudBC } from '../models/urlGetAllSolicitudB';
+import { voluntarioC } from '../models/voluntario';
+import { donanteC } from '../models/donante';
+import { receptorC } from '../models/receptor';
 
 @Injectable({
   providedIn: 'root',
@@ -963,5 +966,38 @@ export class LoginService {
         }),
         catchError(this.handleError)
       );
+  }
+
+  urlGetAllVoluntarios(): Observable<voluntarioC[]>{
+    
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http
+      .get<voluntarioC[]>(environment.urlGetAllVoluntarios, {
+        headers: head,
+      })
+      .pipe(catchError(this.handleError));
+  }
+  urlGetAllDonantes(): Observable<donanteC[]>{
+    
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http
+      .get<donanteC[]>(environment.urlGetAllDonantes, {
+        headers: head,
+      })
+      .pipe(catchError(this.handleError));
+
+  }
+  urlGetAllReceptores(): Observable<receptorC[]>{
+    
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    return this.http
+      .get<receptorC[]>(environment.urlGetAllReceptores, {
+        headers: head,
+      })
+      .pipe(catchError(this.handleError));
+    
   }
 }

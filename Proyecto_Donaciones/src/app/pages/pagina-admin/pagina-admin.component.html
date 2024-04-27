@@ -53,7 +53,7 @@
   <!-- Tabla --><!-- Tabla --><!-- Tabla --><!-- Tabla -->
   <button
     type="button"
-    class="btn btn-custom-azul"
+    class="btn btn-recargar"
     (click)="actualizarDisplay(activeDataType)"
   >
     Recargar
@@ -91,7 +91,7 @@
             <button
               *ngIf="usersHab.nombre !== 'admin'"
               type="button"
-              class="btn btn-custom"
+              class="btn btn-deshabilitar"
               (click)="deshabUsuarioHabilitado(usersHab.id)"
             >
               Deshabilitar
@@ -140,7 +140,7 @@
             <button
               *ngIf="usersRIPelement.estado !== 'Inabilitado'"
               type="button"
-              class="btn btn-custom"
+              class="btn btn-aceptar"
               (click)="aceptarSolUsuario(usersRIPelement.idUser)"
             >
               Aceptar
@@ -149,7 +149,7 @@
           <td>
             <button
               type="button"
-              class="btn btn-custom"
+              class="btn btn-rechazar"
               (click)="rechazarSolUsuario(usersRIPelement.idUser)"
             >
               Rechazar
@@ -233,7 +233,7 @@
           <td>
             <button
               type="button"
-              class="btn btn-custom"
+              class="btn btn-aceptar"
               (click)="aceptarSolDonante(pvelement.idmensaje)"
             >
               Aceptar
@@ -242,7 +242,7 @@
           <td>
             <button
               type="button"
-              class="btn btn-custom"
+              class="btn btn-rechazar"
               (click)="rechazarSolDonante(pvelement.idmensaje)"
             >
               Rechazar
@@ -277,7 +277,7 @@
           <td>
             <button
               type="button"
-              class="btn btn-custom"
+              class="btn btn-aceptar"
               (click)="aceptarSolReceptor(srelement.idmensaje)"
             >
               Aceptar
@@ -286,7 +286,7 @@
           <td>
             <button
               type="button"
-              class="btn btn-custom"
+              class="btn btn-rechazar"
               (click)="rechazarSolReceptor(srelement.idmensaje)"
             >
               Rechazar
@@ -326,7 +326,7 @@
           <td>
             <button
               type="button"
-              class="btn btn-custom"
+              class="btn btn-aceptar"
               (click)="aceptarPostulantesSubRolVol(pvelement.idmensajeSubRol)"
             >
               Aceptar
@@ -335,7 +335,7 @@
           <td>
             <button
               type="button"
-              class="btn btn-custom"
+              class="btn btn-rechazar"
               (click)="rechazarPostulantesSubRolVol(pvelement.idmensajeSubRol)"
             >
               Rechazar
@@ -374,7 +374,7 @@
           <td>
             <button
               type="button"
-              class="btn btn-custom"
+              class="btn btn-aceptar"
               (click)="aceptarPostulantesSubRolVol(pvelement.idmensajeSubRol)"
             >
               Aceptar
@@ -383,7 +383,7 @@
           <td>
             <button
               type="button"
-              class="btn btn-custom"
+              class="btn btn-rechazar"
               (click)="rechazarPostulantesSubRolVol(pvelement.idmensajeSubRol)"
             >
               Rechazar
@@ -421,7 +421,7 @@
           <td>
             <button
               type="button"
-              class="btn btn-custom"
+              class="btn btn-aceptar"
               (click)="aceptarPostulantesVol(pvelement.idmensaje)"
             >
               Aceptar
@@ -430,7 +430,7 @@
           <td>
             <button
               type="button"
-              class="btn btn-custom"
+              class="btn btn-rechazar"
               (click)="rechazarPostulantesVol(pvelement.idmensaje)"
             >
               Rechazar

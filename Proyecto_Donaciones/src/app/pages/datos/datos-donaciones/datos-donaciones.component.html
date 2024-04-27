@@ -1,4 +1,4 @@
-<button type="button" class="btn btn-custom-azul" (click)="urlGetAllAlimentos()">Recargar</button>
+<button type="button" class="btn btn-custom-azul" (click)="display()">Recargar</button>
 <div class="container">
   <!-- <a (click)="urlGetAllAlimentos()" >Recargar</a> -->
   <table class="table">
@@ -22,4 +22,27 @@
       </tr>
     </tbody>
   </table>
+</div>
+<div class="container">
+<h1>Productos</h1>
+<!-- <a (click)="urlGetAllAlimentos()" >Recargar</a> -->
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#IDProducto</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Tipo</th>
+      <th scope="col">Cantidad</th>
+      <!-- <th scope="col">Rechazar</th> -->
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let p of productos">
+      <th scope="row">{{ p.idProducto }}</th>
+      <td>{{ p.estado }}</td>
+      <td>{{ p.tipo }}</td>
+      <td>{{ p.cantidad }}</td>
+    </tr>
+  </tbody>
+</table>
 </div>

@@ -81,4 +81,10 @@ export const environment = {
     urlEscogerSolColaborador: 'http://localhost:8090/voluntarioUser/escogerSolColaborador', //Receptores
 
 
+    urlGetAllVoluntarios: 'http://localhost:8090/voluntarioUser/getAllVoluntarios', //Obtener a TODOS los voluntarios
+    urlGetAllDonantes: 'http://localhost:8090/donanteUser/getAllDonantes', //Obtener a TODOS los donantes
+    urlGetAllReceptores: 'http://localhost:8090/receptorUser/getAllReceptores', //Obtener a TODOS los receptores
+
+
+    
 }
