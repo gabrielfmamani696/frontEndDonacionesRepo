@@ -295,17 +295,24 @@ export class PageVoluntarioComponent implements OnInit {
   serResponsableRecoger() {
     // console.log(this.current_id, this.formColaboresAlimentoRecoger.value
     // .cantidad, this.currentUsuarioSimpleData.correo);
-    
-    if (this.formColaboresAlimentoRecoger.valid) {
-      const num: number = this.formColaboresAlimentoRecoger.value
-        .cantidad as number;
-      this.urlEscogerDonResponsable(this.current_id);
-      setTimeout(() => {
-        this.urlEstablecerNroVolDonC(this.current_id, num);
-      }, 200);
+    if(this.currentUsuarioSimpleData.rol==='Voluntario' && this.currentUsuarioSimpleData.rolVol === 'Responsable'){
+      if (this.formColaboresAlimentoRecoger.valid) {
+        const num: number = this.formColaboresAlimentoRecoger.value
+          .cantidad as number;
+        this.urlEscogerDonResponsable(this.current_id);
+        setTimeout(() => {
+          this.urlEstablecerNroVolDonC(this.current_id, num);
+          this.formColaboresAlimentoRecoger.reset();
+        }, 500);
+        setTimeout(() => {
+          this.router.navigateByUrl('pagevolColab');
+        }, 1250);
+      }
+      this.formColaboresAlimentoRecoger.reset();
+    } else {
+      alert('Usted no es usuario Voluntario-Responsable')
     }
-    this.formColaboresAlimentoRecoger.reset;
-    this.router.navigateByUrl('pagevolColab');
+
   }
 
   urlGetAllSolicitudB(){
@@ -353,15 +360,20 @@ export class PageVoluntarioComponent implements OnInit {
   }
 
   serResponsableEntregar() {
-    if (this.formColaboresAlimentoRecoger.valid) {
-      const num: number = this.formColaboresAlimentoRecoger.value
-        .cantidad as number;
-      this.urlEscogerSolResponsable(this.current_id);
-      setTimeout(() => {
-        this.urlEstablecerNroVolSolC(this.current_id, num);
-      }, 200);
+
+    if(this.currentUsuarioSimpleData.rol==='Voluntario' && this.currentUsuarioSimpleData.rolVol === 'Responsable'){
+      if (this.formColaboresAlimentoRecoger.valid) {
+        const num: number = this.formColaboresAlimentoRecoger.value
+          .cantidad as number;
+        this.urlEscogerSolResponsable(this.current_id);
+        setTimeout(() => {
+          this.urlEstablecerNroVolSolC(this.current_id, num);
+        }, 200);
+      }
+      this.formColaboresAlimentoRecoger.reset;
+      this.router.navigateByUrl('pagevolColab');
+    } else {
+      alert('Usted no es usuario Voluntario-Responsable')
     }
-    this.formColaboresAlimentoRecoger.reset;
-    this.router.navigateByUrl('pagevolColab');
   }
 }

@@ -20,8 +20,8 @@
         <th scope="col">Estado</th>
         <th scope="col">Tipo</th>
         <th scope="col">Cantidad</th>
-        <th scope="col">Elegir 1</th>
-        <th scope="col">Dejar 1</th>
+        <th scope="col">Añadir</th>
+        <th scope="col">Quitar</th>
         <th scope="col">Pedido Actual</th>
         <!-- <th scope="col">Rechazar</th> -->
       </tr>
@@ -34,14 +34,14 @@
         <td>{{ ali.tipo }}</td>
         <td>{{ ali.cantidad }}</td>
         <td>
-          <button type="button" class="btn btn-custom-azul" (click)="agregarElemento(ali.idAlimento)">Sumar</button>
+          <button type="button" class="btn btn-custom-azul" (click)="agregarAlimento(ali.idAlimento)">Sumar</button>
         </td>
         <td>
-          <button type="button" class="btn btn-custom-azul" (click)="dejarElemento(ali.idAlimento)">Restar</button>
+          <button type="button" class="btn btn-custom-azul" (click)="dejarAlimento(ali.idAlimento)">Restar</button>
         </td>
         <td>
-          <div *ngIf="this.arrayObjetos[ali.idAlimento]" >
-            <p>{{this.arrayObjetos[ali.idAlimento]}}</p>
+          <div *ngIf="this.arrayObjetosAli[ali.idAlimento]" >
+            <p>{{this.arrayObjetosAli[ali.idAlimento]}}</p>
           </div>
         </td>
       </tr>
@@ -58,6 +58,9 @@
         <th scope="col">Estado</th>
         <th scope="col">Tipo</th>
         <th scope="col">Cantidad</th>
+        <th scope="col">Añadir</th>
+        <th scope="col">Quitar</th>
+        <th scope="col">Pedido Actual</th>
         <!-- <th scope="col">Rechazar</th> -->
       </tr>
     </thead>
@@ -67,6 +70,17 @@
         <td>{{ p.estado }}</td>
         <td>{{ p.tipo }}</td>
         <td>{{ p.cantidad }}</td>
+        <td>
+          <button type="button" class="btn btn-custom-azul" (click)="agregarProducto(p.idProducto)">Sumar</button>
+        </td>
+        <td>
+          <button type="button" class="btn btn-custom-azul" (click)="dejarProducto(p.idProducto)">Restar</button>
+        </td>
+        <td>
+          <div *ngIf="this.arrayObjetosProd[p.idProducto]" >
+            <p>{{this.arrayObjetosProd[p.idProducto]}}</p>
+          </div>
+        </td>
       </tr>
     </tbody>
   </table>

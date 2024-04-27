@@ -30,12 +30,12 @@ export class FormSolicitudUsuarioComponent {
   constructor(private form: FormBuilder, private router:Router, private loginService: LoginService, private userDataShare: UsuarioActualService) {
     this.formularioSolicitudUsuario = this.form.group({
       // ['<valormostrado>, [<validador1>,<validador1>]']
-      nombre: ['Robert3', Validators.required],
-      apellido: ['migo3', Validators.required],
-      password: ['15354ler3', [Validators.required, Validators.minLength(3)]],
+      nombre: ['', Validators.required],
+      apellido: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(3)]],
       // conf_contrasena: ['', [Validators.required, Validators.minLength(3)]],
-      correo: ['minio3@minion.com', [Validators.required, Validators.email]],
-      telefono: ['15983283', [Validators.required]],
+      correo: ['', [Validators.required, Validators.email]],
+      telefono: ['', [Validators.required]],
     });
   }
   enviarFormSolUsuario() {

@@ -44,10 +44,6 @@ export class NavComponent implements OnInit {
   // usuarioLoginOn: Boolean =true;
   constructor(private loginService: LoginService, private fb: FormBuilder) {}
 
-  // ngOnDestroy(): void {
-  //   // this.loginService.currentUserData.unsubscribe();
-  //   this.loginService.currentUserLoginOn.unsubscribe();
-  // }
 
   ngOnInit(): void {//este oninit se inicia desde la pagina home
     // console.log('', this.currentUsuarioSimpleData);

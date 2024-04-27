@@ -12,7 +12,8 @@ import { FormBuilder, Validators } from '@angular/forms';
   styleUrl: './page-beneficiario.component.css'
 })
 export class PageBeneficiarioComponent {
-  arrayObjetos: number[] = [];
+  arrayObjetosAli: number[] = [];
+  arrayObjetosProd: number[] = [];
   alimentos: Alimento[] = [];
   productos: Producto[] = [];
   currentUsuarioSimpleData: currentUsuarioSimpleDataC =
@@ -20,14 +21,14 @@ export class PageBeneficiarioComponent {
   formBenefAlimento = this.fb.group({
     fechaHoraProgramada: ['', [Validators.required]],
   });
-  contenidoConcatenado: string = '';
+  contConcatAli: string = '';
+  contConcatProd: string = '';
+  contConcatCompleto: string = '';
   suma: number = 0;
   constructor(private router: Router, private loginService: LoginService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.currentUsuarioSimpleData = this.loginService.getCurrentUsuarioSimpleData();
-    // this.arrayObjetos[2] = 'arroz';
-    // this.arrayObjetos[21] = 'azucar';
     this.display();
   }
 
@@ -64,92 +65,142 @@ export class PageBeneficiarioComponent {
     
     this.urlGetAllAlimentos();
     this.urlGetAllProductos();
-    this.concatenarContenido();
+    // this.concatenarContenido();
   }
 
-  // agregarElemento(id: number, nprod: string){
-  //   this.arrayObjetos[id] = nprod;
-  // }
-  agregarElemento(id: number){
-    if (!this.arrayObjetos[id]) {
+  agregarAlimento(id: number){
+    if (!this.arrayObjetosAli[id]) {
         // Si el objeto en esta posición no ha sido asignado aún, inicialízalo como un objeto con la propiedad 'cantidad' igual a 0
-        this.arrayObjetos[id] = 0;
+        this.arrayObjetosAli[id] = 0;
     }
-    this.arrayObjetos[id] += 1;
+    this.arrayObjetosAli[id] += 1;
   }
-  dejarElemento(id: number){
-    if (!this.arrayObjetos[id]) {
+  dejarAlimento(id: number){
+    if (!this.arrayObjetosAli[id]) {
         // Si el objeto en esta posición no ha sido asignado aún, inicialízalo como un objeto con la propiedad 'cantidad' igual a 0
-        this.arrayObjetos[id] = 0;
+        this.arrayObjetosAli[id] = 0;
     }
-    this.arrayObjetos[id] -= 1;
+    this.arrayObjetosAli[id] -= 1;
+  }
+  agregarProducto(id: number){
+    if (!this.arrayObjetosProd[id]) {
+        // Si el objeto en esta posición no ha sido asignado aún, inicialízalo como un objeto con la propiedad 'cantidad' igual a 0
+        this.arrayObjetosProd[id] = 0;
+    }
+    this.arrayObjetosProd[id] += 1;
+  }
+  dejarProducto(id: number){
+    if (!this.arrayObjetosProd[id]) {
+        // Si el objeto en esta posición no ha sido asignado aún, inicialízalo como un objeto con la propiedad 'cantidad' igual a 0
+        this.arrayObjetosProd[id] = 0;
+    }
+    this.arrayObjetosProd[id] -= 1;
   }
 
-  concatenarContenido(): void {
-    this.contenidoConcatenado = '';
-    this.suma = 0;
-    for (let i = 0; i < this.arrayObjetos.length; i++) {
-      if (this.arrayObjetos[i] !== undefined && this.arrayObjetos[i] !== null) {
+  concatenarContenidoProd(): void {
+    this.contConcatAli = '';
+    for (let i = 0; i < this.arrayObjetosAli.length; i++) {
+      if (this.arrayObjetosAli[i] !== undefined && this.arrayObjetosAli[i] !== null) {
         let alimento: string = (this.alimentos.find(a => a.idAlimento === i))?.tipo as string;
-        // if (alimento) {
-        //   vari = alimento.tipo; // Asigna el tipo del alimento encontrado
-        // }
-        if(this.arrayObjetos[i] > 0){
-          this.contenidoConcatenado += (this.arrayObjetos[i]).toString() + alimento + ',';
-          this.suma += this.arrayObjetos[i];
+        if(this.arrayObjetosAli[i] > 0){
+          this.contConcatAli += (this.arrayObjetosAli[i]).toString() + alimento + ',';
+          this.suma += this.arrayObjetosAli[i];
         }
       }
     }
-    // Elimina la coma y el espacio extra al final
-    this.contenidoConcatenado = this.contenidoConcatenado.slice(0, -1);
+    // Elimina la coma al final
+    this.contConcatAli = this.contConcatAli.slice(0, -1);
 
-    // Quita todos los "0" individuales que no están seguidos por otros dígitos
-    // contenidoConcatenado = contenidoConcatenado.replace(/\b0\b/g, '');
+    console.log(this.contConcatAli, '\n',this.suma);
+  }
+  concatenarContenidoAli(): void {
+    this.contConcatAli = '';
+    for (let i = 0; i < this.arrayObjetosAli.length; i++) {
+      if (this.arrayObjetosAli[i] !== undefined && this.arrayObjetosAli[i] !== null) {
+        let alimento: string = (this.alimentos.find(a => a.idAlimento === i))?.tipo as string;
+        if(this.arrayObjetosAli[i] > 0){
+          this.contConcatAli += (this.arrayObjetosAli[i]).toString() + alimento + ',';
+          this.suma += this.arrayObjetosAli[i];
+        }
+      }
+    }
 
 
 
-    console.log(this.contenidoConcatenado, '\n',this.suma);
+
+    console.log(this.contConcatAli, '\n',this.suma);
+    this.contConcatProd = '';
+    for (let i = 0; i < this.arrayObjetosProd.length; i++) {
+      if (this.arrayObjetosProd[i] !== undefined && this.arrayObjetosProd[i] !== null) {
+        let producto: string = (this.productos.find(a => a.idProducto === i))?.tipo as string;
+        if(this.arrayObjetosProd[i] > 0){
+          this.contConcatAli += (this.arrayObjetosProd[i]).toString() + producto + ',';
+          this.suma += this.arrayObjetosProd[i];
+        }
+      }
+    }
+    console.log(this.contConcatProd, '\n',this.suma);
 
 
-    // console.log(this.arrayObjetos);
-    
-    
+    if(this.contConcatAli === '' && this.contConcatProd !== ''){ // contConcatAli esta vacio
+      this.contConcatProd = this.contConcatProd.slice(0, -1); // se elimina la ultima , de contConcatProd
+      this.contConcatCompleto = this.contConcatProd;
+    } else if (this.contConcatAli !== '' && this.contConcatProd === ''){
+      this.contConcatAli = this.contConcatAli.slice(0, -1); // se elimina la ultima , de contConcatProd
+      this.contConcatCompleto = this.contConcatAli;
+    } else if(this.contConcatAli !== '' && this.contConcatProd !== ''){
+      this.contConcatProd = this.contConcatProd.slice(0, -1); // se elimina la ultima , de contConcatProd
+      this.contConcatAli = this.contConcatAli.slice(0, -1); // se elimina la ultima , de contConcatProd
+      this.contConcatCompleto = this.contConcatProd + this.contConcatAli;
+    }
+
   }
 
   enviarFormBenefAlimento() {
-    this.concatenarContenido();
-    const fechaObjeto = new Date(
-      this.formBenefAlimento.value.fechaHoraProgramada as string
-    );
-
-    // Obtener los componentes de la fecha
-    const dia = fechaObjeto.getDate().toString().padStart(2, '0'); // Día con dos dígitos (padStart se utiliza para agregar un cero inicial si es necesario)
-    const mes = (fechaObjeto.getMonth() + 1).toString().padStart(2, '0'); // Mes comienza desde 0, por lo que se suma 1 (padStart se utiliza para agregar un cero inicial si es necesario)
-    const anio = fechaObjeto.getFullYear();
-    const horas = fechaObjeto.getHours().toString().padStart(2, '0'); // Horas con dos dígitos (padStart se utiliza para agregar un cero inicial si es necesario)
-    const minutos = fechaObjeto.getMinutes().toString().padStart(2, '0'); // Minutos con dos dígitos (padStart se utiliza para agregar un cero inicial si es necesario)
-
-    // Construir la cadena de fecha en el formato deseado
-    const fechaTransformada = `${dia}/${mes}/${anio}/${horas}/${minutos}`;
-    if(this.formBenefAlimento.valid){
-      if(this.suma>0){
-        console.log(this.currentUsuarioSimpleData.correo, '\n', this.suma, '\n', this.contenidoConcatenado, fechaTransformada);
-        this.loginService
-        .urlRealizarSolicitudBene(this.currentUsuarioSimpleData.correo, this.suma, this.contenidoConcatenado, fechaTransformada)
-        .subscribe({
-          next: (salida) => {
-            console.log('salida: ', salida);
-            // alert('Su solicitud para ser ha sido enviada.')
-          },
-        });  
+    if(this.currentUsuarioSimpleData.rol === 'Receptor'){
+      this.suma = 0;
+      this.concatenarContenidoAli();
+      const fechaObjeto = new Date(
+        this.formBenefAlimento.value.fechaHoraProgramada as string
+      );
+  
+      // Obtener los componentes de la fecha
+      const dia = fechaObjeto.getDate().toString().padStart(2, '0'); // Día con dos dígitos (padStart se utiliza para agregar un cero inicial si es necesario)
+      const mes = (fechaObjeto.getMonth() + 1).toString().padStart(2, '0'); // Mes comienza desde 0, por lo que se suma 1 (padStart se utiliza para agregar un cero inicial si es necesario)
+      const anio = fechaObjeto.getFullYear();
+      const horas = fechaObjeto.getHours().toString().padStart(2, '0'); // Horas con dos dígitos (padStart se utiliza para agregar un cero inicial si es necesario)
+      const minutos = fechaObjeto.getMinutes().toString().padStart(2, '0'); // Minutos con dos dígitos (padStart se utiliza para agregar un cero inicial si es necesario)
+  
+      // Construir la cadena de fecha en el formato deseado
+      const fechaTransformada = `${dia}/${mes}/${anio}/${horas}/${minutos}`;
+      if(this.formBenefAlimento.valid){
+        if(this.suma>0){
+          console.log(this.currentUsuarioSimpleData.correo, '\n', this.suma, '\n', this.contConcatCompleto, fechaTransformada);
+          this.loginService
+          .urlRealizarSolicitudBene(this.currentUsuarioSimpleData.correo, this.suma, this.contConcatCompleto, fechaTransformada)
+          .subscribe({
+            next: (salida) => {
+              console.log('salida: ', salida);
+              this.formBenefAlimento.reset()
+              this.arrayObjetosAli = [];
+              this.arrayObjetosProd = [];
+              alert('Su solicitud ha sido enviada.')
+            },
+          });  
+          setTimeout(() => {
+            this.display();
+          }, 100)
+        }else {
+          alert('Debe elegir un producto antes de enviar.')
+        }
+  
         
-      }else {
-        alert('Debe elegir un producto antes de enviar.')
+      }else{
+        alert('No olvide agregar la fecha de envio')
       }
 
-      
-    }else{
-      alert('No olvide agregar la fecha de envio')
+    } else{
+      alert('Usted no es un Usuario receptor')
     }
   }
 }

@@ -25,8 +25,8 @@ export class FormLoginUsuarioComponent implements OnInit {
   // loginForm esta enlazado al form de la vista mediante [formGroup]="loginForm" (ngSubmit) = "enviar()"
   // se crean los espacios password, con los validadores correspondientes y correo
   loginForm = this.fb.group({
-    password: ['651984', [Validators.required, Validators.minLength(3)]],
-    correo: ['Londres@gmail.com', [Validators.required, Validators.email]],
+    password: ['', [Validators.required, Validators.minLength(3)]],
+    correo: ['', [Validators.required, Validators.email]],
   });
   // tipodonacion: string = 'si'
   // tipodonacion?: string

@@ -28,47 +28,19 @@ export class PageVoluntarioColaboradorComponent implements OnInit{
       
     // this.currentUsuarioSimpleData =
     // this.loginService.getCurrentUsuarioSimpleData();
-    this.urlGetDonNoRealizadas();
-    this.currentUsuarioSimpleData = this.loginService.getCurrentUsuarioSimpleData();
-    this.urlGetAllSolicitudB();
+    setTimeout(() => {
+      this.urlGetDonNoRealizadas();
+      this.currentUsuarioSimpleData = this.loginService.getCurrentUsuarioSimpleData();
+      this.urlGetAllSolicitudB();
+    }, 150)
   }
-  donacionesRecoger = [
-    {
-      tipoDonacion: 'Recoger Alimento',
-      detalles: 'Pan, 100 unidades',
-      disponibilidad: '2024-01-01T12:00',
-      nroVoluntarios: 1,
-      cantidadRequeridaVoluntarios: 5,
-      cantidad: 100
-    },
-  ];
-
-  donacionesEntregar = [
-    {
-      tipoDonacion: 'Entregar Ropa',
-      detalles: 'Camisas, 50 unidades',
-      disponibilidad: '2024-02-01T10:00',
-      nroVoluntarios: 2,
-      cantidadRequeridaVoluntarios: 4,
-      cantidad: 50
-    },
-  ];
 
  
   mostrarMensaje = false; 
 
-  postular(tipo: string, index: number): void {
-    let donacion = tipo === 'recoger' ? this.donacionesRecoger[index] : this.donacionesEntregar[index];
-    if (donacion.nroVoluntarios < donacion.cantidadRequeridaVoluntarios) {
-      donacion.nroVoluntarios++;
-    }
-    this.mostrarMensaje = true;
-
-    setTimeout(() => this.mostrarMensaje = false, 5000);
-  }
-
 
   urlGetDonNoRealizadas() {
+    
     this.loginService.urlGetDonNoRealizadas().subscribe({
       next: (data) => {
         this.tblUrlGetDonNoRealizadas = data;
@@ -83,44 +55,52 @@ export class PageVoluntarioColaboradorComponent implements OnInit{
     setTimeout(() => {
       this.tblUrlGetDonacionesNoRealizadasSinColaboradores =
         this.tblUrlGetDonNoRealizadas.filter(
-          (donacion) => donacion.estado === 'Pendiente'
+          (donacion) => donacion.estado === 'Pendiente' && donacion.nroColaboradores < donacion.nroRequeridoCol
         );
     }, 200);
   }
 
   serColaborador(id: number){
-    setTimeout(() => {
-      this.loginService
-        .urlEscogerDonColaborador(id, this.currentUsuarioSimpleData.correo)
-        .subscribe({
-          next: (salida) => {
-            console.log('salida: ', salida);
-            // alert('Su solicitud para ser ha sido enviada.')
-          },
-        });  
+    if(this.currentUsuarioSimpleData.rol==='Voluntario' && this.currentUsuarioSimpleData.rolVol === 'Colaborador'){
+      setTimeout(() => {
+        this.loginService
+          .urlEscogerDonColaborador(id, this.currentUsuarioSimpleData.correo)
+          .subscribe({
+            next: (salida) => {
+              console.log('salida: ', salida);
+              alert('Es posible que ya seas parte de esta actividad')
+              // alert('Su solicitud para ser ha sido enviada.')
+            },
+          });  
+  
+      }, 75)
+      setTimeout(() => {
+        this.urlGetDonNoRealizadas();
+      }, 125)
 
-    }, 150)
-    setTimeout(() => {
-      this.urlGetDonNoRealizadas();
-    }, 200)
+    } else {
+      alert('Usten no es un Voluntario-Colaborador')
+    }
   }
 
   urlGetAllSolicitudB(){
-    this.loginService.urlGetAllSolicitudB().subscribe({
-      next: (data) => {
-        this.tblGetAllSolicitudB = data;
-      },
-      error: (errorData) => {
-        console.log(errorData);
-      },
-      complete: () => {
-        console.log('Despliegue de datos 2 completo');
-      },
-    });
+    setTimeout(() => {
+      this.loginService.urlGetAllSolicitudB().subscribe({
+        next: (data) => {
+          this.tblGetAllSolicitudB = data;
+        },
+        error: (errorData) => {
+          console.log(errorData);
+        },
+        complete: () => {
+          console.log('Despliegue de datos 2 completo');
+        },
+      });
+    }, 100);
     setTimeout(() => {
       this.tblGetAllSolicitudBSinColabaradores =
         this.tblGetAllSolicitudB.filter(
-          (donacion) => donacion.estado === 'Pendiente'
+          (donacion) => donacion.estado === 'Pendiente' && donacion.nroColaboradores < donacion.nroRequeridoCol
         );
     }, 200);
   }
@@ -132,6 +112,7 @@ export class PageVoluntarioColaboradorComponent implements OnInit{
         .subscribe({
           next: (salida) => {
             console.log('salida: ', salida);
+            alert('Es posible que ya seas parte de esta actividad')
             // alert('Su solicitud para ser ha sido enviada.')
           },
         });  
