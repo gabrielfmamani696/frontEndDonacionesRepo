@@ -6,6 +6,7 @@ import { formDonacion } from '../../services/models/formDonacion';
 import { formAlimento } from '../../services/models/formAlimento';
 import { formProducto } from '../../services/models/formProducto';
 import { currentUsuarioSimpleDataC } from '../../services/models/currentUsuarioSimpleData';
+import { newProducto } from '../../services/models/newProducto';
 
 @Component({
   selector: 'app-page-donador',
@@ -13,6 +14,10 @@ import { currentUsuarioSimpleDataC } from '../../services/models/currentUsuarioS
   styleUrl: './page-donador.component.css',
 })
 export class PageDonadorComponent implements OnInit {
+  nombreProducto: string = '';
+  sumaProd: number = 0;
+  concat: string = ''
+  newProductos: newProducto[] = [];
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -22,6 +27,12 @@ export class PageDonadorComponent implements OnInit {
     new currentUsuarioSimpleDataC();
 
   ngOnInit(): void {
+    // this.newProductos.push({nombre: 'Manzanas', cantidad: 10});
+    // this.newProductos.push({nombre: 'Peras', cantidad: 10});
+    // this.newProductos[1].cantidad+=1;
+    // console.log(this.newProductos[0]);
+    // console.log(this.newProductos[1]);
+
     this.currentUsuarioSimpleData =
       this.loginService.getCurrentUsuarioSimpleData();
     console.log(this.currentUsuarioSimpleData.correo);
@@ -47,13 +58,11 @@ export class PageDonadorComponent implements OnInit {
 
   actualizarTipoDonacion(tipodon: string) {
     this.tipodonacion = tipodon;
-    // this.donacionForm.patchValue({
-    //   tipo_ap: tipodon,
-    // });
   }
 
   enviarFormDonacion() {
-    this.currentUsuarioSimpleData = this.loginService.getCurrentUsuarioSimpleData();
+    this.currentUsuarioSimpleData =
+      this.loginService.getCurrentUsuarioSimpleData();
 
     const fechaObjeto = new Date(
       this.donacionForm.value.fechaHoraRecogida as string
@@ -77,24 +86,23 @@ export class PageDonadorComponent implements OnInit {
 
     // console.log(this.donacionForm.value);
     setTimeout(() => {
-      if(this.currentUsuarioSimpleData.rol === 'Donante'){
+      if (this.currentUsuarioSimpleData.rol === 'Donante') {
         this.loginService
-        .registroDonacion(this.donacionForm.value as formDonacion)
-        .subscribe({
-          error: (errorData) => {
-            console.log(errorData);
-          },
-          complete: () => {
-            // this.router.navigateByUrl('/');
-            this.donacionForm.reset();
-            alert('Donación realizada')
-          },
-        });
+          .registroDonacion(this.donacionForm.value as formDonacion)
+          .subscribe({
+            error: (errorData) => {
+              console.log(errorData);
+            },
+            complete: () => {
+              // this.router.navigateByUrl('/');
+              this.donacionForm.reset();
+              alert('Donación realizada');
+            },
+          });
       } else {
-        alert('Usted NO es un usuario Donante')
+        alert('Usted NO es un usuario Donante');
       }
     }, 200);
-    
   }
 
   enviarFormAlimento() {
@@ -167,11 +175,79 @@ export class PageDonadorComponent implements OnInit {
     //   }
     // }
 
-    if (this.donacionForm.valid){
+    if (this.donacionForm.valid) {
       this.enviarFormDonacion();
     } else {
       this.donacionForm.markAllAsTouched();
       alert('Error al ingresar los datos');
     }
+  }
+
+  agregarProducto(nombre: string) {
+    const index = this.newProductos.findIndex(
+      (producto) => producto.nombre === nombre
+    );
+
+    if (index !== -1) {
+      // El producto ya existe, aumentamos su cantidad
+      this.newProductos[index].cantidad += 1;
+    } 
+    // else {
+    //   // El producto no existe, lo agregamos al array
+    //   this.newProductos.push({ nombre, cantidad });
+    // }
+    console.log(this.newProductos);
+    
+  }
+  reducirProducto(nombre: string) {
+    const index = this.newProductos.findIndex(
+      (producto) => producto.nombre === nombre
+    );
+
+    if (index !== -1) {
+      // El producto ya existe, aumentamos su cantidad
+      this.newProductos[index].cantidad -= 1;
+    } 
+    // else {
+    //   // El producto no existe, lo agregamos al array
+    //   let nxtVal = this.newProductos.values.can
+    //   this.newProductos.push({ nombre, thi });
+    // }
+    console.log(this.newProductos);
+  }
+
+  anadirProducto(){
+    this.newProductos.push({ nombre: this.nombreProducto, cantidad: 0});
+    this.nombreProducto = ''
+  }
+  noenviar(){
+    this.newProductos= [];
+    this.sumaProd = 0;
+    this.donacionForm.reset();
+  }
+  concatenar(){
+    this.concat= '';
+    this.sumaProd = 0;
+    for (let i = 0; i < this.newProductos.length; i++) {
+      const producto = this.newProductos[i];
+
+      // Validación para no considerar productos con cantidad <= 0
+      if (producto.cantidad > 0) {
+        this.concat += `${producto.cantidad}${producto.nombre},`;
+        this.sumaProd += producto.cantidad;
+      }
+    }
+
+    // Eliminar la última coma de la concatenación si es necesario
+    if (this.concat.endsWith(',')) {
+      this.concat = this.concat.slice(0, -1); // Elimina la última coma
+    }
+
+    console.log('Suma total de productos:', this.sumaProd);
+    console.log('Productos:', this.concat);
+  }
+  prueba(){
+    this.concatenar()
+    this.noenviar()
   }
 }

@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { urlGetDonNoRealizadasC } from '../../services/models/getDonNoRealizadas';
 import { currentUsuarioSimpleDataC } from '../../services/models/currentUsuarioSimpleData';
 import { urlGetAllSolicitudBC } from '../../services/models/urlGetAllSolicitudB';
+import { miActividadC } from '../../services/models/miActividad';
 
 @Component({
   selector: 'app-page-voluntario-colaborador',
@@ -14,6 +15,7 @@ import { urlGetAllSolicitudBC } from '../../services/models/urlGetAllSolicitudB'
 export class PageVoluntarioColaboradorComponent implements OnInit{
   currentUsuarioSimpleData: currentUsuarioSimpleDataC =
     new currentUsuarioSimpleDataC();
+    tblMisActividades: miActividadC[] = [];
   tblUrlGetDonNoRealizadas: urlGetDonNoRealizadasC[] = [];
   tblUrlGetDonacionesNoRealizadasSinColaboradores: urlGetDonNoRealizadasC[] =
     [];
@@ -32,7 +34,11 @@ export class PageVoluntarioColaboradorComponent implements OnInit{
       this.urlGetDonNoRealizadas();
       this.currentUsuarioSimpleData = this.loginService.getCurrentUsuarioSimpleData();
       this.urlGetAllSolicitudB();
-    }, 150)
+    }, 150);
+    
+    setTimeout(()=>{
+      this.urlGetAllDonacionesColaborador();
+    }, 300);
   }
 
  
@@ -122,4 +128,18 @@ export class PageVoluntarioColaboradorComponent implements OnInit{
       this.urlGetAllSolicitudB();
     }, 200)
   } 
+
+  urlGetAllDonacionesColaborador(){
+    this.loginService.urlGetAllDonacionesColaborador(this.currentUsuarioSimpleData.correo).subscribe({
+      next: (data) => {
+        this.tblMisActividades = data;
+      },
+      error: (errorData) => {
+        console.log(errorData);
+      },
+      complete: () => {
+        console.log('Despliegue urlGetAllDonacionesColaborador');
+      },
+    });
+  }
 }

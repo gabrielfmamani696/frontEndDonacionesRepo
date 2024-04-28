@@ -48,6 +48,7 @@
             class="btn-close"
             data-bs-dismiss="modal"
             aria-label="Close"
+            (click)="noenviar()"
           ></button>
         </div>
         <div class="modal-body">
@@ -73,15 +74,6 @@
                   formControlName="fechaHoraRecogida"
                 />
               </div>
-              <!-- <div class="mb-3">
-                                <label for="fecha_hora" class="labelCustom">Hora Disponible para el recojo</label>
-                                <input type="date" class="form-control" id="fecha_hora" formControlName="fecha_hora">
-                            </div> -->
-              <!-- <div class="mb-3">
-                                <label for="tipo_ap" class="labelCustom">Tipo de donación (Alimento/Producto)</label>
-                                <input type="" class="form-control" id="tipo_ap" formControlName="tipo_ap">
-                            </div> -->
-
               <div class="form-check">
                 <input
                   class="form-check-input"
@@ -117,100 +109,80 @@
                 </label>
               </div>
 
-              <button type="submit" class="btn btn-primary" 
-              data-bs-dismiss="modal">Enviar</button>
+              <button
+                type="submit"
+                class="btn btn-primary"
+                data-bs-dismiss="modal"
+                (click)="prueba()"
+              >
+                Enviar
+              </button>
             </form>
-          </div>
-          <!-- LOGRO -->
-          <!-- <div *ngIf="tipodonacion === 'Alimento'" class="container">
-            <h1>Alimentos</h1>
-            <form [formGroup]="donacionAlimentoForm" (ngSubmit)="enviar()">
-              <div class="mb-3">
-                <label for="fechaVenc" class="labelCustom"
-                  >Fecha de Vencimiento</label
-                >
-                <input
-                  type="date"
-                  class="form-control"
-                  id="fechaVenc"
-                  formControlName="fechaVenc"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="estado" class="labelCustom">Estado</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="estado"
-                  formControlName="estado"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="cantidad" class="labelCustom">Cantidad</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="cantidad"
-                  formControlName="cantidad"
-                />
-              </div>
-              
+            <br>
+            <div class="input-group mb-3">
+              <span class="input-group-text" id="basic-addon1">Producto</span>
+              <input type="text" [(ngModel)]="nombreProducto" placeholder="Nombre del producto" class="form-control" >
+              <br>
+            </div>
+            <button class="btn btn-custom-azul" *ngIf="nombreProducto" (click)="anadirProducto()">{{ 'Agregar ' + nombreProducto }}</button>
+            
+            
+            
 
-              <div class="mb-3">
-                <label for="tipo" class="labelCustom"
-                  >Tipo de donación Alimento</label
-                >
-                <input
-                  type=""
-                  class="form-control"
-                  id="tipo"
-                  formControlName="tipo"
-                />
-              </div>
-              <button type="submit" class="btn btn-primary">Enviar</button>
-            </form>
+
+            <div class="container" *ngIf="newProductos">
+              <!-- <h1>Producos</h1> -->
+              <!-- <button
+                type="button"
+                class="btn btn-custom-azul"
+                (click)="urlGetDonNoRealizadas()"
+              >
+                Recargar
+              </button> -->
+
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Producto</th>
+                    <th scope="col">Cantidad</th>
+                    <th scope="col">Agregar</th>
+                    <th scope="col">Reducir</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let ma of newProductos">
+                    <th scope="row">{{ ma.nombre }}</th>
+                    <td>{{ ma.cantidad }}</td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-custom-azul"
+                        (click)="agregarProducto(ma.nombre)"
+                      >
+                      Agregar
+                      </button>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        class="btn btn-custom-azul"
+                        (click)="reducirProducto(ma.nombre)"
+                      >
+                      Reducir
+                      </button>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
-          <div *ngIf="tipodonacion === 'Producto'" class="container">
-            <h1>Productos</h1>
-            <form [formGroup]="donacionProductoForm" (ngSubmit)="enviar()">
-              <div class="mb-3">
-                <label for="cantidad" class="labelCustom">Estado</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="cantidad"
-                  formControlName="estado"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="fecha_hora" class="labelCustom">Cantidad</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="fecha_hora"
-                  formControlName="cantidad"
-                />
-              </div>
-              <div class="mb-3">
-                <label for="tipo" class="labelCustom">Tipo de Producto</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="tipo"
-                  formControlName="tipo"
-                />
-              </div>
-              <button type="submit" class="btn btn-primary">Enviar</button>
-            </form>
-          </div> -->
-          
-          <!-- LOGRO -->
         </div>
         <div class="modal-footer">
           <button
             type="button"
             class="btn btn-secondary"
             data-bs-dismiss="modal"
+            (click)="prueba()"
           >
             Cerrar
           </button>
@@ -299,23 +271,3 @@
     </button>
   </div>
 </div>
-
-<!-- 
-<form [formGroup]="donacionForm" (ngSubmit)="enviarFormDonacion()">
-
-    <div class="mb-3">
-        <label for="cantidad" class="labelCustom">Cantidad</label>
-        <input type="" class="form-control" id="cantidad" formControlName="cantidad">
-    </div>
-    <div class="mb-3">
-        <label for="fecha_hora" class="labelCustom">Hora Disponible para el recojo</label>
-        <input type="" class="form-control" id="fecha_hora" formControlName="fecha_hora">
-    </div>
-    <div class="mb-3">
-        <label for="tipo_ap" class="labelCustom">Tipo de donación (Alimento/Producto)</label>
-        <input type="" class="form-control" id="tipo_ap" formControlName="tipo_ap">
-    </div>
-
-
-    <button type="submit" class="btn btn-primary">Enviar</button>
-</form> -->

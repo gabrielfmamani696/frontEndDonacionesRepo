@@ -1,6 +1,10 @@
 import { Injectable } from '@angular/core';
 import { LoginUsuarioRequest } from './loginUsuarioRequest';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
+import {
+  HttpClient,
+  HttpErrorResponse,
+  HttpHeaders,
+} from '@angular/common/http';
 import { Observable, catchError, throwError, BehaviorSubject, tap } from 'rxjs';
 import { Usuario } from './usuario';
 import { environment } from '../../../environments/environment';
@@ -28,6 +32,7 @@ import { urlGetAllSolicitudBC } from '../models/urlGetAllSolicitudB';
 import { voluntarioC } from '../models/voluntario';
 import { donanteC } from '../models/donante';
 import { receptorC } from '../models/receptor';
+import { miActividadC } from '../models/miActividad';
 
 @Injectable({
   providedIn: 'root',
@@ -849,7 +854,7 @@ export class LoginService {
       );
   }
 
-  urlGetPostAllReceptores(): Observable<getAllPostulantesRolVolC[]>{
+  urlGetPostAllReceptores(): Observable<getAllPostulantesRolVolC[]> {
     let token = sessionStorage.getItem('token');
     const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
     return this.http
@@ -859,12 +864,17 @@ export class LoginService {
       .pipe(catchError(this.handleError));
   }
 
-  urlRealizarSolicitudBene(correo: string, cantidad: number, tipo: string, fecha: string): Observable<any> {
+  urlRealizarSolicitudBene(
+    correo: string,
+    cantidad: number,
+    tipo: string,
+    fecha: string
+  ): Observable<any> {
     // devuelve boolean
     let token = sessionStorage.getItem('token');
     const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
     const body = {
-      correo : correo,
+      correo: correo,
       cantidad: cantidad,
       tipo_ap: tipo,
       fechaHoraProgramada: fecha,
@@ -884,8 +894,7 @@ export class LoginService {
       );
   }
 
-  urlGetAllSolicitudB(): Observable<urlGetAllSolicitudBC[]>{
-    
+  urlGetAllSolicitudB(): Observable<urlGetAllSolicitudBC[]> {
     let token = sessionStorage.getItem('token');
     const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
     return this.http
@@ -968,8 +977,7 @@ export class LoginService {
       );
   }
 
-  urlGetAllVoluntarios(): Observable<voluntarioC[]>{
-    
+  urlGetAllVoluntarios(): Observable<voluntarioC[]> {
     let token = sessionStorage.getItem('token');
     const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
     return this.http
@@ -978,8 +986,7 @@ export class LoginService {
       })
       .pipe(catchError(this.handleError));
   }
-  urlGetAllDonantes(): Observable<donanteC[]>{
-    
+  urlGetAllDonantes(): Observable<donanteC[]> {
     let token = sessionStorage.getItem('token');
     const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
     return this.http
@@ -987,10 +994,8 @@ export class LoginService {
         headers: head,
       })
       .pipe(catchError(this.handleError));
-
   }
-  urlGetAllReceptores(): Observable<receptorC[]>{
-    
+  urlGetAllReceptores(): Observable<receptorC[]> {
     let token = sessionStorage.getItem('token');
     const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
     return this.http
@@ -998,6 +1003,44 @@ export class LoginService {
         headers: head,
       })
       .pipe(catchError(this.handleError));
+  }
+  urlGetAllDonacionesResponsable(correo: string): Observable<miActividadC[]> {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
+    console.log(correo);
+    const body = {
+      correo: correo,
+    };
+    // ES NECESARIO UN MAPEO JSON
+    return this.http
+      .post<miActividadC[]>(
+        environment.urlGetAllDonacionesResponsable,
+        body,
+        {
+          headers: head,
+        }
+      )
+      .pipe(
+        tap((data) => {
+          // this.currentUsersRIP.next(data);
+        }),
+        catchError(this.handleError));
+  }
+  urlGetAllDonacionesColaborador(correo: string): Observable<miActividadC[]> {
+    let token = sessionStorage.getItem('token');
+    const head = new HttpHeaders().set('Authorization', 'Bearer ' + token);
     
+    const body = {
+      correo: correo,
+    };
+    return this.http
+      .post<miActividadC[]>(
+        environment.urlGetAllDonacionesColaborador,
+        body,
+        {
+          headers: head,
+        }
+      )
+      .pipe(catchError(this.handleError));
   }
 }

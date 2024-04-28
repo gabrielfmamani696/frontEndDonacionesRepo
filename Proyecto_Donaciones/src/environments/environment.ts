@@ -85,6 +85,9 @@ export const environment = {
     urlGetAllDonantes: 'http://localhost:8090/donanteUser/getAllDonantes', //Obtener a TODOS los donantes
     urlGetAllReceptores: 'http://localhost:8090/receptorUser/getAllReceptores', //Obtener a TODOS los receptores
 
+    urlGetAllDonacionesResponsable: 'http://localhost:8090/donaciones/getAllDonacionesResponsable', //Obtener a 
+    urlGetAllDonacionesColaborador: 'http://localhost:8090/donaciones/getAllDonacionesColaborador', //Obtener a 
+
 
     
 }

@@ -97,3 +97,50 @@
     </tbody>
   </table>
 </div>
+
+
+<div *ngIf="tblMisActividades">
+  <h1>Mis actividades</h1>
+  <button
+    type="button"
+    class="btn btn-custom-azul"
+    (click)="urlGetAllDonacionesColaborador()"
+  >
+    Recargar
+  </button>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">#id</th>
+        <th scope="col">NombreU</th>
+        <th scope="col">ApellidoU</th>
+        <th scope="col">FonoU</th>
+        <th scope="col">Ctd</th>
+        <th scope="col">A/p</th>
+        <th scope="col">FechaHoraProg</th>
+        <th scope="col">Estado</th>
+        <!-- <th scope="col">MailResp.</th> -->
+        <th scope="col">#ColReq</th>
+        <th scope="col">#Col</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let ma of tblMisActividades"
+      >
+        <th scope="row">{{ ma.idDonacion }}</th>
+        <td>{{ ma.nombreU }}</td>
+        <td>{{ ma.apellidoU }}</td>
+        <td>{{ ma.telefonoU }}</td>
+        <td>{{ ma.cantidad }}</td>
+        <td>{{ ma.tipo_ap }}</td>
+        <td>{{ ma.fechaHoraProg }}</td>
+        <td>{{ ma.estado }}</td>
+        <!-- <td>{{ma.correoResponsable}}</td> -->
+        <td>{{ ma.nroRequeridoCol }}</td>
+        <td>{{ ma.nroColaboradores }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

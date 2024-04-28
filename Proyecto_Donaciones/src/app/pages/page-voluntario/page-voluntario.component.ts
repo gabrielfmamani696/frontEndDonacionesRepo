@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { urlGetDonNoRealizadasC } from '../../services/models/getDonNoRealizadas';
 import { currentUsuarioSimpleDataC } from '../../services/models/currentUsuarioSimpleData';
 import { urlGetAllSolicitudBC } from '../../services/models/urlGetAllSolicitudB';
+import { miActividadC } from '../../services/models/miActividad';
 
 @Component({
   selector: 'app-page-voluntario',
@@ -23,34 +24,12 @@ export class PageVoluntarioComponent implements OnInit {
   tblUrlGetDonacionesNoRealizadasSinColaboradores: urlGetDonNoRealizadasC[] =
     [];
 
-  
+  tblMisActividades: miActividadC[] = [];
   tblGetAllSolicitudB: urlGetAllSolicitudBC[] = [];
   tblGetAllSolicitudBSinResponsable: urlGetAllSolicitudBC[] = [];
-  tblAlimentoEntregar: Alimento[] = [
-    {
-      idAlimento: 2,
-      fecha_Vencimiento: 'z',
-      estado: 'z',
-      tipo: 'z',
-      cantidad: 2,
-    },
-  ];
-  tblProductoRecoger: Producto[] = [
-    {
-      idProducto: 1,
-      estado: 'Disponible',
-      cantidad: 10,
-      tipo: 'Electrónico',
-    },
-  ];
-  tblProductoEntregar: Producto[] = [
-    {
-      idProducto: 4,
-      estado: 'Disponible',
-      cantidad: 20,
-      tipo: 'Herramientas',
-    },
-  ];
+  tblAlimentoEntregar: Alimento[] = [];
+  tblProductoRecoger: Producto[] = [];
+  tblProductoEntregar: Producto[] = [];
 
   current_id: number = 0;
   current_user?: Usuario; //pasar el valor a traves de los Observables rxjs
@@ -66,37 +45,21 @@ export class PageVoluntarioComponent implements OnInit {
   ) {}
   // Funciones
   ngOnInit(): void {
-    // this.displayAlimentoEntregar();
-    // this.displayAlimentoRecoger();
-    // this.displayProductoEntregar();
-    // this.displayProductoRecoger();
     this.currentUsuarioSimpleData =
       this.loginService.getCurrentUsuarioSimpleData();
+    setTimeout(()=>{
+      this.urlGetAllDonacionesResponsable();
+    }, 100);
     this.urlGetDonNoRealizadas();
     this.urlGetAllSolicitudB();
   }
 
   setCurrentID(id: number) {
     this.current_id = id;
-    // this.current_id.next(id) mandar con el observable al usaurio logueado,
-    // no es necesario el parametro id
   }
 
   enviarFormColaboresAlimentoRecoger() {}
 
-  // displayAlimentoRecoger() {
-  //   this.loginService.dataTblAlimentoRecoger().subscribe({
-  //     next: (data) => {
-  //       this.tblAlimentoRecoger = data;
-  //     },
-  //     error: (errorData) => {
-  //       console.log(errorData);
-  //     },
-  //     complete: () => {
-  //       console.log('Despliegue de datos completo');
-  //     },
-  //   });
-  // }
 
   displayAlimentoEntregar() {
     this.loginService.dataTblAlimentoEntregar().subscribe({
@@ -153,10 +116,6 @@ export class PageVoluntarioComponent implements OnInit {
         complete: () => {
           //confirmacion
           console.log('login completo');
-          //cuando una conexion se completa, se nos envia a la ruta: /datausuario
-          // this.router.navigateByUrl('/datausuario');
-          //se vacian los datos del formulario
-          // this.formColaboresAlimentoRecoger.reset();
         },
       });
   }
@@ -375,5 +334,19 @@ export class PageVoluntarioComponent implements OnInit {
     } else {
       alert('Usted no es usuario Voluntario-Responsable')
     }
+  }
+
+  urlGetAllDonacionesResponsable(){
+    this.loginService.urlGetAllDonacionesResponsable(this.currentUsuarioSimpleData.correo).subscribe({
+      next: (data) => {
+        this.tblMisActividades = data;
+      },
+      error: (errorData) => {
+        console.log(errorData);
+      },
+      complete: () => {
+        console.log('Despliegue de datos completo');
+      },
+    });
   }
 }

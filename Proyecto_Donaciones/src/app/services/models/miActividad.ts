@@ -1,4 +1,4 @@
-interface urlGetDonNoRealizadas {
+interface miActividad {
   idDonacion: number;
   nombreU: string;
   apellidoU: string;
@@ -11,7 +11,7 @@ interface urlGetDonNoRealizadas {
   nroRequeridoCol: number;
   nroColaboradores: number;
 }
-export class urlGetDonNoRealizadasC implements urlGetDonNoRealizadas {
+export class miActividadC implements miActividad {
   constructor(
     public idDonacion: number = 0,
     public nombreU: string = '',
