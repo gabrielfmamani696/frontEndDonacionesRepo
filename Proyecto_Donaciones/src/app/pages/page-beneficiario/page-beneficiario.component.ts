@@ -20,13 +20,15 @@ export class PageBeneficiarioComponent {
     new currentUsuarioSimpleDataC();
   formBenefAlimento = this.fb.group({
     fechaHoraProgramada: ['', [Validators.required]],
+    ubicacion: ['', ],
   });
   contConcatAli: string = '';
   contConcatProd: string = '';
   contConcatCompleto: string = '';
   suma: number = 0;
   constructor(private router: Router, private loginService: LoginService, private fb: FormBuilder) {}
-
+  nuevaPosicion: google.maps.LatLngLiteral = { lat: -16.504912732916537, lng: -68.12993288040161 };
+  markerPositions: google.maps.LatLngLiteral[] = [];
   ngOnInit(): void {
     this.currentUsuarioSimpleData = this.loginService.getCurrentUsuarioSimpleData();
     this.display();
@@ -173,11 +175,12 @@ export class PageBeneficiarioComponent {
   
       // Construir la cadena de fecha en el formato deseado
       const fechaTransformada = `${dia}/${mes}/${anio}/${horas}/${minutos}`;
+      let ubi: string = `${this.markerPositions[0].lat},${this.markerPositions[0].lng}`;
       if(this.formBenefAlimento.valid){
         if(this.suma>0){
-          console.log(this.currentUsuarioSimpleData.correo, '\n', this.suma, '\n', this.contConcatCompleto, fechaTransformada);
+          console.log(this.currentUsuarioSimpleData.correo, '\n', this.suma, '\n', this.contConcatCompleto, fechaTransformada, ubi);
           this.loginService
-          .urlRealizarSolicitudBene(this.currentUsuarioSimpleData.correo, this.suma, this.contConcatCompleto, fechaTransformada)
+          .urlRealizarSolicitudBene(this.currentUsuarioSimpleData.correo, this.suma, this.contConcatCompleto, fechaTransformada, ubi)
           .subscribe({
             next: (salida) => {
               console.log('salida: ', salida);
@@ -203,4 +206,24 @@ export class PageBeneficiarioComponent {
       alert('Usted no es un Usuario receptor')
     }
   }
+  label = {
+    color: 'red',
+    text: 'Marcador',
+  };
+
+  center: google.maps.LatLngLiteral = {
+    lat: -16.504912732916537,
+    lng: -68.12993288040161,
+  };
+  zoom = 17;
+  markerOptions: google.maps.marker.AdvancedMarkerElementOptions = {
+    gmpDraggable: false
+  }
+  addmarker(event: google.maps.MapMouseEvent) {
+    if (event.latLng != null) {
+      this.markerPositions[0]= event.latLng.toJSON();
+    };
+    console.log(this.markerPositions[0].lat, this.markerPositions[0].lng);
+  }
+
 }

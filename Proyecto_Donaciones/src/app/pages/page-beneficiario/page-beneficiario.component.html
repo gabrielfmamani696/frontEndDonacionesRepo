@@ -49,6 +49,24 @@
   </table>
 </div>
 <div class="container">
+  
+  <google-map
+  height="250px"
+  width="960px"
+  [center]="center"
+  [zoom]="zoom"
+  (mapClick)="addmarker($event)"
+  >
+  <map-marker
+    *ngFor="let markerPosition of markerPositions"
+    [position]="markerPosition"
+    [options]="markerOptions"
+    [label]="label"
+  >
+  </map-marker>
+  </google-map>
+</div>
+<div class="container">
     <h1>Productos</h1>
   <!-- <a (click)="urlGetAllAlimentos()" >Recargar</a> -->
   <table class="table">
@@ -84,4 +102,5 @@
       </tr>
     </tbody>
   </table>
+
 </div>

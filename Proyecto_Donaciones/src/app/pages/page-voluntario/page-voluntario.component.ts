@@ -16,6 +16,9 @@ import { miActividadC } from '../../services/models/miActividad';
   styleUrl: './page-voluntario.component.css',
 })
 export class PageVoluntarioComponent implements OnInit {
+  partes: string[] = [];
+  latitud: string = '';
+  longitud: string = '';
   // Variables
   currentUsuarioSimpleData: currentUsuarioSimpleDataC =
     new currentUsuarioSimpleDataC();
@@ -43,6 +46,8 @@ export class PageVoluntarioComponent implements OnInit {
     private fb: FormBuilder,
     private router: Router
   ) {}
+  nuevaPosicion: google.maps.LatLngLiteral = { lat: -16.504912732916537, lng: -68.12993288040161 };
+  markerPositions: google.maps.LatLngLiteral[] = [];
   // Funciones
   ngOnInit(): void {
     this.currentUsuarioSimpleData =
@@ -349,4 +354,37 @@ export class PageVoluntarioComponent implements OnInit {
       },
     });
   }
+  center: google.maps.LatLngLiteral = {
+    lat: -16.504912732916537,
+    lng: -68.12993288040161,
+  };
+  mostrarUbicacion(coords: string){
+    const latlang = coords.split(',');
+
+    // partes[0] contendrá la primera parte de la cadena antes de la coma
+    this.latitud = latlang[0];
+
+    // partes[1] contendrá la segunda parte de la cadena después de la coma
+    this.longitud = latlang[1];
+    console.log(this.latitud, this.longitud);
+    this.markerPositions[0]= { lat: parseFloat(this.latitud) , lng: parseFloat(this.longitud) };
+    this.center = { lat: parseFloat(this.latitud) , lng: parseFloat(this.longitud) };
+  }
+
+  label = {
+    color: 'red',
+    text: 'Marcador',
+  };
+
+  
+  zoom = 17;
+  markerOptions: google.maps.marker.AdvancedMarkerElementOptions = {
+    gmpDraggable: false
+  }
+  // addmarker(event: google.maps.MapMouseEvent) {
+  //   if (event.latLng != null) {
+  //     this.markerPositions[0]= event.latLng.toJSON();
+  //   };
+  //   console.log(this.markerPositions[0].lat, this.markerPositions[0].lng);
+  // }
 }

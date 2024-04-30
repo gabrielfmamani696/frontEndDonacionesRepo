@@ -868,7 +868,8 @@ export class LoginService {
     correo: string,
     cantidad: number,
     tipo: string,
-    fecha: string
+    fecha: string,
+    ubicacion: string
   ): Observable<any> {
     // devuelve boolean
     let token = sessionStorage.getItem('token');
@@ -878,6 +879,7 @@ export class LoginService {
       cantidad: cantidad,
       tipo_ap: tipo,
       fechaHoraProgramada: fecha,
+      ubicacion: ubicacion,
     };
     console.log('bdy: ', body);
 

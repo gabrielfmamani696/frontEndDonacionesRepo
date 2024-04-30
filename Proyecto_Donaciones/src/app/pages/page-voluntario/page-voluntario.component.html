@@ -19,6 +19,7 @@
         <th scope="col">A/p</th>
         <th scope="col">FechaHoraProg</th>
         <th scope="col">Estado</th>
+        <th scope="col">Ubicación</th>
         <!-- <th scope="col">MailResp.</th> -->
         <th scope="col">#ColReq</th>
         <th scope="col">#Col</th>
@@ -37,6 +38,11 @@
         <td>{{ elementA.tipo_ap }}</td>
         <td>{{ elementA.fechaHoraProg }}</td>
         <td>{{ elementA.estado }}</td>
+        <td>
+          <button (click)="mostrarUbicacion(elementA.ubicacion)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mapa">
+            Ubicación
+          </button>
+        </td>
         <!-- <td>{{elementA.correoResponsable}}</td> -->
         <td>{{ elementA.nroRequeridoCol }}</td>
         <td>{{ elementA.nroColaboradores }}</td>
@@ -129,6 +135,7 @@
         <th scope="col">A/p</th>
         <th scope="col">FechaHoraProg</th>
         <th scope="col">Estado</th>
+        <th scope="col">Ubicación</th>
         <!-- <th scope="col">MailResp.</th> -->
         <th scope="col">#ColReq</th>
         <th scope="col">#Col</th>
@@ -145,6 +152,11 @@
         <td>{{ elemRep.tipo_ap }}</td>
         <td>{{ elemRep.fechaHoraProg }}</td>
         <td>{{ elemRep.estado }}</td>
+        <td>
+          <button (click)="mostrarUbicacion(elemRep.ubicacion)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mapa">
+            Ubicación
+          </button>
+        </td>
         <!-- <td>{{elementA.correoResponsable}}</td> -->
         <td>{{ elemRep.nroRequeridoCol }}</td>
         <td>{{ elemRep.nroColaboradores }}</td>
@@ -239,6 +251,7 @@
         <th scope="col">A/p</th>
         <th scope="col">FechaHoraProg</th>
         <th scope="col">Estado</th>
+        <th scope="col">Ubicación</th>
         <!-- <th scope="col">MailResp.</th> -->
         <th scope="col">#ColReq</th>
         <th scope="col">#Col</th>
@@ -256,10 +269,49 @@
         <td>{{ ma.tipo_ap }}</td>
         <td>{{ ma.fechaHoraProg }}</td>
         <td>{{ ma.estado }}</td>
+        <td>
+          <button (click)="mostrarUbicacion(ma.ubicacion)" type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#mapa">
+            Ubicación
+          </button>
+        </td>
         <!-- <td>{{ma.correoResponsable}}</td> -->
         <td>{{ ma.nroRequeridoCol }}</td>
         <td>{{ ma.nroColaboradores }}</td>
       </tr>
     </tbody>
   </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="mapa" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <google-map
+            height="250px"
+            width="460px"
+            [center]="center"
+            [zoom]="zoom"
+          >
+            <map-marker
+              *ngFor="let markerPosition of markerPositions"
+              [position]="markerPosition"
+              [options]="markerOptions"
+              [label]="label"
+            >
+            </map-marker>
+          </google-map>
+        <!-- {{latitud}}
+        {{longitud}} -->
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
 </div>

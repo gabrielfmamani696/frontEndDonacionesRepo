@@ -54,7 +54,7 @@
         <div class="modal-body">
           <div class="container">
             <form [formGroup]="donacionForm" (ngSubmit)="enviarFormDonacion()">
-              <div class="mb-3">
+              <!-- <div class="mb-3">
                 <label for="cantidad" class="labelCustom">Cantidad</label>
                 <input
                   type="number"
@@ -62,7 +62,7 @@
                   id="cantidad"
                   formControlName="cantidad"
                 />
-              </div>
+              </div> -->
               <div class="mb-3">
                 <label for="fechaHoraRecogida" class="labelCustom"
                   >Hora Disponible para el recojo</label
@@ -74,7 +74,7 @@
                   formControlName="fechaHoraRecogida"
                 />
               </div>
-              <div class="form-check">
+              <!-- <div class="form-check">
                 <input
                   class="form-check-input"
                   type="radio"
@@ -107,28 +107,37 @@
                 >
                   Producto
                 </label>
-              </div>
-
+              </div> -->
+              <!-- innv -->
               <button
+                id="miBoton"
                 type="submit"
                 class="btn btn-primary"
                 data-bs-dismiss="modal"
+                disabled
                 (click)="prueba()"
               >
                 Enviar
               </button>
             </form>
-            <br>
+            <br />
             <div class="input-group mb-3">
               <span class="input-group-text" id="basic-addon1">Producto</span>
-              <input type="text" [(ngModel)]="nombreProducto" placeholder="Nombre del producto" class="form-control" >
-              <br>
+              <input
+                type="text"
+                [(ngModel)]="nombreProducto"
+                placeholder="Nombre del producto"
+                class="form-control"
+              />
+              <br />
             </div>
-            <button class="btn btn-custom-azul" *ngIf="nombreProducto" (click)="anadirProducto()">{{ 'Agregar ' + nombreProducto }}</button>
-            
-            
-            
-
+            <button
+              class="btn btn-custom-azul"
+              *ngIf="nombreProducto"
+              (click)="anadirProducto()"
+            >
+              {{ "Agregar " + nombreProducto }}
+            </button>
 
             <div class="container" *ngIf="newProductos">
               <!-- <h1>Producos</h1> -->
@@ -159,7 +168,7 @@
                         class="btn btn-custom-azul"
                         (click)="agregarProducto(ma.nombre)"
                       >
-                      Agregar
+                        Agregar
                       </button>
                     </td>
                     <td>
@@ -168,7 +177,7 @@
                         class="btn btn-custom-azul"
                         (click)="reducirProducto(ma.nombre)"
                       >
-                      Reducir
+                        Reducir
                       </button>
                     </td>
                   </tr>
@@ -176,6 +185,36 @@
               </table>
             </div>
           </div>
+
+          <google-map
+            height="250px"
+            width="460px"
+            [center]="center"
+            [zoom]="zoom"
+            (mapClick)="addmarker($event)"
+          >
+            <map-marker
+              *ngFor="let markerPosition of markerPositions"
+              [position]="markerPosition"
+              [options]="markerOptions"
+              [label]="label"
+            >
+            </map-marker>
+          </google-map>
+
+          <!-- <div>Latitude: {{display?.lat}}</div>
+          <div>Longitude: {{display?.lng}}</div> -->
+        </div>
+        <div class="container">
+          <button
+            type="submit"
+            class="btn btn-primary"
+            data-bs-dismiss="modal"
+            (click)="prueba()"
+          >
+            Enviar
+          </button>
+
         </div>
         <div class="modal-footer">
           <button
@@ -271,3 +310,4 @@
     </button>
   </div>
 </div>
+<!--  -->

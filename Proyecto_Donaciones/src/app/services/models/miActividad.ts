@@ -7,6 +7,7 @@ interface miActividad {
   tipo_ap: string;
   fechaHoraProg: string;
   estado: string;
+  ubicacion: string;
   correoResponsable: string;
   nroRequeridoCol: number;
   nroColaboradores: number;
@@ -21,6 +22,7 @@ export class miActividadC implements miActividad {
     public tipo_ap: string = '',
     public fechaHoraProg: string = '',
     public estado: string = '',
+    public ubicacion: string = '',
     public correoResponsable: string = '',
     public nroRequeridoCol: number = 0,
     public nroColaboradores: number = 0

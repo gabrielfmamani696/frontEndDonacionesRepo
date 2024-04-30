@@ -3,4 +3,5 @@ export interface formDonacion {
     cantidad: number,
     fechaHoraRecogida: string,
     tipo_ap: string,
+    ubicacion: string,
 }

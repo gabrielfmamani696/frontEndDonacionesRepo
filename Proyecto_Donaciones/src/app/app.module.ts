@@ -24,6 +24,7 @@ import { PageVoluntarioColaboradorComponent } from './pages/page-voluntario-cola
 import { DatosDonacionesComponent } from './pages/datos/datos-donaciones/datos-donaciones.component';
 import { DatosDonadoresComponent } from './pages/datos/datos-donadores/datos-donadores.component';
 import { DatosReceptoresComponent } from './pages/datos/datos-receptores/datos-receptores.component';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 
 @NgModule({
@@ -54,7 +55,8 @@ import { DatosReceptoresComponent } from './pages/datos/datos-receptores/datos-r
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    GoogleMapsModule
   ],
   providers: [
     provideClientHydration()

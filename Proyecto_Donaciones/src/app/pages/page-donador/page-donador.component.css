@@ -36,3 +36,7 @@
     color: black; /* Cambiar el color del texto a negro */
     text-align: left; /* Alinear el texto a la izquierda dentro de la etiqueta */
 }
+
+#miBoton {
+    display: none;
+  }
