@@ -28,12 +28,6 @@ export class FormLoginUsuarioComponent implements OnInit {
     password: ['', [Validators.required, Validators.minLength(3)]],
     correo: ['', [Validators.required, Validators.email]],
   });
-  // tipodonacion: string = 'si'
-  // tipodonacion?: string
-
-  //inyeccion formBuilder, rutas y el LoginService
-  // LoginService en src\app\services\auth\login.service.ts
-  // contiene los metodos con las rutas para realizar la conexion con BE
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -92,14 +86,11 @@ export class FormLoginUsuarioComponent implements OnInit {
                   this.currentUsuarioSimpleData = userSimpleData;
                   this.loginService.currentUsuarioSimpleDataSet(userSimpleData);
                   // console.log('xddd222: ', this.currentUsuarioSimpleData);
-
                 },
                 error: (errorData) => {
                   console.log(errorData);
                 },
                 complete: () => {
-
-                  
                   setTimeout(() => {
                     // console.log('loading :D: ', this.currentUsuarioSimpleData);
                     console.log(
@@ -108,7 +99,26 @@ export class FormLoginUsuarioComponent implements OnInit {
                     );
                     console.log('Completo');
                     this.loginForm.reset();
-                    this.router.navigateByUrl('/datausuario');
+
+                    if (this.currentUsuarioSimpleData.rol === 'Donante') {
+                      this.router.navigateByUrl('/pagedonador');
+                    } else if (
+                      this.currentUsuarioSimpleData.rol === 'Receptor'
+                    ) {
+                      this.router.navigateByUrl('/pagebeneficiario');
+                    } else if (
+                      this.currentUsuarioSimpleData.rol === 'Voluntario'
+                    ) {
+                      if (
+                        this.currentUsuarioSimpleData.rolVol === 'Colaborador'
+                      ) {
+                        this.router.navigateByUrl('/pagevolColab');
+                      } else {
+                        this.router.navigateByUrl('/pagevoluntario');
+                      }
+                    } else {
+                      this.router.navigateByUrl('/datausuario');
+                    }
                   }, this.espera);
                 },
               });

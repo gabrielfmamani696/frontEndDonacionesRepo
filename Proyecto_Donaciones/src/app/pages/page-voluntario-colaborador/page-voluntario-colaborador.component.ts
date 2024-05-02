@@ -79,7 +79,9 @@ export class PageVoluntarioColaboradorComponent implements OnInit{
           .subscribe({
             next: (salida) => {
               console.log('salida: ', salida);
-              alert('Es posible que ya seas parte de esta actividad')
+              if(salida === 'false'){
+                alert('Es posible que ya seas parte de esta actividad')
+              }
               // alert('Su solicitud para ser ha sido enviada.')
             },
           });  

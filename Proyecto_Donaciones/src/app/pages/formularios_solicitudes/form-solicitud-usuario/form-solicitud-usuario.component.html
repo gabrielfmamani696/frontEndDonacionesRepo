@@ -1,66 +1,4 @@
 
-<!-- <p>form-voluntarios works!</p> -->
-<!-- Plantilla de form, no se puede mostrar la tabla con este, al menos no sin las rutas de BE -->
-<!-- 
-
-<div class="container"> 
-    <form #miFormulario = "ngForm"  (ngSubmit) = "enviar()">
-        <div class="mb-3">
-            <label for="nombre" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="NOMBRE" 
-            [(ngModel)]="voluntario.nombre" required [ngModelOptions] = "{standalone: true}">
-        </div>
-        <div class="mb-3">
-            <label for="apellido" class="form-label">Apellido</label>
-            <input type="text" class="form-control" id="APELLIDO" 
-            [(ngModel)]="voluntario.apellido" required [ngModelOptions] = "{standalone: true}">
-        </div>
-            
-        <div class="mb-3">
-            <label for="Contrasena" class="form-label">Contraseña</label>
-            <input type="password" class="form-control" id="CONTRASENA"
-            [(ngModel)]="voluntario.contrasena" required [ngModelOptions] = "{standalone: true}" >
-        </div> 
-            
-        <div class="mb-3">
-            <label for="confContrasena" class="form-label">Confimación de Contraseña</label>
-            <input type="password" class="form-control" id="CONFCONTRASENA"
-            [(ngModel)]="voluntario.conf_contrasena" required [ngModelOptions] = "{standalone: true}" >
-        </div> 
-
-        <div class="mb-3">
-            <label for="correo" class="form-label">Correo</label>
-            <input type="email" class="form-control" id="CORREO" 
-            [(ngModel)]="voluntario.correo" required [ngModelOptions] = "{standalone: true}" >
-        </div>
-            
-        <div class="mb-3">
-            <label for="confContrasena" class="form-label">Telefono</label>
-            <input type="tel" class="form-control" id="CONFCONTRASENA"
-            [(ngModel)]="voluntario.telefono" required [ngModelOptions] = "{standalone: true}" >
-        </div> 
-
-        <div class="mb-3">
-            <label for="horario" class="form-label">Horario</label>
-            <input type="text" class="form-control" id="HORARIO"
-            [(ngModel)]="voluntario.horario" required [ngModelOptions] = "{standalone: true}" >
-        </div> 
-
-        <div class="mb-3">
-            <label for="turno" class="form-label">Turno</label>
-            <input type="text" class="form-control" id="TURNO"
-            [(ngModel)]="voluntario.turno" required [ngModelOptions] = "{standalone: true}" >
-        </div> 
-
-        <div class="mb-3">
-            <label for="edad" class="form-label">Edad</label>
-            <input type="number" class="form-control" id="EDAD"
-            [(ngModel)]="voluntario.edad" required [ngModelOptions] = "{standalone: true}" >
-        </div> 
-        <button type="submit" class="btn btn-primary">Submit</button>
-    </form>
-</div>
- -->
 <div class="container">
     <form [formGroup]="formularioSolicitudUsuario" (ngSubmit)="enviarFormSolUsuario()">
         <!-- <div class="row"> -->
@@ -79,7 +17,7 @@
 
         <!-- <div class="row g-3"> -->
         <div class="mb-3 col">
-            <label for="Contrasena" class="form-label">Contraseña</label>
+            <label for="Contrasena" class="form-label">Contraseña (Ten en cuenta el contenido para el Log In)</label>
             <input type="password" class="form-control" id="CONTRASENA" formControlName="password">
         </div>
 
@@ -90,7 +28,7 @@
         <!-- </div>  -->
 
         <div class="mb-3">
-            <label for="correo" class="form-label">Correo</label>
+            <label for="correo" class="form-label">Correo (Ten en cuenta el contenido para el Log In)</label>
             <input type="email" class="form-control" id="CORREO" formControlName="correo">
         </div>
 
@@ -99,52 +37,8 @@
             <input type="tel" class="form-control" id="CONFCONTRASENA" formControlName="telefono">
         </div>
 
-        <!--         
-        <div class="mb-3">
-            <label for="horario" class="form-label">Horario</label>
-            <input type="text" class="form-control" id="HORARIO" formControlName="horario">
-        </div> 
-
-        <div class="mb-3">
-            <label for="turno" class="form-label">Turno</label>
-            <input type="text" class="form-control" id="TURNO" formControlName="turno">
-        </div> 
-
-        <div class="mb-3">
-            <label for="edad" class="form-label">Edad</label>
-            <input type="number" class="form-control" id="EDAD" formControlName="edad">
-        </div> -->
-
-        <!-- <div class="form-check">
-            <input [(value)]="tipodonacion" class="form-check-input" value="xd" type="radio" >
-            <label class="form-check-label" for="flexRadioDefault1">
-              Default radio
-            </label>
-        </div>
-        <div class="form-check">
-            <input [(value)]="tipodonacion" class="form-check-input" value="xd'nt" type="radio" >
-            <label class="form-check-label" for="flexRadioDefault2">
-                Default checked radio
-            </label>
-        </div> -->
-
-        <!-- <div class="form-check">
-            <input class="form-check-input" type="radio" name="importante_definir" (change)="tipodonacion = 'si'"
-                [checked]="tipodonacion === 'si'">
-            <label class="form-check-label" for="exampleRadios1">
-                Default radio
-            </label>
-        </div>
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="importante_definir" (change)="tipodonacion = 'no'"
-                [checked]="tipodonacion === 'no'">
-            <label class="form-check-label" for="exampleRadios2">
-                Second default radio
-            </label>
-        </div> -->
 
 
         <button type="submit" class="btn btn-primary">Enviar</button>
     </form>
 </div>
-<!-- <div *ngIf="tipodonacion === 'si' ">Holaaa</div> -->

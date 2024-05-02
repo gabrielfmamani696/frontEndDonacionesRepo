@@ -1,3 +1,4 @@
+<h1>Página de Usuario Beneficiario</h1>
 <button type="button" class="btn btn-custom-azul" (click)="display()">Recargar</button>
 <div class="container">
 </div>
@@ -34,10 +35,10 @@
         <td>{{ ali.tipo }}</td>
         <td>{{ ali.cantidad }}</td>
         <td>
-          <button type="button" class="btn btn-custom-azul" (click)="agregarAlimento(ali.idAlimento)">Sumar</button>
+          <button type="button" class="btn btn-custom-azul" (click)="agregarAlimento(ali.idAlimento, ali.cantidad)">Sumar</button>
         </td>
         <td>
-          <button type="button" class="btn btn-custom-azul" (click)="dejarAlimento(ali.idAlimento)">Restar</button>
+          <button type="button" class="btn btn-custom-azul" (click)="dejarAlimento(ali.idAlimento, ali.cantidad)">Restar</button>
         </td>
         <td>
           <div *ngIf="this.arrayObjetosAli[ali.idAlimento]" >
@@ -52,7 +53,7 @@
   
   <google-map
   height="250px"
-  width="960px"
+  width="1160px"
   [center]="center"
   [zoom]="zoom"
   (mapClick)="addmarker($event)"
@@ -89,10 +90,10 @@
         <td>{{ p.tipo }}</td>
         <td>{{ p.cantidad }}</td>
         <td>
-          <button type="button" class="btn btn-custom-azul" (click)="agregarProducto(p.idProducto)">Sumar</button>
+          <button type="button" class="btn btn-custom-azul" (click)="agregarProducto(p.idProducto, p.cantidad)">Sumar</button>
         </td>
         <td>
-          <button type="button" class="btn btn-custom-azul" (click)="dejarProducto(p.idProducto)">Restar</button>
+          <button type="button" class="btn btn-custom-azul" (click)="dejarProducto(p.idProducto, p.cantidad)">Restar</button>
         </td>
         <td>
           <div *ngIf="this.arrayObjetosProd[p.idProducto]" >

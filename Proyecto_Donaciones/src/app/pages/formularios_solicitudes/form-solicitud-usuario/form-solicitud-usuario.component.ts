@@ -61,7 +61,7 @@ export class FormSolicitudUsuarioComponent {
           this.loginError = errorData;
         },
         complete: () => {
-          console.log("login completo");
+          alert("Envío de datos completado");
           this.router.navigateByUrl('/');
           this.formularioSolicitudUsuario.reset();
         }

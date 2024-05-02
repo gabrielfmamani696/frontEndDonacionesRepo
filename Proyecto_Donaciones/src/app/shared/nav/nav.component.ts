@@ -11,7 +11,6 @@ import { currentUsuarioSimpleDataC } from '../../services/models/currentUsuarioS
   templateUrl: './nav.component.html',
   styleUrl: './nav.component.css',
 })
-// export class NavComponent implements OnInit, OnDestroy {
 export class NavComponent implements OnInit {
   currentUserCorreoxd: string = '';
   usuarioLoginOn: Boolean = false;
@@ -40,50 +39,48 @@ export class NavComponent implements OnInit {
     contenido: '',
   };
 
-  currentUsuarioSimpleData: currentUsuarioSimpleDataC = new currentUsuarioSimpleDataC();
+  currentUsuarioSimpleData: currentUsuarioSimpleDataC =
+    new currentUsuarioSimpleDataC();
   // usuarioLoginOn: Boolean =true;
   constructor(private loginService: LoginService, private fb: FormBuilder) {}
 
-
-  ngOnInit(): void {//este oninit se inicia desde la pagina home
-    // console.log('', this.currentUsuarioSimpleData);
-    // alerta al cambio en currentUserLoginOn
+  ngOnInit(): void {
     this.isUserLoginOn();
     // this.currentUserCorreo = this.loginService.getCurrentCorreoValue();
 
-    // alerta al cambio en adminLoginOn
     this.loginService.adminLoginOn.subscribe({
       next: (adminLO) => {
         this.adminLoginOn = adminLO;
       },
     });
-
-    // this.loginService.loginAdmin().subscribe({
-    //   next:(adminLO) => {
-    //     this.adminLoginOn = adminLO;
-    //   }
-    // })
   }
 
   enviarRolDonadorSol() {
     this.currentUserCorreoxd = this.loginService.getCurrentCorreoValue();
     this.formSolRol2.correo = this.currentUserCorreoxd;
     this.formSolRol2.rol = 'Donante';
-
-    if (this.formSolRol.valid) {
-      this.loginService
-        .enviarRolEscoger(this.formSolRol2 as formEnviarRolEscoger)
-        .subscribe({
-          error: (errorData) => {
-            console.log(errorData);
-          },
-          complete: () => {
-            // this.router.navigateByUrl('/');
-            // this.formSolRol.reset();
-            alert('Su solicitud para ser donador ha sido enviada')
-          },
-        });
-    }
+    this.currentUsuarioSimpleData =
+      this.loginService.getCurrentUsuarioSimpleData();
+    setTimeout(() => {
+      if (this.currentUsuarioSimpleData.rol !== 'Receptor') {
+        if (this.formSolRol.valid) {
+          this.loginService
+            .enviarRolEscoger(this.formSolRol2 as formEnviarRolEscoger)
+            .subscribe({
+              error: (errorData) => {
+                console.log(errorData);
+              },
+              complete: () => {
+                // this.router.navigateByUrl('/');
+                // this.formSolRol.reset();
+                alert('Su solicitud para ser donador ha sido enviada');
+              },
+            });
+        }
+      } else {
+        alert('No puede ser usuario Donador y Receptor al mismo tiempo');
+      }
+    }, 50);
   }
   enviarRolVoluntarioSol() {
     this.currentUserCorreoxd = this.loginService.getCurrentCorreoValue();
@@ -100,7 +97,7 @@ export class NavComponent implements OnInit {
           complete: () => {
             // this.router.navigateByUrl('/');
             // this.formSolRol.reset();
-            alert('Su solicitud para ser voluntario ha sido enviada')
+            alert('Su solicitud para ser voluntario ha sido enviada');
           },
         });
     }
@@ -110,20 +107,26 @@ export class NavComponent implements OnInit {
     this.formSolRol2.correo = this.currentUserCorreoxd;
     this.formSolRol2.rol = 'Receptor';
 
-    if (this.formSolRol.valid) {
-      this.loginService
-        .enviarRolEscoger(this.formSolRol2 as formEnviarRolEscoger)
-        .subscribe({
-          error: (errorData) => {
-            console.log(errorData);
-          },
-          complete: () => {
-            // this.router.navigateByUrl('/');
-            // this.formSolRol.reset();
-            alert('Su solicitud para ser receptor ha sido enviada')
-          },
-        });
-    }
+    setTimeout(() => {
+      if (this.currentUsuarioSimpleData.rol !== 'Donante') {
+        if (this.formSolRol.valid) {
+          this.loginService
+            .enviarRolEscoger(this.formSolRol2 as formEnviarRolEscoger)
+            .subscribe({
+              error: (errorData) => {
+                console.log(errorData);
+              },
+              complete: () => {
+                // this.router.navigateByUrl('/');
+                // this.formSolRol.reset();
+                alert('Su solicitud para ser receptor ha sido enviada');
+              },
+            });
+        }
+      } else {
+        alert('No puede ser usuario Donador y Receptor al mismo tiempo');
+      }
+    }, 50);
   }
 
   enviarFormSolRepOrgBenefica() {
@@ -149,27 +152,11 @@ export class NavComponent implements OnInit {
           complete: () => {
             // this.router.navigateByUrl('/');
             this.formSolRepOrgBenefica.reset();
-            alert('Su solicitud para ser Rep. de Org. Benéfica ha sido enviada')
+            alert(
+              'Su solicitud para ser Rep. de Org. Benéfica ha sido enviada'
+            );
           },
         });
-
-      // this.loginService
-      //   .registroRepOrgBenefica(
-      //     this.formSolRepOrgBenefica.value as formRepOrgBenefica
-      //   )
-      //   .subscribe({
-      //     next: (info) => {
-      //       console.log('info: ', info);
-
-      //     },
-      //     error: (errorData) => {
-      //       console.log(errorData);
-      //     },
-      //     complete: () => {
-      //       // this.router.navigateByUrl('/');
-      //       this.formSolRepOrgBenefica.reset();
-      //     },
-      //   });
     } else {
       this.formSolRepOrgBenefica.markAllAsTouched();
       alert('Error al ingresar los datos');
@@ -200,23 +187,12 @@ export class NavComponent implements OnInit {
           complete: () => {
             // this.router.navigateByUrl('/');
             this.formSolRepOrgReceptora.reset();
-            alert('Su solicitud para ser Rep. de Org. Receptora ha sido enviada')
+            alert(
+              'Su solicitud para ser Rep. de Org. Receptora ha sido enviada'
+            );
           },
         });
 
-      // this.loginService
-      //   .registroRepOrgReceptora(
-      //     this.formSolRepOrgReceptora.value as formRepOrgReceptora
-      //   )
-      //   .subscribe({
-      //     error: (errorData) => {
-      //       console.log(errorData);
-      //     },
-      //     complete: () => {
-      //       // this.router.navigateByUrl('/');
-      //       this.formSolRepOrgReceptora.reset();
-      //     },
-      //   });
     } else {
       this.formSolRepOrgReceptora.markAllAsTouched();
       alert('Error al ingresar los datos');
@@ -252,30 +228,28 @@ export class NavComponent implements OnInit {
     this.loginService.nadaRol();
   }
 
-  escogerSubRolVol(rol: string){
-    
-    this.currentUsuarioSimpleData = this.loginService.getCurrentUsuarioSimpleData();
+  escogerSubRolVol(rol: string) {
+    this.currentUsuarioSimpleData =
+      this.loginService.getCurrentUsuarioSimpleData();
     setTimeout(() => {
       console.log(this.currentUsuarioSimpleData.rol);
-      if(this.currentUsuarioSimpleData.rol === 'Voluntario'){
-        // this.currentUsuarioSimpleData = this.loginService.getCurrentUsuarioSimpleData();
-        
-        // console.log('', this.currentUsuarioSimpleData.correo);
-        this.loginService.escogerSubRolVol(this.currentUsuarioSimpleData.correo, rol).subscribe({
-          next: (salida) => {
-            console.log('salida: ', salida);
-            alert('Su solicitud para ser ' + rol + ' ha sido enviada.')
-          },
-        });
+      if (this.currentUsuarioSimpleData.rol === 'Voluntario') {
 
-        // setTimeout(() => {
-        // }, 100);
+        // console.log('', this.currentUsuarioSimpleData.correo);
+        this.loginService
+          .escogerSubRolVol(this.currentUsuarioSimpleData.correo, rol)
+          .subscribe({
+            next: (salida) => {
+              console.log('salida: ', salida);
+              alert('Su solicitud para ser ' + rol + ' ha sido enviada.');
+            },
+          });
+
       } else {
-        alert('necesitas ser parte de los usuarios voluntarios para acceder a esta opcion ')
+        alert(
+          'Necesitas ser parte de los usuarios voluntarios para acceder a esta opcion, dirigete a la opción "¿Deseas colaborar?" y da click sobre "Solicitud para ser Voluntario"'
+        );
       }
     }, 200);
-    
   }
-  // TODO
-  // Faltan otras 2 para usuario loggeado
 }
